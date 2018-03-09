@@ -8,12 +8,40 @@
 
 /* Begin PBXBuildFile section */
 		8A74D7E320528D9800CF10AB /* payHereSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A74D7E120528D9800CF10AB /* payHereSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8A74D7EE20528E3900CF10AB /* PHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7E920528E3800CF10AB /* PHViewController.swift */; };
+		8A74D7EF20528E3900CF10AB /* PHResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7EA20528E3800CF10AB /* PHResponse.swift */; };
+		8A74D7F020528E3900CF10AB /* ParamHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7EB20528E3800CF10AB /* ParamHandler.swift */; };
+		8A74D7F120528E3900CF10AB /* PHConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7EC20528E3900CF10AB /* PHConstants.swift */; };
+		8A74D7F220528E3900CF10AB /* PHConfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7ED20528E3900CF10AB /* PHConfigs.swift */; };
+		8A74D7F920528E5C00CF10AB /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7F420528E5B00CF10AB /* Customer.swift */; };
+		8A74D7FA20528E5C00CF10AB /* StatusResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7F520528E5B00CF10AB /* StatusResponse.swift */; };
+		8A74D7FB20528E5C00CF10AB /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7F620528E5C00CF10AB /* Item.swift */; };
+		8A74D7FC20528E5C00CF10AB /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7F720528E5C00CF10AB /* Address.swift */; };
+		8A74D7FD20528E5C00CF10AB /* InitRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7F820528E5C00CF10AB /* InitRequest.swift */; };
+		8A74D7FF20528E7100CF10AB /* Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7FE20528E7100CF10AB /* Extention.swift */; };
+		8A74D80120528E8C00CF10AB /* CommonCrypto in Resources */ = {isa = PBXBuildFile; fileRef = 8A74D80020528E8C00CF10AB /* CommonCrypto */; };
+		C3ECA3CC61479DD760DF138C /* Pods_payHereSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F05633F685428B114E02914 /* Pods-payHereSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payHereSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-payHereSDK/Pods-payHereSDK.release.xcconfig"; sourceTree = "<group>"; };
 		8A74D7DE20528D9800CF10AB /* payHereSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = payHereSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A74D7E120528D9800CF10AB /* payHereSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = payHereSDK.h; sourceTree = "<group>"; };
 		8A74D7E220528D9800CF10AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A74D7E920528E3800CF10AB /* PHViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHViewController.swift; sourceTree = "<group>"; };
+		8A74D7EA20528E3800CF10AB /* PHResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHResponse.swift; sourceTree = "<group>"; };
+		8A74D7EB20528E3800CF10AB /* ParamHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParamHandler.swift; sourceTree = "<group>"; };
+		8A74D7EC20528E3900CF10AB /* PHConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHConstants.swift; sourceTree = "<group>"; };
+		8A74D7ED20528E3900CF10AB /* PHConfigs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHConfigs.swift; sourceTree = "<group>"; };
+		8A74D7F420528E5B00CF10AB /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		8A74D7F520528E5B00CF10AB /* StatusResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusResponse.swift; sourceTree = "<group>"; };
+		8A74D7F620528E5C00CF10AB /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		8A74D7F720528E5C00CF10AB /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		8A74D7F820528E5C00CF10AB /* InitRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitRequest.swift; sourceTree = "<group>"; };
+		8A74D7FE20528E7100CF10AB /* Extention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extention.swift; sourceTree = "<group>"; };
+		8A74D80020528E8C00CF10AB /* CommonCrypto */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CommonCrypto; sourceTree = "<group>"; };
+		D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_payHereSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E98AA3326CB2BEE8C4106D35 /* Pods-payHereSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payHereSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-payHereSDK/Pods-payHereSDK.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -21,17 +49,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3ECA3CC61479DD760DF138C /* Pods_payHereSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5572C52C8A22258E0AB0CEA8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E98AA3326CB2BEE8C4106D35 /* Pods-payHereSDK.debug.xcconfig */,
+				1F05633F685428B114E02914 /* Pods-payHereSDK.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		6ECF03BD9C78798C39D67C40 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8A74D7D420528D9800CF10AB = {
 			isa = PBXGroup;
 			children = (
 				8A74D7E020528D9800CF10AB /* payHereSDK */,
 				8A74D7DF20528D9800CF10AB /* Products */,
+				5572C52C8A22258E0AB0CEA8 /* Pods */,
+				6ECF03BD9C78798C39D67C40 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -46,10 +94,30 @@
 		8A74D7E020528D9800CF10AB /* payHereSDK */ = {
 			isa = PBXGroup;
 			children = (
+				8A74D80020528E8C00CF10AB /* CommonCrypto */,
+				8A74D7F320528E4500CF10AB /* Model */,
 				8A74D7E120528D9800CF10AB /* payHereSDK.h */,
+				8A74D7E920528E3800CF10AB /* PHViewController.swift */,
+				8A74D7ED20528E3900CF10AB /* PHConfigs.swift */,
+				8A74D7EC20528E3900CF10AB /* PHConstants.swift */,
+				8A74D7EA20528E3800CF10AB /* PHResponse.swift */,
+				8A74D7EB20528E3800CF10AB /* ParamHandler.swift */,
+				8A74D7FE20528E7100CF10AB /* Extention.swift */,
 				8A74D7E220528D9800CF10AB /* Info.plist */,
 			);
 			path = payHereSDK;
+			sourceTree = "<group>";
+		};
+		8A74D7F320528E4500CF10AB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8A74D7F720528E5C00CF10AB /* Address.swift */,
+				8A74D7F420528E5B00CF10AB /* Customer.swift */,
+				8A74D7F820528E5C00CF10AB /* InitRequest.swift */,
+				8A74D7F620528E5C00CF10AB /* Item.swift */,
+				8A74D7F520528E5B00CF10AB /* StatusResponse.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -70,10 +138,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A74D7E620528D9800CF10AB /* Build configuration list for PBXNativeTarget "payHereSDK" */;
 			buildPhases = (
+				05052453B6B45488FCEE225F /* [CP] Check Pods Manifest.lock */,
 				8A74D7D920528D9800CF10AB /* Sources */,
 				8A74D7DA20528D9800CF10AB /* Frameworks */,
 				8A74D7DB20528D9800CF10AB /* Headers */,
 				8A74D7DC20528D9800CF10AB /* Resources */,
+				9C9F1D39FACCBD5490CACADA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -121,16 +191,64 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A74D80120528E8C00CF10AB /* CommonCrypto in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		05052453B6B45488FCEE225F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-payHereSDK-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9C9F1D39FACCBD5490CACADA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-payHereSDK/Pods-payHereSDK-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8A74D7D920528D9800CF10AB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A74D7FC20528E5C00CF10AB /* Address.swift in Sources */,
+				8A74D7FD20528E5C00CF10AB /* InitRequest.swift in Sources */,
+				8A74D7EF20528E3900CF10AB /* PHResponse.swift in Sources */,
+				8A74D7F120528E3900CF10AB /* PHConstants.swift in Sources */,
+				8A74D7EE20528E3900CF10AB /* PHViewController.swift in Sources */,
+				8A74D7F920528E5C00CF10AB /* Customer.swift in Sources */,
+				8A74D7FB20528E5C00CF10AB /* Item.swift in Sources */,
+				8A74D7F220528E3900CF10AB /* PHConfigs.swift in Sources */,
+				8A74D7F020528E3900CF10AB /* ParamHandler.swift in Sources */,
+				8A74D7FF20528E7100CF10AB /* Extention.swift in Sources */,
+				8A74D7FA20528E5C00CF10AB /* StatusResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +309,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_INCLUDE_PATHS = "\"$(SRCROOT)/payHereSDK/CommonCrypto\"";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -243,6 +362,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_INCLUDE_PATHS = "\"$(SRCROOT)/payHereSDK/CommonCrypto\"";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -252,6 +372,7 @@
 		};
 		8A74D7E720528D9800CF10AB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E98AA3326CB2BEE8C4106D35 /* Pods-payHereSDK.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -266,6 +387,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lk.payahere.payHereSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "\"$(SRCROOT)/payHereSDK/CommonCrypto\"";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -273,6 +395,7 @@
 		};
 		8A74D7E820528D9800CF10AB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F05633F685428B114E02914 /* Pods-payHereSDK.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -287,6 +410,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lk.payahere.payHereSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "\"$(SRCROOT)/payHereSDK/CommonCrypto\"";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
