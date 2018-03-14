@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
 # 1
 s.platform = :ios
-s.ios.deployment_target = '8.0'
+s.ios.deployment_target = '9.0'
 s.name = "payHereSDK"
 s.summary = "Mobile SDK for payHere"
 s.requires_arc = true
@@ -20,16 +20,18 @@ s.author = { "Kamal Upasena" => "kamal@bhasha.lk" }
 s.homepage = "https://www.payhere.lk/"
 
 # 6 - Replace this URL with your own Git URL from "Quick Setup"
-s.source = { :git => "https://bhasha.xp-dev.com/git/payhere-ios", :tag => "#{s.version}"}
-
+#s.source = { :git => "https://bhasha.xp-dev.com/git/payhere-ios", :tag => "#{s.version}"}
+s.source       = { :path => '.' }
 
 # 7
 s.framework = "UIKit"
 s.dependency 'Alamofire'
 s.dependency 'AlamofireObjectMapper'
 
+
 # 8
-s.source_files = "payHereSDK/**/*.{swift}"
+s.source_files = "payHereSDK/**/*"
+s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3' }
 
 
 
