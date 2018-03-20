@@ -19,6 +19,8 @@
 		8A74D7FC20528E5C00CF10AB /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7F720528E5C00CF10AB /* Address.swift */; };
 		8A74D7FD20528E5C00CF10AB /* InitRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7F820528E5C00CF10AB /* InitRequest.swift */; };
 		8A74D7FF20528E7100CF10AB /* Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7FE20528E7100CF10AB /* Extention.swift */; };
+		8AD11E6320612739002E4F82 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 8AD11E6120612739002E4F82 /* LICENSE */; };
+		8AD11E6420612739002E4F82 /* payHereSDK.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 8AD11E6220612739002E4F82 /* payHereSDK.podspec */; };
 		C3ECA3CC61479DD760DF138C /* Pods_payHereSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +40,8 @@
 		8A74D7F720528E5C00CF10AB /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		8A74D7F820528E5C00CF10AB /* InitRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitRequest.swift; sourceTree = "<group>"; };
 		8A74D7FE20528E7100CF10AB /* Extention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extention.swift; sourceTree = "<group>"; };
+		8AD11E6120612739002E4F82 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		8AD11E6220612739002E4F82 /* payHereSDK.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = payHereSDK.podspec; sourceTree = "<group>"; };
 		D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_payHereSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E98AA3326CB2BEE8C4106D35 /* Pods-payHereSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payHereSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-payHereSDK/Pods-payHereSDK.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -74,6 +78,8 @@
 		8A74D7D420528D9800CF10AB = {
 			isa = PBXGroup;
 			children = (
+				8AD11E6120612739002E4F82 /* LICENSE */,
+				8AD11E6220612739002E4F82 /* payHereSDK.podspec */,
 				8A74D7E020528D9800CF10AB /* payHereSDK */,
 				8A74D7DF20528D9800CF10AB /* Products */,
 				5572C52C8A22258E0AB0CEA8 /* Pods */,
@@ -188,6 +194,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AD11E6420612739002E4F82 /* payHereSDK.podspec in Resources */,
+				8AD11E6320612739002E4F82 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,14 +14,14 @@ s.version = "0.1.0"
 s.license = { :type => "MIT", :file => "LICENSE" }
 
 # 4 - Replace with your name and e-mail address
-s.author = { "Kamal Upasena" => "kamal@bhasha.lk" }
+s.author = { "PayHere" => "support@payhere.lk" }
 
 # 5 - Replace this URL with your own Github page's URL (from the address bar)
 s.homepage = "https://www.payhere.lk/"
 
 # 6 - Replace this URL with your own Git URL from "Quick Setup"
-#s.source = { :git => "https://bhasha.xp-dev.com/git/payhere-ios", :tag => "#{s.version}"}
-s.source       = { :path => '.' }
+s.source = { :git => "https://github.com/PayHereLK/payhere-mobilesdk-ios.git", :tag => "#{s.version}"}
+
 
 # 7
 s.framework = "UIKit"
