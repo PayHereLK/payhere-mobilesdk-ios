@@ -19,7 +19,6 @@
 		8A74D7FC20528E5C00CF10AB /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7F720528E5C00CF10AB /* Address.swift */; };
 		8A74D7FD20528E5C00CF10AB /* InitRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7F820528E5C00CF10AB /* InitRequest.swift */; };
 		8A74D7FF20528E7100CF10AB /* Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7FE20528E7100CF10AB /* Extention.swift */; };
-		8A74D80120528E8C00CF10AB /* CommonCrypto in Resources */ = {isa = PBXBuildFile; fileRef = 8A74D80020528E8C00CF10AB /* CommonCrypto */; };
 		C3ECA3CC61479DD760DF138C /* Pods_payHereSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,7 +38,6 @@
 		8A74D7F720528E5C00CF10AB /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		8A74D7F820528E5C00CF10AB /* InitRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitRequest.swift; sourceTree = "<group>"; };
 		8A74D7FE20528E7100CF10AB /* Extention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extention.swift; sourceTree = "<group>"; };
-		8A74D80020528E8C00CF10AB /* CommonCrypto */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CommonCrypto; sourceTree = "<group>"; };
 		D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_payHereSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E98AA3326CB2BEE8C4106D35 /* Pods-payHereSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payHereSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-payHereSDK/Pods-payHereSDK.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,7 +92,6 @@
 		8A74D7E020528D9800CF10AB /* payHereSDK */ = {
 			isa = PBXGroup;
 			children = (
-				8A74D80020528E8C00CF10AB /* CommonCrypto */,
 				8A74D7F320528E4500CF10AB /* Model */,
 				8A74D7E120528D9800CF10AB /* payHereSDK.h */,
 				8A74D7E920528E3800CF10AB /* PHViewController.swift */,
@@ -191,7 +188,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A74D80120528E8C00CF10AB /* CommonCrypto in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,7 +379,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/CommonCrypto";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = payHereSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -408,7 +404,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/CommonCrypto";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = payHereSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

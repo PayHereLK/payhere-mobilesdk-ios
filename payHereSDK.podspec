@@ -27,11 +27,12 @@ s.source       = { :path => '.' }
 s.framework = "UIKit"
 s.dependency 'Alamofire'
 s.dependency 'AlamofireObjectMapper'
+s.dependency 'SwiftHash'
 
 
 # 8
 s.source_files = "payHereSDK/**/*"
-s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3' }
+s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
 
 
 

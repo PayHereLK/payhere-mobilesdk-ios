@@ -8,5 +8,6 @@ target 'payHereSDK' do
   # Pods for payHereSDK
   pod 'Alamofire'
   pod 'AlamofireObjectMapper'
+  pod 'SwiftHash'
 
 end

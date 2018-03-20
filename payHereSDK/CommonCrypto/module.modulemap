@@ -1,9 +1,0 @@
-//
-// Copyright (c) Vatsal Manot
-//
-
-module CommonCrypto [system]
-{
-    header "./CommonCrypto.h"
-    export *
-}

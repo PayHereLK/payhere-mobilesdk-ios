@@ -17,9 +17,9 @@ class PHResponse<T> : NSObject{
     static var STATUS_ERROR_NETWORK : Int { return -4 }
     static var STATUS_ERROR_PAYMENT : Int { return -5 }
     
-    private var status : Int?
-    private var  message : String?
-    private var data : T?
+    var status : Int?
+    var  message : String?
+    var data : T?
     
     
     init(status : Int, message : String) {

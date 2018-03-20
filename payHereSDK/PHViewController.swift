@@ -12,17 +12,16 @@ import AlamofireObjectMapper
 
 protocol PHViewControllerDelegate{
     func onResponseReceived(response : PHResponse<Any>?)
-    
 }
 class PHViewController: UIViewController {
     
     var delegate : PHViewControllerDelegate?
     
     var initRequest : InitRequest?
-    private var orderKey: String?
-    private var lastResponse : StatusResponse?
-    private var dataLoading : Bool = false;
-    private var baseUrl : String?
+    var orderKey: String?
+    var lastResponse : StatusResponse?
+    var dataLoading : Bool = false;
+    var baseUrl : String?
     var isSandBoxEnabled : Bool = false
     
     var webView : UIWebView?
@@ -165,7 +164,7 @@ class PHViewController: UIViewController {
         return nil
     }
     
-    private func checkStatus(orderKey : String){
+     func checkStatus(orderKey : String){
         
         self.progressBar?.startAnimating()
         self.progressBar?.isHidden = false
