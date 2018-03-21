@@ -27,7 +27,7 @@ public class PHViewController: UIViewController {
     var webView : UIWebView?
     var progressBar : UIActivityIndicatorView?
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         if(initRequest == nil){
@@ -70,7 +70,7 @@ public class PHViewController: UIViewController {
         startProcess()
     }
     
-    override func didReceiveMemoryWarning() {
+    override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
@@ -264,12 +264,12 @@ public class PHViewController: UIViewController {
 
 extension PHViewController : UIWebViewDelegate{
     
-    func webViewDidStartLoad(_ webView: UIWebView) {
+    public func webViewDidStartLoad(_ webView: UIWebView) {
         progressBar?.startAnimating()
         progressBar?.isHidden = false
     }
     
-    func webViewDidFinishLoad(_ webView: UIWebView) {
+    public func webViewDidFinishLoad(_ webView: UIWebView) {
         
         _ = webView.stringByEvaluatingJavaScript(from: "document.documentElement.style.webkitUserSelect='none'")!
         _ = webView.stringByEvaluatingJavaScript(from: "document.documentElement.style.webkitTouchCallout='none'")!
@@ -278,7 +278,7 @@ extension PHViewController : UIWebViewDelegate{
     }
     
     
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         
         
         let html = webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('html')[0].innerHTML")
@@ -332,7 +332,7 @@ extension PHViewController : UIWebViewDelegate{
         return true
     }
     
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+    public func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
         
     }
     
