@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-class StatusResponse : Mappable{
+public class StatusResponse : Mappable{
     
     var status : Int?
     var paymentNo : Double?

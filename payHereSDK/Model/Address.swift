@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Address{
+public class Address{
     
     var address : String?
     var city : String?

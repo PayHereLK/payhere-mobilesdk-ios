@@ -10,10 +10,10 @@ import UIKit
 import Alamofire
 import AlamofireObjectMapper
 
-protocol PHViewControllerDelegate{
+public protocol PHViewControllerDelegate{
     func onResponseReceived(response : PHResponse<Any>?)
 }
-class PHViewController: UIViewController {
+public class PHViewController: UIViewController {
     
     var delegate : PHViewControllerDelegate?
     

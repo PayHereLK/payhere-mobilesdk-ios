@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Item {
+public class Item {
     
     private var id: String?
     private var name : String?

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Customer {
+public class Customer {
     
     var firstName : String?
     var lastName : String?

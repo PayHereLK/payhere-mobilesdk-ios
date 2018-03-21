@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ParamHandler{
+public class ParamHandler{
     
     public static func createParams(req : InitRequest)->[String : String?]{
         

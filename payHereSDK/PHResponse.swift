@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PHResponse<T> : NSObject{
+public class PHResponse<T> : NSObject{
     
     static var STATUS_SUCCESS : Int { return 1 }
     static var STATUS_ERROR_UNKNOWN : Int { return -1 }

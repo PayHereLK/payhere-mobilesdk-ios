@@ -8,7 +8,7 @@
 
 import Foundation
 
-class InitRequest {
+public class InitRequest {
     
     var  merchantId : String?
     var  merchantSecret : String?
