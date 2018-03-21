@@ -10,8 +10,11 @@ import Foundation
 
 public class Address{
     
-    var address : String?
-    var city : String?
-    var country : String?
+    public var address : String?
+    public var city : String?
+    public var country : String?
+    
+    public init(){}
+    
     
 }

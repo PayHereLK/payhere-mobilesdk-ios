@@ -10,21 +10,23 @@ import Foundation
 
 public class InitRequest {
     
-    var  merchantId : String?
-    var  merchantSecret : String?
+    public var  merchantId : String?
+    public var  merchantSecret : String?
     
-    var customer : Customer?
+    public var customer : Customer?
     
-    var orderId : String?
-    var itemsDescription  : String?
-    var currency : String?
-    var amount : Double?
+    public var orderId : String?
+    public var itemsDescription  : String?
+    public var currency : String?
+    public var amount : Double?
     
-    var phInternal : Bool = false
+    public var phInternal : Bool = false
     
-    var custom1 : String?
-    var custom2 : String?
+    public var custom1 : String?
+    public var custom2 : String?
     
-    var items : [Item]?
+    public var items : [Item]?
+    
+    public init(){}
     
 }

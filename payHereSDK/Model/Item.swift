@@ -14,9 +14,9 @@ public class Item {
     private var name : String?
     private var quantity : Int?
     
-    init() {}
+    public init() {}
     
-    init(id : String, name : String, quantity : Int) {
+    public init(id : String, name : String, quantity : Int) {
         self.id = id
         self.name = name
         self.quantity = quantity

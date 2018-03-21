@@ -10,11 +10,15 @@ import Foundation
 
 public class Customer {
     
-    var firstName : String?
-    var lastName : String?
-    var email : String?
-    var phone : String?
-    var address : Address?
-    var deliveryAddress : Address?
+    public var firstName : String?
+    public var lastName : String?
+    public var email : String?
+    public var phone : String?
+    public var address : Address?
+    public var deliveryAddress : Address?
+    
+    public init(){
+        
+    }
     
 }
