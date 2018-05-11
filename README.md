@@ -1,5 +1,5 @@
 # PayHere Mobile SDK for iOS
-The PayHere iOS SDK makes it easy to add PayHere payments to your mobile apps easily
+PayHere Mobile SDK for iOS allows you to accept payments seamlessly within your iOS app, without redirecting your app user to the web browser.
 
 ## Contents
 -  [Requirements](#Requirements)
@@ -38,11 +38,11 @@ $ pod install
 ```
 
 ## Usage
-import PayHere SDK into your UIViewController as following
+Import PayHere SDK into your UIViewController 
 ```swift
 import payHereSDK
 ```
-When you want to make a payment first initialized PayHere ViewController as bellow
+In order to make a payment request, first initialize PayHere ViewController as below;
 
 ```swift
 let phVC = PHViewController()
