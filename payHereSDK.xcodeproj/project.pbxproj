@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A1FF74B206254DF00924B21 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8A1FF74A206254DF00924B21 /* README.md */; };
 		8A74D7E320528D9800CF10AB /* payHereSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A74D7E120528D9800CF10AB /* payHereSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8A74D7EE20528E3900CF10AB /* PHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7E920528E3800CF10AB /* PHViewController.swift */; };
 		8A74D7EF20528E3900CF10AB /* PHResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7EA20528E3800CF10AB /* PHResponse.swift */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		1F05633F685428B114E02914 /* Pods-payHereSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payHereSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-payHereSDK/Pods-payHereSDK.release.xcconfig"; sourceTree = "<group>"; };
+		8A1FF74A206254DF00924B21 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8A74D7DE20528D9800CF10AB /* payHereSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = payHereSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A74D7E120528D9800CF10AB /* payHereSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = payHereSDK.h; sourceTree = "<group>"; };
 		8A74D7E220528D9800CF10AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 		8A74D7D420528D9800CF10AB = {
 			isa = PBXGroup;
 			children = (
+				8A1FF74A206254DF00924B21 /* README.md */,
 				8AD11E6120612739002E4F82 /* LICENSE */,
 				8AD11E6220612739002E4F82 /* payHereSDK.podspec */,
 				8A74D7E020528D9800CF10AB /* payHereSDK */,
@@ -194,6 +197,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A1FF74B206254DF00924B21 /* README.md in Resources */,
 				8AD11E6420612739002E4F82 /* payHereSDK.podspec in Resources */,
 				8AD11E6320612739002E4F82 /* LICENSE in Resources */,
 			);
