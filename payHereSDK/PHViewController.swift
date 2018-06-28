@@ -39,6 +39,12 @@ public class PHViewController: UIViewController {
             })
         }
         
+        
+        
+        
+        
+        
+        
         webView  = UIWebView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width * 0.9, height: self.view.frame.height * 0.9))
         webView?.delegate = self
         
@@ -52,10 +58,16 @@ public class PHViewController: UIViewController {
         progressBar?.center = view.convert(view.center, from: view.superview)
         progressBar?.color = UIColor.blue
         
-        
-        
         self.view.addSubview(webView!)
         self.view.addSubview(progressBar!)
+        
+        let closeButton = UIButton(frame: CGRect(x: (self.webView?.bounds.maxX)! - 50, y: (self.webView?.bounds.minY)!, width: 50, height: 50))
+        closeButton.setTitle("X", for: UIControlState.normal)
+        closeButton.titleLabel?.textAlignment = .right
+        
+        closeButton.addTarget(self, action: #selector(self.closeButtonTapped(sender:)), for: .touchUpInside)
+        
+        self.view.addSubview(closeButton)
         
         self.view.backgroundColor = UIColor.clear
         
@@ -222,6 +234,12 @@ public class PHViewController: UIViewController {
             return PHResponse<Any>.STATUS_ERROR_PAYMENT
         }
         
+    }
+    
+    private func closeButtonTapped(sender : UIButton){
+        self.dismiss(animated: true, completion: {
+            self.delegate?.onResponseReceived(response: nil)
+        })
     }
     
     private func validate(request : InitRequest,response : StatusResponse)->Bool{

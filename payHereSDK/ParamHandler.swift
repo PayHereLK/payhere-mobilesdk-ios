@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public class ParamHandler{
     
@@ -34,8 +35,8 @@ public class ParamHandler{
             "internal_checkout" : "false",
             "platform"      : PHConstants.PLATFORM,
             "custom_1"      : req.custom1,
-            "custom_2"      : req.custom2
-            
+            "custom_2"      : req.custom2,
+            "referer"       : Bundle.main.bundleIdentifier
         ]
         
         
