@@ -236,7 +236,7 @@ public class PHViewController: UIViewController {
         
     }
     
-    private func closeButtonTapped(sender : UIButton){
+    @objc func closeButtonTapped(sender : UIButton){
         self.dismiss(animated: true, completion: {
             self.delegate?.onResponseReceived(response: nil)
         })
