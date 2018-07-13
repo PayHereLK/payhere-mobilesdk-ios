@@ -9,20 +9,20 @@
 import Foundation
 import ObjectMapper
 
-class StatusResponse : Mappable{
+public class StatusResponse : Mappable{
     
-    var status : Int?
-    var paymentNo : Double?
-    var currency : String?
-    var price : Double?
-    var sign : String?
-    var message : String?
+    public var status : Int?
+    public var paymentNo : Double?
+    public var currency : String?
+    public var price : Double?
+    public var sign : String?
+    public var message : String?
     
-    required init?(map: Map) {
+    public required init?(map: Map) {
         
     }
     
-    func mapping(map: Map) {
+    public func mapping(map: Map) {
         
         if(map.mappingType == .toJSON){
             

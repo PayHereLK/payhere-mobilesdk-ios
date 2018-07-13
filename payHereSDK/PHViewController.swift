@@ -15,14 +15,14 @@ public protocol PHViewControllerDelegate{
 }
 public class PHViewController: UIViewController {
     
-    var delegate : PHViewControllerDelegate?
+    public var delegate : PHViewControllerDelegate?
     
-    var initRequest : InitRequest?
+    public var initRequest : InitRequest?
     var orderKey: String?
     var lastResponse : StatusResponse?
     var dataLoading : Bool = false;
     var baseUrl : String?
-    var isSandBoxEnabled : Bool = false
+    public var isSandBoxEnabled : Bool = false
     
     var webView : UIWebView?
     var progressBar : UIActivityIndicatorView?
