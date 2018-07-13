@@ -114,3 +114,15 @@ extension <<ViewController>> : PHViewControllerDelegate{
     }
 }
 ```
+
+## FAQ
+
+How to fixed [!] Unable to find a specification for payHereSDK issue 
+
+follow the instruction given bellow
+
+```bash
+$ pod repo remove master
+$ pod setup
+$ pod install
+```
