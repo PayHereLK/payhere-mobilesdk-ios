@@ -53,7 +53,7 @@ public class PHViewController: UIViewController {
         webView?.scrollView.showsVerticalScrollIndicator = false
         webView?.scrollView.showsHorizontalScrollIndicator = false
         
-        progressBar = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        progressBar = UIActivityIndicatorView(style: .whiteLarge)
         progressBar?.isHidden = true
         progressBar?.center = view.convert(view.center, from: view.superview)
         progressBar?.color = UIColor.blue
@@ -62,7 +62,7 @@ public class PHViewController: UIViewController {
         self.view.addSubview(progressBar!)
         
         let closeButton = UIButton(frame: CGRect(x: (self.webView?.bounds.maxX)! - 50, y: (self.webView?.bounds.minY)!, width: 50, height: 50))
-        closeButton.setTitle("X", for: UIControlState.normal)
+        closeButton.setTitle("X", for: UIControl.State.normal)
         closeButton.titleLabel?.textAlignment = .right
         
         closeButton.addTarget(self, action: #selector(self.closeButtonTapped(sender:)), for: .touchUpInside)
@@ -296,7 +296,7 @@ extension PHViewController : UIWebViewDelegate{
     }
     
     
-    public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
         
         
         let html = webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('html')[0].innerHTML")

@@ -33,7 +33,7 @@ public class PHResponse<T> : NSObject{
         self.data = data
     }
     
-    public func getData() -> Any?{
+    public func getData() -> T?{
         return self.data
     }
     

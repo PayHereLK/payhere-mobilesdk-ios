@@ -6,7 +6,7 @@ target 'payHereSDK' do
   use_frameworks!
 
   # Pods for payHereSDK
-  pod 'Alamofire'
+  pod 'Alamofire' , '~>4.8.2'
   pod 'AlamofireObjectMapper'
   pod 'SwiftHash'
 
