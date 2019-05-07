@@ -2,13 +2,13 @@ Pod::Spec.new do |s|
 
 # 1
 s.platform = :ios
-s.ios.deployment_target = '9.0'
+s.ios.deployment_target = '10.0'
 s.name = "payHereSDK"
 s.summary = "Mobile SDK for payHere"
 s.requires_arc = true
 
 # 2
-s.version = "0.1.8"
+s.version = "1.0.0"
 
 # 3
 s.license = { :type => "MIT", :file => "LICENSE" }
@@ -25,14 +25,14 @@ s.source = { :git => "https://github.com/PayHereLK/payhere-mobilesdk-ios.git", :
 
 # 7
 s.framework = "UIKit"
-s.dependency 'Alamofire'
+s.dependency 'Alamofire' , '~>4.8.2'
 s.dependency 'AlamofireObjectMapper'
 s.dependency 'SwiftHash'
 
 
 # 8
-s.source_files = "payHereSDK/**/*"
-s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
+s.source_files = "payHereSDK/Sources/**/*"
+s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
 
 
 

@@ -101,14 +101,7 @@
 		8A74D7E020528D9800CF10AB /* payHereSDK */ = {
 			isa = PBXGroup;
 			children = (
-				8A74D7F320528E4500CF10AB /* Model */,
-				8A74D7E120528D9800CF10AB /* payHereSDK.h */,
-				8A74D7E920528E3800CF10AB /* PHViewController.swift */,
-				8A74D7ED20528E3900CF10AB /* PHConfigs.swift */,
-				8A74D7EC20528E3900CF10AB /* PHConstants.swift */,
-				8A74D7EA20528E3800CF10AB /* PHResponse.swift */,
-				8A74D7EB20528E3800CF10AB /* ParamHandler.swift */,
-				8A74D7FE20528E7100CF10AB /* Extention.swift */,
+				C7F807F32281AA7D008FC750 /* Sources */,
 				8A74D7E220528D9800CF10AB /* Info.plist */,
 			);
 			path = payHereSDK;
@@ -124,6 +117,21 @@
 				8A74D7F520528E5B00CF10AB /* StatusResponse.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		C7F807F32281AA7D008FC750 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				8A74D7F320528E4500CF10AB /* Model */,
+				8A74D7E120528D9800CF10AB /* payHereSDK.h */,
+				8A74D7E920528E3800CF10AB /* PHViewController.swift */,
+				8A74D7ED20528E3900CF10AB /* PHConfigs.swift */,
+				8A74D7EC20528E3900CF10AB /* PHConstants.swift */,
+				8A74D7EA20528E3800CF10AB /* PHResponse.swift */,
+				8A74D7EB20528E3800CF10AB /* ParamHandler.swift */,
+				8A74D7FE20528E7100CF10AB /* Extention.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
