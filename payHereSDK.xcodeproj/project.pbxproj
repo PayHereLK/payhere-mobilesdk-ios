@@ -23,6 +23,7 @@
 		8AD11E6320612739002E4F82 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 8AD11E6120612739002E4F82 /* LICENSE */; };
 		8AD11E6420612739002E4F82 /* payHereSDK.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 8AD11E6220612739002E4F82 /* payHereSDK.podspec */; };
 		C3ECA3CC61479DD760DF138C /* Pods_payHereSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */; };
+		C746D510234C9A7300F9D06F /* PHPrecentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C746D50F234C9A7300F9D06F /* PHPrecentController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		8A74D7FE20528E7100CF10AB /* Extention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extention.swift; sourceTree = "<group>"; };
 		8AD11E6120612739002E4F82 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		8AD11E6220612739002E4F82 /* payHereSDK.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = payHereSDK.podspec; sourceTree = "<group>"; };
+		C746D50F234C9A7300F9D06F /* PHPrecentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPrecentController.swift; sourceTree = "<group>"; };
 		D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_payHereSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E98AA3326CB2BEE8C4106D35 /* Pods-payHereSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payHereSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-payHereSDK/Pods-payHereSDK.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,6 +132,7 @@
 				8A74D7EA20528E3800CF10AB /* PHResponse.swift */,
 				8A74D7EB20528E3800CF10AB /* ParamHandler.swift */,
 				8A74D7FE20528E7100CF10AB /* Extention.swift */,
+				C746D50F234C9A7300F9D06F /* PHPrecentController.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				8A74D7EF20528E3900CF10AB /* PHResponse.swift in Sources */,
 				8A74D7F120528E3900CF10AB /* PHConstants.swift in Sources */,
 				8A74D7EE20528E3900CF10AB /* PHViewController.swift in Sources */,
+				C746D510234C9A7300F9D06F /* PHPrecentController.swift in Sources */,
 				8A74D7F920528E5C00CF10AB /* Customer.swift in Sources */,
 				8A74D7FB20528E5C00CF10AB /* Item.swift in Sources */,
 				8A74D7F220528E3900CF10AB /* PHConfigs.swift in Sources */,

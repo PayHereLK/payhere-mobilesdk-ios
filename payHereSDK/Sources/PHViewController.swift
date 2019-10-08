@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import AlamofireObjectMapper
+import WebKit
 
 public protocol PHViewControllerDelegate{
     func onResponseReceived(response : PHResponse<Any>?)
@@ -24,7 +25,7 @@ public class PHViewController: UIViewController {
     var baseUrl : String?
     public var isSandBoxEnabled : Bool = false
     
-    var webView : UIWebView?
+    var webView : WKWebView?
     var progressBar : UIActivityIndicatorView?
     
     override public func viewDidLoad() {
@@ -40,13 +41,9 @@ public class PHViewController: UIViewController {
         }
         
         
-        
-        
-        
-        
-        
-        webView  = UIWebView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width * 0.9, height: self.view.frame.height * 0.9))
-        webView?.delegate = self
+        webView  = WKWebView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width * 0.9, height: self.view.frame.height * 0.9))
+        webView?.uiDelegate = self
+        webView?.navigationDelegate = self
         
         webView?.center = view.convert(view.center, from: view.superview)
         webView?.scrollView.bounces = false
@@ -97,7 +94,7 @@ public class PHViewController: UIViewController {
         
     }
     
-    private func webViewPost(webView : UIWebView,baseUrl : String,url : String,postData : [String: String?]){
+    private func webViewPost(webView : WKWebView,baseUrl : String,url : String,postData : [String: String?]){
         var sb : String?
         
         sb = "<html><head></head>"
@@ -176,7 +173,7 @@ public class PHViewController: UIViewController {
         return nil
     }
     
-     func checkStatus(orderKey : String){
+    func checkStatus(orderKey : String){
         
         self.progressBar?.startAnimating()
         self.progressBar?.isHidden = false
@@ -191,16 +188,16 @@ public class PHViewController: UIViewController {
         
         
         Alamofire.request(PHConfigs.BASE_URL! + PHConfigs.STATUS, method: .post, parameters: params, encoding: URLEncoding.default, headers: headers)
-                .responseObject{ (response: DataResponse<StatusResponse>) in
-                    
-                    let val = self.validate(request: self.initRequest!, response: response.result.value!)
-                    
-                    if(val){
-                        self.responseListner(response: response.result.value)
-                    }else{
-                        self.responseListner(response: nil)
-                    }
-                    
+            .responseObject{ (response: DataResponse<StatusResponse>) in
+                
+                let val = self.validate(request: self.initRequest!, response: response.result.value!)
+                
+                if(val){
+                    self.responseListner(response: response.result.value)
+                }else{
+                    self.responseListner(response: nil)
+                }
+                
         }
         
     }
@@ -280,80 +277,67 @@ public class PHViewController: UIViewController {
     
 }
 
-extension PHViewController : UIWebViewDelegate{
+extension PHViewController : WKNavigationDelegate,WKUIDelegate{
     
-    public func webViewDidStartLoad(_ webView: UIWebView) {
-        progressBar?.startAnimating()
-        progressBar?.isHidden = false
-    }
-    
-    public func webViewDidFinishLoad(_ webView: UIWebView) {
-        
-        _ = webView.stringByEvaluatingJavaScript(from: "document.documentElement.style.webkitUserSelect='none'")!
-        _ = webView.stringByEvaluatingJavaScript(from: "document.documentElement.style.webkitTouchCallout='none'")!
-        progressBar?.stopAnimating()
-        progressBar?.isHidden = true
-    }
-    
-    
-    public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
+    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         
-        let html = webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('html')[0].innerHTML")
+        webView.evaluateJavaScript("window.open = function(open) { return function (url, name, features) { window.location.href = url; return window; }; } (window.open);", completionHandler: nil)
         
-        
-        let index = html?.range(of: "reference_id\"")
-        
-        if(index != nil){
+        webView.evaluateJavaScript("document.getElementsByTagName('html')[0].innerHTML") { (response, error) in
             
-            let valueStr = "value=\""
+            let html = response as! String
             
-            guard let result = html?.substring(to: (index?.upperBound)!)else{
-                return true
+            let index = html.range(of: "reference_id\"")
+            
+            if(index != nil){
+                
+                let valueStr = "value=\""
+                
+                let result = html.substring(to: (index?.upperBound)!)
+                
+                var temp = html.replacingOccurrences(of: result, with: "")
+                
+                let valIndex = temp.range(of: valueStr)
+                
+                let valEnd = temp.range(of: "\">")
+                
+                let distance = temp.distance(from: valIndex!.upperBound, to: valEnd!.lowerBound) + valueStr.count
+                
+                temp = temp.trimmingCharacters(in: .whitespacesAndNewlines)
+                
+                let valSting = temp.prefix(distance).trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: valueStr).last
+                
+                self.orderKey = valSting
+                
             }
             
-            guard var temp = html?.replacingOccurrences(of: result, with: "") else{
-                return true
+            
+            if(navigationAction.request.mainDocumentURL?.absoluteString.contains(PHConstants.dummyUrl))!{
+                
+                
+                if(self.orderKey != nil){
+                    self.checkStatus(orderKey: self.orderKey!)
+                }
+                
+                return
             }
             
-            guard let valIndex = temp.range(of: valueStr)else{
-                return true
-            }
-            
-            guard let valEnd = temp.range(of: "\">")else{
-                return true
-            }
-            
-            let distance = temp.distance(from: valIndex.upperBound, to: valEnd.lowerBound) + valueStr.count
-            
-            temp = temp.trimmingCharacters(in: .whitespacesAndNewlines)
-            
-            let valSting = temp.prefix(distance).trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: valueStr).last
-            
-            
-            self.orderKey = valSting
             
         }
         
-        if(request.mainDocumentURL?.absoluteString.contains(PHConstants.dummyUrl))!{
-            
-            
-            
-            if(self.orderKey != nil){
-                self.checkStatus(orderKey: self.orderKey!)
-            }
-            
-            return false
+        
+        decisionHandler(.allow)
+        
+    }
+    
+    public func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        
+        if !(navigationAction.targetFrame?.isMainFrame ?? false) {
+            webView.load(navigationAction.request)
         }
-        
-        
-        return true
+        return nil
     }
-    
-    public func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
-        
-    }
-    
     
 }
 
