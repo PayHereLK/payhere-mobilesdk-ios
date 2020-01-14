@@ -10,6 +10,7 @@ import Foundation
 
 public class PHPrecentController{
     
+    @available(*, deprecated, message: "Use method signature with InitResonseRequest")
     public static func precent(form : UIViewController,isSandBoxEnabled sandBoxEnabled: Bool,withInitRequest request : InitRequest,delegate : PHViewControllerDelegate){
         
         let phVC = PHViewController()
@@ -22,7 +23,7 @@ public class PHPrecentController{
         
     }
     
-    public static func precentNew(from : UIViewController,isSandBoxEnabled sandBoxEnabled: Bool,withInitRequest request : InitResonseRequest,delegate : PHViewControllerDelegate){
+    public static func precent(from : UIViewController,isSandBoxEnabled sandBoxEnabled: Bool,withInitRequest request : PHInitRequest,delegate : PHViewControllerDelegate){
         
         
         let bundle = Bundle(for: PHPrecentController.self)

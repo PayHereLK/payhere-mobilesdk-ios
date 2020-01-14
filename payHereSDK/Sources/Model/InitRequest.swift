@@ -9,6 +9,7 @@
 import Foundation
 import ObjectMapper
 
+@available(*, deprecated, message: "Use PHInitRequest instead")
 public class InitRequest {
     
     public var  merchantId : String?
@@ -32,7 +33,8 @@ public class InitRequest {
     
 }
 
-public class InitResonseRequest : Mappable{
+
+public class PHInitRequest : Mappable{
     
     public var merchantID, returnURL, cancelURL, notifyURL: String?
     public var firstName, lastName, email, phone: String?
@@ -49,7 +51,39 @@ public class InitResonseRequest : Mappable{
     public var referer, hash: String?
     public var auto : Bool = false
     
+    public init(){
+        
+    }
     
+    public init(merchantID: String?, returnURL: String?, cancelURL: String?, notifyURL: String?, firstName: String?, lastName: String?, email: String?, phone: String?, address: String?, city: String?, country: String?, orderID: String?, itemsDescription: String?, itemsMap: [Item]?, currency: String?, amount: Double?, deliveryAddress: String?, deliveryCity: String?, deliveryCountry: String?, platform: String?, custom1: String?, custom2: String?, startupFee: Double?, recurrence: String?, duration: String?, referer: String?, hash: String?) {
+        self.merchantID = merchantID
+        self.returnURL = returnURL
+        self.cancelURL = cancelURL
+        self.notifyURL = notifyURL
+        self.firstName = firstName
+        self.lastName = lastName
+        self.email = email
+        self.phone = phone
+        self.address = address
+        self.city = city
+        self.country = country
+        self.orderID = orderID
+        self.itemsDescription = itemsDescription
+        self.itemsMap = itemsMap
+        self.currency = currency
+        self.amount = amount
+        self.deliveryAddress = deliveryAddress
+        self.deliveryCity = deliveryCity
+        self.deliveryCountry = deliveryCountry
+        self.platform = platform
+        self.custom1 = custom1
+        self.custom2 = custom2
+        self.startupFee = startupFee
+        self.recurrence = recurrence
+        self.duration = duration
+        self.referer = referer
+        self.hash = hash
+    }
     
     public required init?(map: Map) {
         
@@ -88,7 +122,7 @@ public class InitResonseRequest : Mappable{
     
 }
 
-extension InitResonseRequest {
+extension PHInitRequest {
     
     func toRawRequest(url : String) -> URLRequest{
         

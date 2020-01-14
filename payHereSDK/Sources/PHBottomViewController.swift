@@ -28,9 +28,9 @@ public class PHBottomViewController: UIViewController {
     @IBOutlet var viewNavigationWrapper: UIView!
     
     
-    public var initRequest : InitResonseRequest?
+    public var initRequest : PHInitRequest?
     public var isSandBoxEnabled : Bool = false
-    private var initResonse : InitResponse?
+    private var initResonse : PHInitResponse?
     private var paymentOption : [(String , [PaymentOption])] {
         
         get{
@@ -232,7 +232,7 @@ public class PHBottomViewController: UIViewController {
             .responseData { (response) in
                 if let data = response.data{
                     do{
-                        let  temp = try newJSONDecoder().decode(InitResponse.self, from: data)
+                        let  temp = try newJSONDecoder().decode(PHInitResponse.self, from: data)
                         
                         self.initResonse = temp
                         

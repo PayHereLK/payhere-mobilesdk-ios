@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - InitResponse
-struct InitResponse: Codable {
+struct PHInitResponse: Codable {
     let status: Int
     let msg: String?
     let data: DataClass
