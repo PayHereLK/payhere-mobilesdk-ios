@@ -22,7 +22,7 @@ public class PHPrecentController{
         
     }
     
-    public static func precentNew(from : UIViewController,isSandBoxEnabled sandBoxEnabled: Bool,withInitRequest request : InitResonseRequest){
+    public static func precentNew(from : UIViewController,isSandBoxEnabled sandBoxEnabled: Bool,withInitRequest request : InitResonseRequest,delegate : PHViewControllerDelegate){
         
         
         let bundle = Bundle(for: PHPrecentController.self)
@@ -32,6 +32,7 @@ public class PHPrecentController{
         if let initialController = storyBoard.instantiateViewController(withIdentifier: "PHBottomViewController") as? PHBottomViewController{
             initialController.initRequest = request
             initialController.isSandBoxEnabled = sandBoxEnabled
+            initialController.delegate = delegate
             
             from.modalPresentationStyle = .overCurrentContext
             from.modalTransitionStyle = .crossDissolve

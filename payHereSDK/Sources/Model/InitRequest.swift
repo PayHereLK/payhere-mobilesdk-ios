@@ -99,7 +99,7 @@ extension InitResonseRequest {
         
         let pjson = self.toJSONString(prettyPrint: false)
         
-        print(pjson)
+       
         
         let data = (pjson?.data(using: .utf8))! as Data
         

@@ -207,8 +207,9 @@ public class PHBottomViewController: UIViewController {
                 self.bottomConstraint.constant = -self.height.constant
                 animateChanges { [weak self] in
                     
-                    self?.dismiss(animated: true, completion: {
-                        self!.delegate?.onResponseReceived(response: nil)
+                    self!.dismiss(animated: true, completion: {
+                        let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation Canceld"])
+                        self!.delegate?.onErrorReceived(error: error)
                     })
                 }
                 
@@ -228,9 +229,6 @@ public class PHBottomViewController: UIViewController {
         let request = initRequest?.toRawRequest(url: "\(PHConfigs.BASE_URL ?? "https://www.payhere.lk/pay/")/api/payment/init")
         
         Alamofire.request(request!).validate()
-            .responseString{ response in
-                print(response.result.value)
-        }
             .responseData { (response) in
                 if let data = response.data{
                     do{
@@ -242,7 +240,7 @@ public class PHBottomViewController: UIViewController {
                         self.collectionView.isHidden = false
                         
                     }catch{
-                        print(error)
+                        
                         self.dismiss(animated: true, completion: {
                             self.delegate?.onErrorReceived(error: error)
                         })
@@ -282,8 +280,6 @@ public class PHBottomViewController: UIViewController {
     }
     
     private func initWebView(_ submitResponse : SubmitResponse){
-        
-        
         
         if let url = submitResponse.data?.url{
             
@@ -330,7 +326,7 @@ public class PHBottomViewController: UIViewController {
             do {
                 return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
             } catch {
-                print(error.localizedDescription)
+                
             }
         }
         return nil
