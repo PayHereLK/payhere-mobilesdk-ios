@@ -11,9 +11,9 @@ import Alamofire
 import AlamofireObjectMapper
 import WebKit
 
-public protocol PHViewControllerDelegate{
-    func onResponseReceived(response : PHResponse<Any>?)
-}
+//public protocol PHViewControllerDelegate{
+//    func onResponseReceived(response : PHResponse<Any>?)
+//}
 public class PHViewController: UIViewController {
     
     public var delegate : PHViewControllerDelegate?

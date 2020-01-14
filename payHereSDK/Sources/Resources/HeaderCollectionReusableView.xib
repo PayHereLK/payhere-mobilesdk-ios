@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeaderCollectionReusableView" id="U6b-Vx-4bR" customClass="HeaderCollectionReusableView" customModule="payHereSDK" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oPB-pk-Xtd">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credit/Debit Card" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLO-7U-G61">
+                            <rect key="frame" x="8" y="16" width="120" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="TLO-7U-G61" firstAttribute="leading" secondItem="oPB-pk-Xtd" secondAttribute="leading" constant="8" id="gFX-Y2-w3K"/>
+                        <constraint firstItem="TLO-7U-G61" firstAttribute="centerY" secondItem="oPB-pk-Xtd" secondAttribute="centerY" id="vkH-5P-7ta"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="oPB-pk-Xtd" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="9ph-qc-liL"/>
+                <constraint firstAttribute="bottom" secondItem="oPB-pk-Xtd" secondAttribute="bottom" id="b0K-nB-BAc"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="oPB-pk-Xtd" secondAttribute="trailing" id="h1t-aJ-yz1"/>
+                <constraint firstItem="oPB-pk-Xtd" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" id="hp6-KG-nH3"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <connections>
+                <outlet property="lblSectionTitle" destination="TLO-7U-G61" id="gln-0X-msN"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="144.97767857142856"/>
+        </collectionReusableView>
+    </objects>
+</document>

@@ -13,6 +13,7 @@ class PHConfigs {
     public static let LIVE_URL : String = "https://www.payhere.lk/pay/"
     public static let SANDBOX_URL : String = "https://sandbox.payhere.lk/pay/"
     
+    
     public static let CHECKOUT : String =  "checkout";
     public static let STATUS : String =  "order_status";
     

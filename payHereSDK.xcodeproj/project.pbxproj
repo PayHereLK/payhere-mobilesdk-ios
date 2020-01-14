@@ -23,11 +23,54 @@
 		8AD11E6320612739002E4F82 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 8AD11E6120612739002E4F82 /* LICENSE */; };
 		8AD11E6420612739002E4F82 /* payHereSDK.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 8AD11E6220612739002E4F82 /* payHereSDK.podspec */; };
 		C3ECA3CC61479DD760DF138C /* Pods_payHereSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */; };
+		C72750CB23A75AAD00AE9037 /* PayHere.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C72750CA23A75AAD00AE9037 /* PayHere.storyboard */; };
+		C72750CD23A75B8A00AE9037 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C72750CC23A75B8A00AE9037 /* image.xcassets */; };
 		C746D510234C9A7300F9D06F /* PHPrecentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C746D50F234C9A7300F9D06F /* PHPrecentController.swift */; };
+		C75D50D823BCC61100088CDB /* InitResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D50D723BCC61100088CDB /* InitResponse.swift */; };
+		C793DE6023C717C900666008 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C793DE5F23C717C900666008 /* AppDelegate.swift */; };
+		C793DE6223C717C900666008 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C793DE6123C717C900666008 /* SceneDelegate.swift */; };
+		C793DE6423C717C900666008 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C793DE6323C717C900666008 /* ViewController.swift */; };
+		C793DE6723C717C900666008 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C793DE6523C717C900666008 /* Main.storyboard */; };
+		C793DE6923C717CA00666008 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C793DE6823C717CA00666008 /* Assets.xcassets */; };
+		C793DE6C23C717CA00666008 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C793DE6A23C717CA00666008 /* LaunchScreen.storyboard */; };
+		C793DE7123C717F000666008 /* payHereSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A74D7DE20528D9800CF10AB /* payHereSDK.framework */; };
+		C793DE7223C717F000666008 /* payHereSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8A74D7DE20528D9800CF10AB /* payHereSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C799349423A8E72B005E5A7B /* PHBottomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C799349323A8E72B005E5A7B /* PHBottomViewController.swift */; };
+		C799349723A9FEFC005E5A7B /* PayOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C799349523A9FEFC005E5A7B /* PayOptionCollectionViewCell.swift */; };
+		C799349823A9FEFC005E5A7B /* PayOptionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C799349623A9FEFC005E5A7B /* PayOptionCollectionViewCell.xib */; };
+		C7A7DA3323C5D6F90029210E /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7DA3123C5D6F90029210E /* HeaderCollectionReusableView.swift */; };
+		C7A7DA3423C5D6F90029210E /* HeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7A7DA3223C5D6F90029210E /* HeaderCollectionReusableView.xib */; };
+		D68AD170D5E2B0BDB07655F7 /* Pods_demoapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5C73F5CCE9DE42DB20A5A09 /* Pods_demoapp.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C793DE7323C717F000666008 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8A74D7D520528D9800CF10AB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8A74D7DD20528D9800CF10AB;
+			remoteInfo = payHereSDK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C793DE7523C717F000666008 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C793DE7223C717F000666008 /* payHereSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1F05633F685428B114E02914 /* Pods-payHereSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payHereSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-payHereSDK/Pods-payHereSDK.release.xcconfig"; sourceTree = "<group>"; };
+		547B7E44B64D5C6D38524F2C /* Pods-demoapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demoapp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-demoapp/Pods-demoapp.debug.xcconfig"; sourceTree = "<group>"; };
+		5FDC1A5183C0F1C20EFA647A /* Pods-demoapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demoapp.release.xcconfig"; path = "Pods/Target Support Files/Pods-demoapp/Pods-demoapp.release.xcconfig"; sourceTree = "<group>"; };
 		8A1FF74A206254DF00924B21 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8A74D7DE20528D9800CF10AB /* payHereSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = payHereSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A74D7E120528D9800CF10AB /* payHereSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = payHereSDK.h; sourceTree = "<group>"; };
@@ -45,7 +88,24 @@
 		8A74D7FE20528E7100CF10AB /* Extention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extention.swift; sourceTree = "<group>"; };
 		8AD11E6120612739002E4F82 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		8AD11E6220612739002E4F82 /* payHereSDK.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = payHereSDK.podspec; sourceTree = "<group>"; };
+		C5C73F5CCE9DE42DB20A5A09 /* Pods_demoapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_demoapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C72750CA23A75AAD00AE9037 /* PayHere.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PayHere.storyboard; sourceTree = "<group>"; };
+		C72750CC23A75B8A00AE9037 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
 		C746D50F234C9A7300F9D06F /* PHPrecentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPrecentController.swift; sourceTree = "<group>"; };
+		C75D50D723BCC61100088CDB /* InitResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitResponse.swift; sourceTree = "<group>"; };
+		C793DE5D23C717C900666008 /* demoapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demoapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C793DE5F23C717C900666008 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C793DE6123C717C900666008 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C793DE6323C717C900666008 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C793DE6623C717C900666008 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C793DE6823C717CA00666008 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C793DE6B23C717CA00666008 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C793DE6D23C717CA00666008 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C799349323A8E72B005E5A7B /* PHBottomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHBottomViewController.swift; sourceTree = "<group>"; };
+		C799349523A9FEFC005E5A7B /* PayOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayOptionCollectionViewCell.swift; sourceTree = "<group>"; };
+		C799349623A9FEFC005E5A7B /* PayOptionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PayOptionCollectionViewCell.xib; sourceTree = "<group>"; };
+		C7A7DA3123C5D6F90029210E /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		C7A7DA3223C5D6F90029210E /* HeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_payHereSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E98AA3326CB2BEE8C4106D35 /* Pods-payHereSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payHereSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-payHereSDK/Pods-payHereSDK.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,6 +119,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C793DE5A23C717C900666008 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C793DE7123C717F000666008 /* payHereSDK.framework in Frameworks */,
+				D68AD170D5E2B0BDB07655F7 /* Pods_demoapp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -67,6 +136,8 @@
 			children = (
 				E98AA3326CB2BEE8C4106D35 /* Pods-payHereSDK.debug.xcconfig */,
 				1F05633F685428B114E02914 /* Pods-payHereSDK.release.xcconfig */,
+				547B7E44B64D5C6D38524F2C /* Pods-demoapp.debug.xcconfig */,
+				5FDC1A5183C0F1C20EFA647A /* Pods-demoapp.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -75,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */,
+				C5C73F5CCE9DE42DB20A5A09 /* Pods_demoapp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -86,6 +158,7 @@
 				8AD11E6120612739002E4F82 /* LICENSE */,
 				8AD11E6220612739002E4F82 /* payHereSDK.podspec */,
 				8A74D7E020528D9800CF10AB /* payHereSDK */,
+				C793DE5E23C717C900666008 /* demoapp */,
 				8A74D7DF20528D9800CF10AB /* Products */,
 				5572C52C8A22258E0AB0CEA8 /* Pods */,
 				6ECF03BD9C78798C39D67C40 /* Frameworks */,
@@ -96,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				8A74D7DE20528D9800CF10AB /* payHereSDK.framework */,
+				C793DE5D23C717C900666008 /* demoapp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,13 +191,41 @@
 				8A74D7F820528E5C00CF10AB /* InitRequest.swift */,
 				8A74D7F620528E5C00CF10AB /* Item.swift */,
 				8A74D7F520528E5B00CF10AB /* StatusResponse.swift */,
+				C75D50D723BCC61100088CDB /* InitResponse.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		C72750C923A75A8600AE9037 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C72750CA23A75AAD00AE9037 /* PayHere.storyboard */,
+				C799349523A9FEFC005E5A7B /* PayOptionCollectionViewCell.swift */,
+				C799349623A9FEFC005E5A7B /* PayOptionCollectionViewCell.xib */,
+				C7A7DA3123C5D6F90029210E /* HeaderCollectionReusableView.swift */,
+				C7A7DA3223C5D6F90029210E /* HeaderCollectionReusableView.xib */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C793DE5E23C717C900666008 /* demoapp */ = {
+			isa = PBXGroup;
+			children = (
+				C793DE5F23C717C900666008 /* AppDelegate.swift */,
+				C793DE6123C717C900666008 /* SceneDelegate.swift */,
+				C793DE6323C717C900666008 /* ViewController.swift */,
+				C793DE6523C717C900666008 /* Main.storyboard */,
+				C793DE6823C717CA00666008 /* Assets.xcassets */,
+				C793DE6A23C717CA00666008 /* LaunchScreen.storyboard */,
+				C793DE6D23C717CA00666008 /* Info.plist */,
+			);
+			path = demoapp;
 			sourceTree = "<group>";
 		};
 		C7F807F32281AA7D008FC750 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				C72750C923A75A8600AE9037 /* Resources */,
 				8A74D7F320528E4500CF10AB /* Model */,
 				8A74D7E120528D9800CF10AB /* payHereSDK.h */,
 				8A74D7E920528E3800CF10AB /* PHViewController.swift */,
@@ -133,6 +235,8 @@
 				8A74D7EB20528E3800CF10AB /* ParamHandler.swift */,
 				8A74D7FE20528E7100CF10AB /* Extention.swift */,
 				C746D50F234C9A7300F9D06F /* PHPrecentController.swift */,
+				C799349323A8E72B005E5A7B /* PHBottomViewController.swift */,
+				C72750CC23A75B8A00AE9037 /* image.xcassets */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -170,17 +274,43 @@
 			productReference = 8A74D7DE20528D9800CF10AB /* payHereSDK.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		C793DE5C23C717C900666008 /* demoapp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C793DE6E23C717CA00666008 /* Build configuration list for PBXNativeTarget "demoapp" */;
+			buildPhases = (
+				8D692694E66C6C9B3571F85A /* [CP] Check Pods Manifest.lock */,
+				C793DE5923C717C900666008 /* Sources */,
+				C793DE5A23C717C900666008 /* Frameworks */,
+				C793DE5B23C717C900666008 /* Resources */,
+				C793DE7523C717F000666008 /* Embed Frameworks */,
+				9708F5586E91EA49649DDB91 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C793DE7423C717F000666008 /* PBXTargetDependency */,
+			);
+			name = demoapp;
+			productName = demoapp;
+			productReference = C793DE5D23C717C900666008 /* demoapp.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		8A74D7D520528D9800CF10AB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1120;
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = PayHere;
 				TargetAttributes = {
 					8A74D7DD20528D9800CF10AB = {
 						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					C793DE5C23C717C900666008 = {
+						CreatedOnToolsVersion = 11.2.1;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -191,6 +321,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 8A74D7D420528D9800CF10AB;
 			productRefGroup = 8A74D7DF20528D9800CF10AB /* Products */;
@@ -198,6 +329,7 @@
 			projectRoot = "";
 			targets = (
 				8A74D7DD20528D9800CF10AB /* payHereSDK */,
+				C793DE5C23C717C900666008 /* demoapp */,
 			);
 		};
 /* End PBXProject section */
@@ -207,9 +339,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7A7DA3423C5D6F90029210E /* HeaderCollectionReusableView.xib in Resources */,
 				8A1FF74B206254DF00924B21 /* README.md in Resources */,
 				8AD11E6420612739002E4F82 /* payHereSDK.podspec in Resources */,
+				C799349823A9FEFC005E5A7B /* PayOptionCollectionViewCell.xib in Resources */,
+				C72750CD23A75B8A00AE9037 /* image.xcassets in Resources */,
 				8AD11E6320612739002E4F82 /* LICENSE in Resources */,
+				C72750CB23A75AAD00AE9037 /* PayHere.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C793DE5B23C717C900666008 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C793DE6C23C717CA00666008 /* LaunchScreen.storyboard in Resources */,
+				C793DE6923C717CA00666008 /* Assets.xcassets in Resources */,
+				C793DE6723C717C900666008 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +380,52 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8D692694E66C6C9B3571F85A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-demoapp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9708F5586E91EA49649DDB91 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-demoapp/Pods-demoapp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS13.2/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper-iOS13.2/AlamofireObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper-iOS13.2/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftHash-iOS13.2/SwiftHash.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftHash.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-demoapp/Pods-demoapp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -241,22 +433,63 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7A7DA3323C5D6F90029210E /* HeaderCollectionReusableView.swift in Sources */,
 				8A74D7FC20528E5C00CF10AB /* Address.swift in Sources */,
 				8A74D7FD20528E5C00CF10AB /* InitRequest.swift in Sources */,
+				C799349723A9FEFC005E5A7B /* PayOptionCollectionViewCell.swift in Sources */,
 				8A74D7EF20528E3900CF10AB /* PHResponse.swift in Sources */,
 				8A74D7F120528E3900CF10AB /* PHConstants.swift in Sources */,
 				8A74D7EE20528E3900CF10AB /* PHViewController.swift in Sources */,
 				C746D510234C9A7300F9D06F /* PHPrecentController.swift in Sources */,
 				8A74D7F920528E5C00CF10AB /* Customer.swift in Sources */,
 				8A74D7FB20528E5C00CF10AB /* Item.swift in Sources */,
+				C75D50D823BCC61100088CDB /* InitResponse.swift in Sources */,
 				8A74D7F220528E3900CF10AB /* PHConfigs.swift in Sources */,
+				C799349423A8E72B005E5A7B /* PHBottomViewController.swift in Sources */,
 				8A74D7F020528E3900CF10AB /* ParamHandler.swift in Sources */,
 				8A74D7FF20528E7100CF10AB /* Extention.swift in Sources */,
 				8A74D7FA20528E5C00CF10AB /* StatusResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C793DE5923C717C900666008 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C793DE6423C717C900666008 /* ViewController.swift in Sources */,
+				C793DE6023C717C900666008 /* AppDelegate.swift in Sources */,
+				C793DE6223C717C900666008 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C793DE7423C717F000666008 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8A74D7DD20528D9800CF10AB /* payHereSDK */;
+			targetProxy = C793DE7323C717F000666008 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C793DE6523C717C900666008 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C793DE6623C717C900666008 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C793DE6A23C717CA00666008 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C793DE6B23C717CA00666008 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		8A74D7E420528D9800CF10AB /* Debug */ = {
@@ -425,6 +658,49 @@
 			};
 			name = Release;
 		};
+		C793DE6F23C717CA00666008 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 547B7E44B64D5C6D38524F2C /* Pods-demoapp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JANGPUDH4X;
+				INFOPLIST_FILE = demoapp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = lk.bhasha.demoapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C793DE7023C717CA00666008 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5FDC1A5183C0F1C20EFA647A /* Pods-demoapp.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JANGPUDH4X;
+				INFOPLIST_FILE = demoapp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = lk.bhasha.demoapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -442,6 +718,15 @@
 			buildConfigurations = (
 				8A74D7E720528D9800CF10AB /* Debug */,
 				8A74D7E820528D9800CF10AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C793DE6E23C717CA00666008 /* Build configuration list for PBXNativeTarget "demoapp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C793DE6F23C717CA00666008 /* Debug */,
+				C793DE7023C717CA00666008 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

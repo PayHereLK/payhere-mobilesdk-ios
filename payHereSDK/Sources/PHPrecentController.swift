@@ -8,9 +8,9 @@
 
 import Foundation
 
-class PHPrecentController{
+public class PHPrecentController{
     
-    static func precent(form : UIViewController,isSandBoxEnabled sandBoxEnabled: Bool,withInitRequest request : InitRequest,delegate : PHViewControllerDelegate){
+    public static func precent(form : UIViewController,isSandBoxEnabled sandBoxEnabled: Bool,withInitRequest request : InitRequest,delegate : PHViewControllerDelegate){
         
         let phVC = PHViewController()
         phVC.initRequest = request
@@ -19,6 +19,31 @@ class PHPrecentController{
         phVC.modalPresentationStyle = .overFullScreen
         
         form.present(phVC, animated: true, completion: nil)
+        
+    }
+    
+    public static func precentNew(from : UIViewController,isSandBoxEnabled sandBoxEnabled: Bool,withInitRequest request : InitResonseRequest){
+        
+        
+        let bundle = Bundle(for: PHPrecentController.self)
+        
+        
+        let storyBoard: UIStoryboard = UIStoryboard(name: "PayHere", bundle: bundle)
+        if let initialController = storyBoard.instantiateViewController(withIdentifier: "PHBottomViewController") as? PHBottomViewController{
+            initialController.initRequest = request
+            initialController.isSandBoxEnabled = sandBoxEnabled
+            
+            from.modalPresentationStyle = .overCurrentContext
+            from.modalTransitionStyle = .crossDissolve
+            initialController.modalPresentationStyle = .overCurrentContext
+            initialController.modalTransitionStyle = .crossDissolve
+            
+            from.present(initialController, animated: true, completion: nil)
+                
+            
+        }
+        
+       
         
     }
 }
