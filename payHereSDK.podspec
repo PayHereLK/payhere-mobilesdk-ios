@@ -8,7 +8,7 @@ s.summary = "Mobile SDK for payHere"
 s.requires_arc = true
 
 # 2
-s.version = "1.0.1"
+s.version = "2.0.0"
 
 # 3
 s.license = { :type => "MIT", :file => "LICENSE" }
@@ -21,8 +21,9 @@ s.homepage = "https://www.payhere.lk/"
 
 # 6 - Replace this URL with your own Git URL from "Quick Setup"
 s.source = { :git => "https://github.com/PayHereLK/payhere-mobilesdk-ios.git", :tag => "#{s.version}"}
-s.resource_bundle = { '<BundleName>' => 'Pod/Resources/**/*.storyboard' }
-s.resources = ['Images/*.png']
+#s.resource_bundle = { 'payHereSDK' => 'payHereSDK/Sources/**/*.storyboard' }
+
+
 
 
 # 7
@@ -33,7 +34,9 @@ s.dependency 'SwiftHash'
 
 
 # 8
-s.source_files = "payHereSDK/Sources/**/*"
+s.source_files = "payHereSDK/Sources/**/*.{h,m,swift}"
+s.resources = 'payHereSDK/**/*.{lproj,storyboard,xcdatamodeld,xib,xcassets,json}'
+
 s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
 
 

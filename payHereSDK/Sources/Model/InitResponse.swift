@@ -11,7 +11,7 @@ import Foundation
 // MARK: - InitResponse
 struct InitResponse: Codable {
     let status: Int
-    let msg: JSONNull?
+    let msg: String?
     let data: DataClass
 }
 
@@ -33,7 +33,7 @@ struct Order: Codable {
     let orderKey: String
     let amount: Int
     let amountFormatted, currency, currencyFormatted, shortDescription: String
-    let longDescription: JSONNull?
+    let longDescription: String?
 }
 
 // MARK: - Encode/decode helpers

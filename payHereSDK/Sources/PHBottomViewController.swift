@@ -72,8 +72,10 @@ public class PHBottomViewController: UIViewController {
         self.viewNavigationWrapper.addGestureRecognizer(tapGestrue)
         self.viewNavigationWrapper.isHidden = true
         
-        startProcess()
+        
     }
+    
+    
     
     
     private func startProcess(){
@@ -84,7 +86,7 @@ public class PHBottomViewController: UIViewController {
             checkNetworkAvailability();
         }else{
             self.dismiss(animated: true, completion: {
-                let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: validate])
+                let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: validate as Any])
                 self.delegate?.onErrorReceived(error: error)
             })
         }
@@ -120,8 +122,10 @@ public class PHBottomViewController: UIViewController {
                 if (!connection) {
                     
                     self.dismiss(animated: true, completion: {
-                        self.delegate?.onResponseReceived(response: PHResponse(status: PHResponse<Any>.STATUS_ERROR_NETWORK, message: "Unable to connect to the internet"))
+                                   let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Unable to connect to the internet"])
+                                   self.delegate?.onErrorReceived(error: error)
                     })
+                    
                 }else{
                     //MARK:Start sending requests
                     self.sentInitRequest()
@@ -150,6 +154,8 @@ public class PHBottomViewController: UIViewController {
         
         bottomConstraint.constant = -height.constant
         self.view.layoutIfNeeded()
+        
+        startProcess()
     }
     
     
@@ -222,6 +228,9 @@ public class PHBottomViewController: UIViewController {
         let request = initRequest?.toRawRequest(url: "\(PHConfigs.BASE_URL ?? "https://www.payhere.lk/pay/")/api/payment/init")
         
         Alamofire.request(request!).validate()
+            .responseString{ response in
+                print(response.result.value)
+        }
             .responseData { (response) in
                 if let data = response.data{
                     do{
@@ -330,8 +339,12 @@ public class PHBottomViewController: UIViewController {
     
     private func getImage(withImageName : String) -> UIImage{
         
+        
+        
         return UIImage(named: withImageName, in: Bundle(for: PHBottomViewController.self), compatibleWith: nil)!
     }
+    
+    
     
     private func checkStatus(orderKey : String){
         

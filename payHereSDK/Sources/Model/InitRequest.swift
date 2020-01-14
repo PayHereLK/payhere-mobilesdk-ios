@@ -47,6 +47,7 @@ public class InitResonseRequest : Mappable{
     public var startupFee: Double?
     public var recurrence, duration: String?
     public var referer, hash: String?
+    public var auto : Bool = false
     
     
     
@@ -82,6 +83,7 @@ public class InitResonseRequest : Mappable{
         self.duration <- map["duration"]
         self.referer <- map["referer"]
         self.hash <- map["hash"]
+        self.auto <- map["auto"]
     }
     
 }
@@ -96,6 +98,8 @@ extension InitResonseRequest {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let pjson = self.toJSONString(prettyPrint: false)
+        
+        print(pjson)
         
         let data = (pjson?.data(using: .utf8))! as Data
         
