@@ -15,7 +15,7 @@ public protocol PHViewControllerDelegate{
     func onResponseReceived(response : PHResponse<Any>?)
     func onErrorReceived(error : Error)
 }
-public class PHBottomViewController: UIViewController {
+internal class PHBottomViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var progressBar: UIActivityIndicatorView!
@@ -28,8 +28,12 @@ public class PHBottomViewController: UIViewController {
     @IBOutlet var viewNavigationWrapper: UIView!
     
     
-    public var initRequest : PHInitRequest?
-    public var isSandBoxEnabled : Bool = false
+    
+    internal var initialRequest : PHInitialRequest?
+    internal var isSandBoxEnabled : Bool = false
+    internal var delegate : PHViewControllerDelegate?
+    
+    private var initRequest : PHInitRequest?
     private var initResonse : PHInitResponse?
     private var paymentOption : [(String , [PaymentOption])] {
         
@@ -40,12 +44,10 @@ public class PHBottomViewController: UIViewController {
                 ),("Mobile Wallet",[PaymentOption(name: "Genie", image: getImage(withImageName: "genie"), optionValue: "GENIE"),PaymentOption(name: "Frimi", image: getImage(withImageName: "frimi"), optionValue: "FRIMI"),PaymentOption(name: "Ez Cash", image: getImage(withImageName: "ezcash"), optionValue: "EZCASH"),PaymentOption(name: "m Cash", image: getImage(withImageName: "mcash"), optionValue: "MCASH")]),("Internet Banking",[PaymentOption(name: "Vishwa", image: getImage(withImageName: "vishwa"), optionValue: "VISHWA"),PaymentOption(name: "HNB", image: getImage(withImageName: "hnb"), optionValue: "HNB")])]
         }
     }
-    public var delegate : PHViewControllerDelegate?
+   
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         // Do any additional setup after loading the view.
         var nib = UINib(nibName: "PayOptionCollectionViewCell", bundle: Bundle(for: PHBottomViewController.self))
@@ -72,6 +74,118 @@ public class PHBottomViewController: UIViewController {
         self.viewNavigationWrapper.addGestureRecognizer(tapGestrue)
         self.viewNavigationWrapper.isHidden = true
         
+        
+        self.initRequest = createInitRequest(phInitialRequest: initialRequest!)
+        
+    }
+    
+    private func createInitRequest(phInitialRequest : PHInitialRequest) ->PHInitRequest{
+        
+        let initialSubmitRequest = PHInitRequest()
+        
+        initialSubmitRequest.merchantID = phInitialRequest.merchantID
+        
+        initialSubmitRequest.returnURL = PHConstants.dummyUrl
+        initialSubmitRequest.cancelURL = PHConstants.dummyUrl
+        
+        if (phInitialRequest.notifyURL == nil || phInitialRequest.notifyURL?.count == 0){
+            initialSubmitRequest.notifyURL = PHConstants.dummyUrl
+        }else{
+            initialSubmitRequest.notifyURL = phInitialRequest.notifyURL
+        }
+        
+        initialSubmitRequest.firstName = phInitialRequest.firstName
+        initialSubmitRequest.lastName = phInitialRequest.lastName
+        initialSubmitRequest.email = phInitialRequest.email
+        initialSubmitRequest.phone = phInitialRequest.phone
+        
+        initialSubmitRequest.address = phInitialRequest.address
+        initialSubmitRequest.city = phInitialRequest.city
+        initialSubmitRequest.country = phInitialRequest.country
+        
+        initialSubmitRequest.orderID = phInitialRequest.orderID
+        initialSubmitRequest.itemsDescription = phInitialRequest.itemsDescription
+        
+        if(phInitialRequest.itemsMap!.count > 0){
+            
+            var itemMap : [String : String] = [:]
+            
+            for (i,item) in (phInitialRequest.itemsMap?.enumerated())!{
+                
+                itemMap[String(format: "item_name_%d", i+1)] = item.name
+                itemMap[String(format: "item_number_%d", i+1)] = item.id
+                itemMap[String(format: "amount_%d", i+1)] =  String(format : "%.2f",item.amount ?? 0.0)
+                itemMap[String(format: "quantity_%d", i+1)] = String(format : "%d",item.quantity ?? 0)
+                
+            }
+        
+            initialSubmitRequest.itemsMap = itemMap
+            
+        }else{
+            phInitialRequest.itemsMap = nil
+        }
+        
+        initialSubmitRequest.currency = phInitialRequest.currency?.rawValue
+        initialSubmitRequest.amount = phInitialRequest.amount
+        
+        initialSubmitRequest.deliveryAddress = phInitialRequest.deliveryAddress
+        initialSubmitRequest.deliveryCity = phInitialRequest.deliveryCity
+        initialSubmitRequest.deliveryCountry = phInitialRequest.deliveryCountry
+        
+        initialSubmitRequest.platform = PHConstants.PLATFORM
+        
+        initialSubmitRequest.custom1 = phInitialRequest.custom1
+        initialSubmitRequest.custom2 = phInitialRequest.custom2
+        
+        if(phInitialRequest.startupFee == nil){
+            initialSubmitRequest.startupFee = 0.0
+        }else{
+            initialSubmitRequest.startupFee = phInitialRequest.startupFee
+        }
+        
+        
+        if(phInitialRequest.recurrence == nil){
+            initialSubmitRequest.recurrence = ""
+            initialSubmitRequest.auto = false
+        }else{
+            switch phInitialRequest.recurrence {
+            case .Month(duration: (let duration)):
+                print("Month :",duration)
+            case .Week(duration: (let duration)):
+                print("Week :",duration)
+            case .Year(duration: (let duration)):
+                print("Year :",duration)
+            default:
+                print("Nothing Provided")
+            }
+            
+            initialSubmitRequest.auto = true
+        }
+        
+        if(phInitialRequest.duration == nil){
+            initialSubmitRequest.duration = ""
+            initialSubmitRequest.auto = false
+        }else{
+            switch phInitialRequest.duration {
+            case .Week(duration: (let duration)):
+                print("Week :",duration)
+            case .Month(duration: (let duration)):
+                print("Month :",duration)
+            case .Year(duration: (let duration)):
+                print("Year :",duration)
+            case .Forver:
+                print("Forver")
+            default:
+                print("Nothing Provided")
+            }
+            initialSubmitRequest.auto = true
+        }
+        
+        initialSubmitRequest.referer = Bundle.main.bundleIdentifier
+        
+        initialSubmitRequest.hash = ""
+        
+        return initialSubmitRequest
         
     }
     
@@ -226,7 +340,7 @@ public class PHBottomViewController: UIViewController {
         self.progressBar.isHidden = false
         self.collectionView.isHidden = true
         
-        let request = initRequest?.toRawRequest(url: "\(PHConfigs.BASE_URL ?? "https://www.payhere.lk/pay/")/api/payment/init")
+        let request = initRequest?.toRawRequest(url: "\(PHConfigs.BASE_URL ?? "https://www.payhere.lk/pay/")api/payment/init")
         
         Alamofire.request(request!).validate()
             .responseData { (response) in
@@ -234,10 +348,16 @@ public class PHBottomViewController: UIViewController {
                     do{
                         let  temp = try newJSONDecoder().decode(PHInitResponse.self, from: data)
                         
-                        self.initResonse = temp
-                        
-                        self.progressBar.isHidden = true
-                        self.collectionView.isHidden = false
+                        if(temp.status == 1){
+                            self.initResonse = temp
+                            self.progressBar.isHidden = true
+                            self.collectionView.isHidden = false
+                        }else{
+                            self.dismiss(animated: true, completion: {
+                                let error = NSError(domain: "", code: 501, userInfo: [NSLocalizedDescriptionKey: temp.msg ?? ""])
+                                self.delegate?.onErrorReceived(error: error)
+                            })
+                        }
                         
                     }catch{
                         
@@ -255,7 +375,7 @@ public class PHBottomViewController: UIViewController {
         self.progressBar.isHidden = false
         self.collectionView.isHidden = true
         
-        let request = submit.toRawRequest(url: "\(PHConfigs.BASE_URL ?? "https://www.payhere.lk/pay/")/api/payment/submit")
+        let request = submit.toRawRequest(url: "\(PHConfigs.BASE_URL ?? "https://www.payhere.lk/pay/")api/payment/submit")
         
         
         Alamofire.request(request).validate()
@@ -428,6 +548,8 @@ public class PHBottomViewController: UIViewController {
             initRequest?.cancelURL = PHConstants.dummyUrl
         }
         
+        initRequest?.referer = Bundle.main.bundleIdentifier
+        
         
         
         return nil
@@ -448,7 +570,7 @@ public class PHBottomViewController: UIViewController {
 
 extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
     
-    public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+    internal func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         
         self.webView.isHidden = true
         self.progressBar.isHidden = false
@@ -456,19 +578,19 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
         
     }
     
-    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    internal func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         
             if((navigationAction.request.mainDocumentURL?.absoluteString.contains("https://www.payhere.lk/pay/payment/complete"))!){
-                if(self.initResonse?.data.order != nil){
-                    self.checkStatus(orderKey: self.initResonse?.data.order.orderKey ?? "")
+                if(self.initResonse?.data?.order != nil){
+                    self.checkStatus(orderKey: self.initResonse?.data!.order.orderKey ?? "")
                 }
             }
         
         decisionHandler(.allow)
     }
     
-    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    internal func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         insertCSSString(into: webView) // 1
         self.webView.isHidden = false
         self.progressBar.isHidden = true
@@ -552,7 +674,7 @@ extension PHBottomViewController :  UICollectionViewDelegate, UICollectionViewDa
         let payOption = paymentOption[indexPath.section].1[indexPath.row]
         
         
-        let submit =  Submit(key: initResonse?.data.order.orderKey ?? "", method: payOption.optionValue)
+        let submit =  Submit(key: initResonse?.data!.order.orderKey ?? "", method: payOption.optionValue)
         
         sentPaymentOptionSelected(submit)
         

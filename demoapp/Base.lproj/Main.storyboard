@@ -16,17 +16,39 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIu-tL-pYO">
-                                <rect key="frame" x="184" y="433" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="62" y="452" width="290" height="50"/>
+                                <color key="backgroundColor" red="0.2113312483" green="0.37968736889999999" blue="0.82357209919999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="aJ9-Zz-ERB"/>
+                                </constraints>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="Pay with PayHere">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="btnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gTB-Vl-xkS"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Group 96" translatesAutoresizingMaskIntoConstraints="NO" id="VdI-7c-ppM">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="402"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="VdI-7c-ppM" secondAttribute="height" multiplier="69:67" id="A44-wM-YIn"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="JIu-tL-pYO" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ReE-PD-bll"/>
+                            <constraint firstItem="JIu-tL-pYO" firstAttribute="top" secondItem="VdI-7c-ppM" secondAttribute="bottom" constant="50" id="GFY-H8-mjq"/>
                             <constraint firstItem="JIu-tL-pYO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Yf4-Kg-gQH"/>
+                            <constraint firstItem="VdI-7c-ppM" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="kFy-gX-LpJ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VdI-7c-ppM" secondAttribute="trailing" id="mI9-dw-Z0Z"/>
+                            <constraint firstItem="VdI-7c-ppM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="s3i-o1-l9q"/>
+                            <constraint firstItem="JIu-tL-pYO" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.7" id="z9I-dj-PzE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -36,4 +58,7 @@
             <point key="canvasLocation" x="139" y="86"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Group 96" width="556" height="402"/>
+    </resources>
 </document>

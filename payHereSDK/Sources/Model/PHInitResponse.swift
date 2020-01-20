@@ -12,7 +12,7 @@ import Foundation
 struct PHInitResponse: Codable {
     let status: Int
     let msg: String?
-    let data: DataClass
+    let data: DataClass?
 }
 
 // MARK: - DataClass

@@ -10,35 +10,30 @@ import UIKit
 import payHereSDK
 
 class ViewController: UIViewController {
+    
+    
+    let merchandID = "<<Your PayHere MerchantID>>"
+    
+   
+    var initRequest : PHInitialRequest?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
-        // Do any additional setup after loading the view.
+        let item1 = Item(id: "001", name: "PayHere Test Item 01", quantity: 1, amount: 120.0)
+        let item2 = Item(id: "002", name: "PayHere Test Item 02", quantity: 2, amount: 150.0)
+        
+        initRequest = PHInitialRequest(merchantID: merchandID, notifyURL: "", firstName: "Pay", lastName: "Here", email: "test@test.com", phone: "+9477123456", address: "Colombo", city: "Colombo", country: "Sri Lanka", orderID: "001", itemsDescription: "PayHere SDK Sample", itemsMap: [item1,item2], currency: .LKR, amount: 270.00, deliveryAddress: "", deliveryCity: "", deliveryCountry: "", custom1: "custom 01", custom2: "custom 02")
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         
-       
-        
-         let initrequ = PHInitRequest(JSONString: "{\"merchantId\":\"210251\",\"returnUrl\":\"\",\"cancelUrl\":\"\",\"notifyUrl\":\"\",\"firstName\":\"Saman\",\"lastName\":\"Kumara\",\"email\":\"saman@test.com\",\"phone\":\"0711111111\",\"address\":\"No 20, Galle Road\",\"city\":\"Colombo 01\",\"country\":\"Sri Lanka\",\"orderId\":\"00001\",\"itemsDescription\":\"Helakuru Mug\",\"itemsMap\":null,\"currency\":\"LKR\",\"amount\":100.0,\"deliveryAddress\":\"\",\"deliveryCity\":\"\",\"deliveryCountry\":\"\",\"platform\":\"android\",\"custom1\":\"\",\"custom2\":\"\",\"startupFee\":0.0,\"recurrence\":\"\",\"duration\":\"\",\"referer\":\"lk.bhasha.helakuru\",\"hash\":\"\"}")
-        
-        
-    
-                
-        PHPrecentController.precent(from: self, isSandBoxEnabled: false, withInitRequest: initrequ!, delegate: self)
-         
-
     }
     
     
     @IBAction func btnPressed(_ sender: Any) {
-        
-        let initrequ = PHInitRequest(JSONString: "{\"merchantId\":\"210251\",\"returnUrl\":\"\",\"cancelUrl\":\"\",\"notifyUrl\":\"\",\"firstName\":\"Saman\",\"lastName\":\"Kumara\",\"email\":\"saman@test.com\",\"phone\":\"0711111111\",\"address\":\"No 20, Galle Road\",\"city\":\"Colombo 01\",\"country\":\"Sri Lanka\",\"orderId\":\"00001\",\"itemsDescription\":\"Helakuru Mug\",\"itemsMap\":null,\"currency\":\"LKR\",\"amount\":100.0,\"deliveryAddress\":\"\",\"deliveryCity\":\"\",\"deliveryCountry\":\"\",\"platform\":\"android\",\"custom1\":\"\",\"custom2\":\"\",\"startupFee\":0.0,\"recurrence\":\"\",\"duration\":\"\",\"referer\":\"lk.bhasha.helakuru\",\"hash\":\"\"}")
-           
-        PHPrecentController.precent(from: self, isSandBoxEnabled: false, withInitRequest: initrequ!, delegate: self)
-        
+        PHPrecentController.precent(from: self, isSandBoxEnabled: false, withInitRequest: initRequest!, delegate: self)
     }
     
 
@@ -51,7 +46,7 @@ extension ViewController : PHViewControllerDelegate{
     }
     
     func onResponseReceived(response: PHResponse<Any>?) {
-        print("🤜 Sucess")
+        print("🤜 Sucess",response!)
     }
     
     

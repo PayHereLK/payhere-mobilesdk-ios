@@ -23,18 +23,15 @@ public class PHPrecentController{
         
     }
     
-    public static func precent(from : UIViewController,isSandBoxEnabled sandBoxEnabled: Bool,withInitRequest request : PHInitRequest,delegate : PHViewControllerDelegate){
-        
+    public static func precent(from : UIViewController,isSandBoxEnabled sandBoxEnabled: Bool,withInitRequest request : PHInitialRequest,delegate : PHViewControllerDelegate){
         
         let bundle = Bundle(for: PHPrecentController.self)
-        
-        
         let storyBoard: UIStoryboard = UIStoryboard(name: "PayHere", bundle: bundle)
         if let initialController = storyBoard.instantiateViewController(withIdentifier: "PHBottomViewController") as? PHBottomViewController{
-            initialController.initRequest = request
+            initialController.initialRequest = request
             initialController.isSandBoxEnabled = sandBoxEnabled
             initialController.delegate = delegate
-            
+        
             from.modalPresentationStyle = .overCurrentContext
             from.modalTransitionStyle = .crossDissolve
             initialController.modalPresentationStyle = .overCurrentContext
@@ -44,8 +41,5 @@ public class PHPrecentController{
                 
             
         }
-        
-       
-        
     }
 }
