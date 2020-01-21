@@ -27,11 +27,11 @@ internal class PHBottomViewController: UIViewController {
     @IBOutlet var lblMethodPrecentTitle: UILabel!
     @IBOutlet var viewNavigationWrapper: UIView!
     
-    
-    
     internal var initialRequest : PHInitialRequest?
     internal var isSandBoxEnabled : Bool = false
     internal var delegate : PHViewControllerDelegate?
+    internal var orgHeight : CGFloat = 0
+    internal var keyBoardHeightMax : CGFloat = 0
     
     private var initRequest : PHInitRequest?
     private var initResonse : PHInitResponse?
@@ -76,6 +76,44 @@ internal class PHBottomViewController: UIViewController {
         
         
         self.initRequest = createInitRequest(phInitialRequest: initialRequest!)
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowFunction(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil) //WillShow and not Did ;) The View will run animated and smooth
+               NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideFunction(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+    }
+    
+    @objc func keyboardWillShowFunction(notification: NSNotification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            
+            if(keyBoardHeightMax == 0){
+                keyBoardHeightMax = keyboardSize.height
+            }
+            
+            keyBoardHeightMax = max(keyboardSize.height, keyBoardHeightMax)
+            
+            height.constant = orgHeight + keyBoardHeightMax
+            animateChanges()
+            
+        }
+        
+    }
+    
+    @objc func keyboardWillHideFunction(notification: NSNotification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            
+            if(keyBoardHeightMax == 0){
+                keyBoardHeightMax = keyboardSize.height
+            }
+            
+            keyBoardHeightMax = max(keyboardSize.height, keyBoardHeightMax)
+            
+            height.constant = height.constant - keyBoardHeightMax
+            animateChanges()
+            
+        }
         
     }
     
@@ -300,6 +338,8 @@ internal class PHBottomViewController: UIViewController {
         
         
         self.height.constant = calculatedHeight
+        
+        self.orgHeight = self.height.constant
         
         
     }
