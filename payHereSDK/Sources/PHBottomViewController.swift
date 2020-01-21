@@ -93,6 +93,10 @@ internal class PHBottomViewController: UIViewController {
             
             keyBoardHeightMax = max(keyboardSize.height, keyBoardHeightMax)
             
+            if((keyBoardHeightMax  + orgHeight) > self.view.frame.height){
+                keyBoardHeightMax = keyBoardHeightMax / 2
+            }
+            
             height.constant = orgHeight + keyBoardHeightMax
             animateChanges()
             
@@ -110,7 +114,7 @@ internal class PHBottomViewController: UIViewController {
             
             keyBoardHeightMax = max(keyboardSize.height, keyBoardHeightMax)
             
-            height.constant = height.constant - keyBoardHeightMax
+            height.constant = orgHeight//height.constant - keyBoardHeightMax
             animateChanges()
             
         }
@@ -330,13 +334,9 @@ internal class PHBottomViewController: UIViewController {
     
     private func calculateHeight(){
         
-        let cellHeight = (((self.collectionView.frame.width - 20) / 5) - 15) * 3
+        let cellHeight = (((self.view.frame.width - 20) / 5) - 15) * 3
         let constHeight = 45.0 + (50.0 * 3.0)
-        
         let calculatedHeight = cellHeight +  CGFloat(constHeight) +  20
-        
-        
-        
         self.height.constant = calculatedHeight
         
         self.orgHeight = self.height.constant

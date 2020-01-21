@@ -12,7 +12,7 @@ import payHereSDK
 class ViewController: UIViewController {
     
     
-    let merchandID = "<<Your PayHere MerchantID>>"
+    let merchandID = "210251"
     
    
     var initRequest : PHInitialRequest?
