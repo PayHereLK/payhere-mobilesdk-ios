@@ -89,7 +89,6 @@ internal class PHBottomViewController: UIViewController {
         
         self.initRequest = createInitRequest(phInitialRequest: initialRequest!)
         
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowFunction(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil) //WillShow and not Did ;) The View will run animated and smooth
                NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideFunction(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
@@ -105,8 +104,26 @@ internal class PHBottomViewController: UIViewController {
             self.getPaymentUI()
         }
         
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        bottomConstraint.constant = -height.constant
+        self.view.layoutIfNeeded()
+        
+        self.collectionView.isHidden = false
+        self.progressBar.isHidden = true
         
         
+        //MARK: Start PreApproval Process
+        if(self.apiMethod == .PreApproval){
+            self.collectionView.isHidden = true
+            self.progressBar.isHidden = true
+            self.selectedPaymentOption = PaymentOption(name: "Visa", image: getImage(withImageName: "visa"), optionValue: "VISA")
+            self.startProcess(paymentMethod: "VISA")
+            self.lblselectedMethod.text = "Credit/Debit Card"
+        }
         
         
     }
@@ -176,6 +193,8 @@ internal class PHBottomViewController: UIViewController {
         initialSubmitRequest.orderID = phInitialRequest.orderID
         initialSubmitRequest.itemsDescription = phInitialRequest.itemsDescription
         
+        if(phInitialRequest.itemsMap != nil){
+        
         if(phInitialRequest.itemsMap!.count > 0){
             
             var itemMap : [String : String] = [:]
@@ -192,7 +211,11 @@ internal class PHBottomViewController: UIViewController {
             initialSubmitRequest.itemsMap = itemMap
             
         }else{
-            phInitialRequest.itemsMap = nil
+            initialSubmitRequest.itemsMap = nil
+            }
+            
+        }else{
+            initialSubmitRequest.itemsMap = nil
         }
         
         initialSubmitRequest.currency = phInitialRequest.currency?.rawValue
@@ -222,7 +245,7 @@ internal class PHBottomViewController: UIViewController {
         if(phInitialRequest.recurrence == nil){
             initialSubmitRequest.recurrence = nil
             initialSubmitRequest.auto = false
-            self.apiMethod = .Recurrence
+            
         }else{
             switch phInitialRequest.recurrence {
             case .Month(duration: (let duration)):
@@ -236,6 +259,7 @@ internal class PHBottomViewController: UIViewController {
             }
             
             initialSubmitRequest.auto = true
+            self.apiMethod = .Recurrence
         }
         
         if(phInitialRequest.duration == nil){
@@ -349,18 +373,7 @@ internal class PHBottomViewController: UIViewController {
         
     }
     
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        bottomConstraint.constant = -height.constant
-        self.view.layoutIfNeeded()
-        
-        self.collectionView.isHidden = false
-        self.progressBar.isHidden = true
-        
-        
-        
-    }
+    
     
     
     
@@ -472,6 +485,9 @@ internal class PHBottomViewController: UIViewController {
     }
         
     private func initWebView(_ submitResponse : PHInitResponse){
+        
+        self.viewNavigationWrapper.isHidden = false
+        self.lblMethodPrecentTitle.isHidden = true
         
         
         
@@ -682,9 +698,12 @@ internal class PHBottomViewController: UIViewController {
             return "BASE_URL not set";
         }
         
-        if ((initRequest?.amount)! <= 0.0) {
-            return "Invalid amount";
+        if(apiMethod == .CheckOut || apiMethod == .Recurrence){
+            if ((initRequest?.amount)! <= 0.0) {
+                return "Invalid amount";
+            }
         }
+            
         if (initRequest?.currency == nil || initRequest?.currency?.count != 3) {
             return "Invalid currency";
         }
@@ -706,6 +725,9 @@ internal class PHBottomViewController: UIViewController {
         
         initRequest?.referer = Bundle.main.bundleIdentifier
         
+        if(self.apiMethod == .PreApproval || self.apiMethod == .Recurrence){
+            initRequest?.auto  = true
+        }
         
         
         return nil
