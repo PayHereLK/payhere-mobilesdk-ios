@@ -12,8 +12,9 @@ public class PHConstants {
     public static let INTENT_EXTRA_DATA = "INTENT_EXTRA_DATA";
     public static let INTENT_EXTRA_RESULT = "INTENT_EXTRA_RESULT";
     
-    public static let PLATFORM : String = "ios";
+    internal static let PLATFORM : String = "ios"
+    internal static let dummyUrl : String = "https://www.payhere.lk/complete/ios";
+    internal static let UI : String = "Ui"
     
-    public static let dummyUrl : String = "https://www.payhere.lk/complete/ios";
     
 }

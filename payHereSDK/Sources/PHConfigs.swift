@@ -10,12 +10,15 @@ import Foundation
 
 class PHConfigs {
     
-    public static let LIVE_URL : String = "https://www.payhere.lk/pay/"
-    public static let SANDBOX_URL : String = "https://sandbox.payhere.lk/pay/"
+    internal static let LIVE_URL : String = "https://www.payhere.lk/pay/"
+    internal static let SANDBOX_URL : String = "https://sandbox.payhere.lk/pay/"
     
     
-    public static let CHECKOUT : String =  "checkout";
-    public static let STATUS : String =  "order_status";
+    internal static let CHECKOUT : String =  "checkout";
+    internal static let STATUS : String =  "order_status";
+    internal static let SUBMIT : String =  "api/payment/initAndSubmit"
+    public static let UI : String = "api/data/paymentMethods"
+    
     
     public static var BASE_URL : String? = nil
     

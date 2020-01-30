@@ -26,6 +26,11 @@
 		C72750CB23A75AAD00AE9037 /* PayHere.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C72750CA23A75AAD00AE9037 /* PayHere.storyboard */; };
 		C72750CD23A75B8A00AE9037 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C72750CC23A75B8A00AE9037 /* image.xcassets */; };
 		C746D510234C9A7300F9D06F /* PHPrecentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C746D50F234C9A7300F9D06F /* PHPrecentController.swift */; };
+		C75702BB23D802ED00805AF8 /* PaymentUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75702BA23D802ED00805AF8 /* PaymentUI.swift */; };
+		C75702BD23D8381700805AF8 /* WVCheckMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75702BC23D8381600805AF8 /* WVCheckMark.swift */; };
+		C75702BF23D963F700805AF8 /* PHInitialRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75702BE23D963F600805AF8 /* PHInitialRequest.swift */; };
+		C75702C123D9642C00805AF8 /* PHInitRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75702C023D9642C00805AF8 /* PHInitRequest.swift */; };
+		C75702C323D964A700805AF8 /* PHEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75702C223D964A700805AF8 /* PHEnums.swift */; };
 		C75D50D823BCC61100088CDB /* PHInitResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D50D723BCC61100088CDB /* PHInitResponse.swift */; };
 		C793DE6023C717C900666008 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C793DE5F23C717C900666008 /* AppDelegate.swift */; };
 		C793DE6223C717C900666008 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C793DE6123C717C900666008 /* SceneDelegate.swift */; };
@@ -92,6 +97,11 @@
 		C72750CA23A75AAD00AE9037 /* PayHere.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PayHere.storyboard; sourceTree = "<group>"; };
 		C72750CC23A75B8A00AE9037 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
 		C746D50F234C9A7300F9D06F /* PHPrecentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPrecentController.swift; sourceTree = "<group>"; };
+		C75702BA23D802ED00805AF8 /* PaymentUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentUI.swift; sourceTree = "<group>"; };
+		C75702BC23D8381600805AF8 /* WVCheckMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WVCheckMark.swift; sourceTree = "<group>"; };
+		C75702BE23D963F600805AF8 /* PHInitialRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHInitialRequest.swift; sourceTree = "<group>"; };
+		C75702C023D9642C00805AF8 /* PHInitRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHInitRequest.swift; sourceTree = "<group>"; };
+		C75702C223D964A700805AF8 /* PHEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHEnums.swift; sourceTree = "<group>"; };
 		C75D50D723BCC61100088CDB /* PHInitResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHInitResponse.swift; sourceTree = "<group>"; };
 		C793DE5D23C717C900666008 /* demoapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demoapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C793DE5F23C717C900666008 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -192,6 +202,10 @@
 				8A74D7F620528E5C00CF10AB /* Item.swift */,
 				8A74D7F520528E5B00CF10AB /* StatusResponse.swift */,
 				C75D50D723BCC61100088CDB /* PHInitResponse.swift */,
+				C75702BA23D802ED00805AF8 /* PaymentUI.swift */,
+				C75702BE23D963F600805AF8 /* PHInitialRequest.swift */,
+				C75702C023D9642C00805AF8 /* PHInitRequest.swift */,
+				C75702C223D964A700805AF8 /* PHEnums.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -204,6 +218,7 @@
 				C799349623A9FEFC005E5A7B /* PayOptionCollectionViewCell.xib */,
 				C7A7DA3123C5D6F90029210E /* HeaderCollectionReusableView.swift */,
 				C7A7DA3223C5D6F90029210E /* HeaderCollectionReusableView.xib */,
+				C75702BC23D8381600805AF8 /* WVCheckMark.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -437,11 +452,16 @@
 				8A74D7FC20528E5C00CF10AB /* Address.swift in Sources */,
 				8A74D7FD20528E5C00CF10AB /* InitRequest.swift in Sources */,
 				C799349723A9FEFC005E5A7B /* PayOptionCollectionViewCell.swift in Sources */,
+				C75702BB23D802ED00805AF8 /* PaymentUI.swift in Sources */,
 				8A74D7EF20528E3900CF10AB /* PHResponse.swift in Sources */,
 				8A74D7F120528E3900CF10AB /* PHConstants.swift in Sources */,
+				C75702C123D9642C00805AF8 /* PHInitRequest.swift in Sources */,
+				C75702C323D964A700805AF8 /* PHEnums.swift in Sources */,
 				8A74D7EE20528E3900CF10AB /* PHViewController.swift in Sources */,
 				C746D510234C9A7300F9D06F /* PHPrecentController.swift in Sources */,
 				8A74D7F920528E5C00CF10AB /* Customer.swift in Sources */,
+				C75702BD23D8381700805AF8 /* WVCheckMark.swift in Sources */,
+				C75702BF23D963F700805AF8 /* PHInitialRequest.swift in Sources */,
 				8A74D7FB20528E5C00CF10AB /* Item.swift in Sources */,
 				C75D50D823BCC61100088CDB /* PHInitResponse.swift in Sources */,
 				8A74D7F220528E3900CF10AB /* PHConfigs.swift in Sources */,
@@ -673,7 +693,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = lk.bhasha.helakuru;
+				PRODUCT_BUNDLE_IDENTIFIER = lk.bhasha.allianz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -694,7 +714,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = lk.bhasha.helakuru;
+				PRODUCT_BUNDLE_IDENTIFIER = lk.bhasha.allianz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

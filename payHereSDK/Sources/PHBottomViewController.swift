@@ -26,15 +26,26 @@ internal class PHBottomViewController: UIViewController {
     @IBOutlet var lblselectedMethod: UILabel!
     @IBOutlet var lblMethodPrecentTitle: UILabel!
     @IBOutlet var viewNavigationWrapper: UIView!
+    @IBOutlet var lblThankYou: UILabel!
+    
+    @IBOutlet var viewPaymentSucess: UIView!
+    @IBOutlet var lblPaymentID: UILabel!
+    @IBOutlet var lblSecureWindow: UILabel!
+    @IBOutlet weak var checkMark: WVCheckMark!
+    @IBOutlet var lblPaymentStatus: UILabel!
     
     internal var initialRequest : PHInitialRequest?
     internal var isSandBoxEnabled : Bool = false
     internal var delegate : PHViewControllerDelegate?
     internal var orgHeight : CGFloat = 0
     internal var keyBoardHeightMax : CGFloat = 0
+    internal var shouldShowSucessView : Bool = true
     
     private var initRequest : PHInitRequest?
-    private var initResonse : PHInitResponse?
+    private var initRepsonse : PHInitResponse?
+    private var paymentUI : PaymentUI = PaymentUI()
+    private var selectedPaymentOption : PaymentOption?
+    private var apiMethod : SelectedAPI = .CheckOut
     private var paymentOption : [(String , [PaymentOption])] {
         
         get{
@@ -44,7 +55,6 @@ internal class PHBottomViewController: UIViewController {
                 ),("Mobile Wallet",[PaymentOption(name: "Genie", image: getImage(withImageName: "genie"), optionValue: "GENIE"),PaymentOption(name: "Frimi", image: getImage(withImageName: "frimi"), optionValue: "FRIMI"),PaymentOption(name: "Ez Cash", image: getImage(withImageName: "ezcash"), optionValue: "EZCASH"),PaymentOption(name: "m Cash", image: getImage(withImageName: "mcash"), optionValue: "MCASH")]),("Internet Banking",[PaymentOption(name: "Vishwa", image: getImage(withImageName: "vishwa"), optionValue: "VISHWA"),PaymentOption(name: "HNB", image: getImage(withImageName: "hnb"), optionValue: "HNB")])]
         }
     }
-   
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +83,8 @@ internal class PHBottomViewController: UIViewController {
         
         self.viewNavigationWrapper.addGestureRecognizer(tapGestrue)
         self.viewNavigationWrapper.isHidden = true
+        self.lblThankYou.isHidden = true
+        self.viewPaymentSucess.isHidden = true
         
         
         self.initRequest = createInitRequest(phInitialRequest: initialRequest!)
@@ -80,6 +92,22 @@ internal class PHBottomViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowFunction(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil) //WillShow and not Did ;) The View will run animated and smooth
                NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideFunction(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        if let data = UserDefaults().data(forKey: PHConstants.UI){
+            do{
+                self.paymentUI = try newJSONDecoder().decode(PaymentUI.self, from: data)
+                
+            }catch{
+                print(error)
+            }
+            self.getPaymentUI()
+        }else{
+            self.getPaymentUI()
+        }
+        
+        
+        
+        
         
     }
     
@@ -168,7 +196,12 @@ internal class PHBottomViewController: UIViewController {
         }
         
         initialSubmitRequest.currency = phInitialRequest.currency?.rawValue
-        initialSubmitRequest.amount = phInitialRequest.amount
+        if(phInitialRequest.amount == nil){
+            initialSubmitRequest.amount = nil
+            self.apiMethod = .PreApproval
+        }else{
+            initialSubmitRequest.amount = phInitialRequest.amount
+        }
         
         initialSubmitRequest.deliveryAddress = phInitialRequest.deliveryAddress
         initialSubmitRequest.deliveryCity = phInitialRequest.deliveryCity
@@ -180,15 +213,16 @@ internal class PHBottomViewController: UIViewController {
         initialSubmitRequest.custom2 = phInitialRequest.custom2
         
         if(phInitialRequest.startupFee == nil){
-            initialSubmitRequest.startupFee = 0.0
+            initialSubmitRequest.startupFee = nil
         }else{
             initialSubmitRequest.startupFee = phInitialRequest.startupFee
         }
         
         
         if(phInitialRequest.recurrence == nil){
-            initialSubmitRequest.recurrence = ""
+            initialSubmitRequest.recurrence = nil
             initialSubmitRequest.auto = false
+            self.apiMethod = .Recurrence
         }else{
             switch phInitialRequest.recurrence {
             case .Month(duration: (let duration)):
@@ -205,8 +239,9 @@ internal class PHBottomViewController: UIViewController {
         }
         
         if(phInitialRequest.duration == nil){
-            initialSubmitRequest.duration = ""
+            initialSubmitRequest.duration = nil
             initialSubmitRequest.auto = false
+            
         }else{
             switch phInitialRequest.duration {
             case .Week(duration: (let duration)):
@@ -220,8 +255,12 @@ internal class PHBottomViewController: UIViewController {
             default:
                 print("Nothing Provided")
             }
+            self.apiMethod = .Recurrence
             initialSubmitRequest.auto = true
         }
+        
+        
+        
         
         initialSubmitRequest.referer = Bundle.main.bundleIdentifier
         
@@ -234,12 +273,14 @@ internal class PHBottomViewController: UIViewController {
     
     
     
-    private func startProcess(){
+    private func startProcess(paymentMethod : String){
+        
+        self.initRequest?.method = paymentMethod
         
         let validate = self.Validate()
         
         if(validate == nil){
-            checkNetworkAvailability();
+            checkNetworkAvailability(paymentMethod: paymentMethod);
         }else{
             self.dismiss(animated: true, completion: {
                 let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: validate as Any])
@@ -249,7 +290,7 @@ internal class PHBottomViewController: UIViewController {
         
     }
     
-    private func checkNetworkAvailability(){
+    private func checkNetworkAvailability(paymentMethod : String){
         
         var connection : Bool = false
         
@@ -284,7 +325,7 @@ internal class PHBottomViewController: UIViewController {
                     
                 }else{
                     //MARK:Start sending requests
-                    self.sentInitRequest()
+                    self.sentInitRequest(paymentMethod: paymentMethod)
                 }
             }
         }
@@ -295,12 +336,15 @@ internal class PHBottomViewController: UIViewController {
     
     @objc private func viewWrapperClicked(){
         
+        self.calculateHeight()
+        
         self.webView.isHidden = true
         self.webView.loadHTMLString("", baseURL: nil)
         self.viewNavigationWrapper.isHidden = true
         
         self.collectionView.isHidden = false
         self.lblMethodPrecentTitle.isHidden = false
+        self.progressBar.isHidden = true
         
         
     }
@@ -311,7 +355,11 @@ internal class PHBottomViewController: UIViewController {
         bottomConstraint.constant = -height.constant
         self.view.layoutIfNeeded()
         
-        startProcess()
+        self.collectionView.isHidden = false
+        self.progressBar.isHidden = true
+        
+        
+        
     }
     
     
@@ -321,6 +369,7 @@ internal class PHBottomViewController: UIViewController {
         
         bottomConstraint.constant = 0
         animateChanges()
+        
     }
     
     
@@ -375,23 +424,35 @@ internal class PHBottomViewController: UIViewController {
     }
     
     
-    private func sentInitRequest(){
+    private func sentInitRequest(paymentMethod : String){
+        
+        //TODO Submit And Init
         
         self.progressBar.isHidden = false
         self.collectionView.isHidden = true
         
-        let request = initRequest?.toRawRequest(url: "\(PHConfigs.BASE_URL ?? "https://www.payhere.lk/pay/")api/payment/init")
+        
+        print("Url :","\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.SUBMIT)")
+        
+        let request = initRequest?.toRawRequest(url: "\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.SUBMIT)")
         
         Alamofire.request(request!).validate()
+            .responseString{ response in
+                print(response.result.value ?? "")
+        }
             .responseData { (response) in
                 if let data = response.data{
                     do{
                         let  temp = try newJSONDecoder().decode(PHInitResponse.self, from: data)
                         
                         if(temp.status == 1){
-                            self.initResonse = temp
+                            self.initRepsonse = temp
                             self.progressBar.isHidden = true
-                            self.collectionView.isHidden = false
+                            self.collectionView.isHidden = true
+                            
+                            self.initWebView(self.initRepsonse!)
+                            
+                            
                         }else{
                             self.dismiss(animated: true, completion: {
                                 let error = NSError(domain: "", code: 501, userInfo: [NSLocalizedDescriptionKey: temp.msg ?? ""])
@@ -409,39 +470,12 @@ internal class PHBottomViewController: UIViewController {
         }
         
     }
-    
-    private func sentPaymentOptionSelected(_ submit : Submit){
         
-        self.progressBar.isHidden = false
-        self.collectionView.isHidden = true
-        
-        let request = submit.toRawRequest(url: "\(PHConfigs.BASE_URL ?? "https://www.payhere.lk/pay/")api/payment/submit")
+    private func initWebView(_ submitResponse : PHInitResponse){
         
         
-        Alamofire.request(request).validate()
-            .responseData { (response) in
-                if let data = response.data{
-                    do{
-                        let  temp = try newJSONDecoder().decode(SubmitResponse.self, from: data)
-                        
-                        self.initWebView(temp)
-                        
-                    }catch{
-                        //MARK:TODO
-                        //ERROR HANDLING
-                        self.dismiss(animated: true, completion: {
-                            self.delegate?.onErrorReceived(error: error)
-                        })
-                       
-                    }
-                }
-        }
         
-    }
-    
-    private func initWebView(_ submitResponse : SubmitResponse){
-        
-        if let url = submitResponse.data?.url{
+        if let url = submitResponse.data?.redirection?.url{
             
             self.collectionView.isHidden = true
             self.webView.isHidden = false
@@ -450,7 +484,7 @@ internal class PHBottomViewController: UIViewController {
             self.webView.uiDelegate = self
             self.webView.navigationDelegate = self
             
-            
+            self.calculateWebHeight()
             
             if let URL = URL(string: url){
                 
@@ -475,7 +509,29 @@ internal class PHBottomViewController: UIViewController {
             })
         }
         
+    }
+    
+    func calculateWebHeight(){
         
+        let data = paymentUI.data![self.selectedPaymentOption!.optionValue]
+        let visa = paymentUI.data!["VISA"]
+        
+        
+        
+        
+        let selectedHeight = CGFloat(data?.viewSize?.height ?? 0)
+        let visaHeight = CGFloat(visa?.viewSize?.height ?? 0)
+        
+        
+        var calcHeight = (selectedHeight/visaHeight) * orgHeight
+        
+        if(calcHeight > self.view.frame.size.height){
+            calcHeight = (self.view.frame.size.height - 20)
+        }
+        
+        height.constant = calcHeight
+        self.orgHeight = calcHeight
+        self.animateChanges()
         
     }
     
@@ -494,13 +550,8 @@ internal class PHBottomViewController: UIViewController {
     
     
     private func getImage(withImageName : String) -> UIImage{
-        
-        
-        
         return UIImage(named: withImageName, in: Bundle(for: PHBottomViewController.self), compatibleWith: nil)!
     }
-    
-    
     
     private func checkStatus(orderKey : String){
         
@@ -531,6 +582,12 @@ internal class PHBottomViewController: UIViewController {
     
     private func responseListner(response : StatusResponse?){
         
+        self.lblThankYou.isHidden = false
+        self.viewNavigationWrapper.isHidden = true
+        self.lblselectedMethod.isHidden = true
+        self.collectionView.isHidden = true
+        self.viewPaymentSucess.isHidden = false
+        
         guard let lastResponse = response else{
             
             self.dismiss(animated: true, completion: {
@@ -540,6 +597,12 @@ internal class PHBottomViewController: UIViewController {
             return
         }
         
+        if(shouldShowSucessView){
+            
+            showStatus(response: lastResponse)
+            
+        }else{
+            
         if(lastResponse.getStatusState() == StatusResponse.Status.SUCCESS || lastResponse.getStatusState() == StatusResponse.Status.FAILED){
             delegate?.onResponseReceived(response: PHResponse(status: self.getStatusFromResponse(lastResponse: lastResponse), message: "Payment completed. Check response data", data: lastResponse))
         }
@@ -548,6 +611,59 @@ internal class PHBottomViewController: UIViewController {
             self.progressBar?.stopAnimating()
             self.progressBar?.isHidden = true
         })
+            
+        }
+    }
+    
+    private func showStatus(response : StatusResponse?){
+        
+        guard let lastResponse = response else{
+            
+            self.dismiss(animated: true, completion: {
+                self.delegate?.onResponseReceived(response: nil)
+            })
+            
+            return
+        }
+        
+        if(lastResponse.getStatusState() == StatusResponse.Status.SUCCESS){
+            checkMark.clear()
+            checkMark.start()
+            self.lblPaymentStatus.text = "Payment Approved"
+            self.lblPaymentID.text = "Payment ID #\(lastResponse.paymentNo ?? 0.0)"
+        }else{
+            checkMark.clear()
+            checkMark.startX()
+            self.lblPaymentStatus.text = "Payment Decline"
+            self.lblPaymentID.text = lastResponse.message ?? "Error completing the payment"
+            
+        }
+        
+        self.statusResponse = lastResponse
+        
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+    }
+    
+    private var count : Int = 5
+    private var statusResponse : StatusResponse?
+    private var timer : Timer?
+    
+    
+    
+    @objc private func update() {
+        if(count > 0) {
+            count = count - 1
+            lblSecureWindow.text = String(format :"This secure payment window is cloing in %d seconds...",count)
+        }else{
+            delegate?.onResponseReceived(response: PHResponse(status: self.getStatusFromResponse(lastResponse: statusResponse!), message: "Payment completed. Check response data", data: statusResponse!))
+            
+            self.timer?.invalidate()
+            
+            self.dismiss(animated: true, completion: {
+                self.progressBar?.stopAnimating()
+                self.progressBar?.isHidden = true
+            })
+        }
     }
     
     private func getStatusFromResponse(lastResponse : StatusResponse) -> Int{
@@ -595,6 +711,44 @@ internal class PHBottomViewController: UIViewController {
         return nil
     }
     
+    func getPaymentUI(){
+        
+        
+        let urlRequest = URLRequest(url: URL(string: "\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.UI)")!)
+        
+        Alamofire.request(urlRequest).validate()
+            .responseData { (response) in
+                if let data = response.data{
+                    do{
+                        let  temp = try newJSONDecoder().decode(PaymentUI.self, from: data)
+                        
+                        if(temp.status == 1){
+                            
+                            UserDefaults().set(data, forKey: PHConstants.UI)
+                            
+                            self.paymentUI = temp
+                            
+                            
+                        }else{
+                            self.dismiss(animated: true, completion: {
+                                let error = NSError(domain: "", code: 501, userInfo: [NSLocalizedDescriptionKey: temp.msg ?? ""])
+                                self.delegate?.onErrorReceived(error: error)
+                            })
+                        }
+                        
+                    }catch{
+                        
+                        self.dismiss(animated: true, completion: {
+                            self.delegate?.onErrorReceived(error: error)
+                        })
+                    }
+                }
+        }
+        
+        
+        
+    }
+    
     
     /*
      // MARK: - Navigation
@@ -622,8 +776,8 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
         
         
             if((navigationAction.request.mainDocumentURL?.absoluteString.contains("https://www.payhere.lk/pay/payment/complete"))!){
-                if(self.initResonse?.data?.order != nil){
-                    self.checkStatus(orderKey: self.initResonse?.data!.order.orderKey ?? "")
+                if(self.initRepsonse?.data?.order != nil){
+                    self.checkStatus(orderKey: self.initRepsonse?.data!.order?.orderKey ?? "")
                 }
             }
         
@@ -713,11 +867,8 @@ extension PHBottomViewController :  UICollectionViewDelegate, UICollectionViewDa
         
         let payOption = paymentOption[indexPath.section].1[indexPath.row]
         
-        
-        let submit =  Submit(key: initResonse?.data!.order.orderKey ?? "", method: payOption.optionValue)
-        
-        sentPaymentOptionSelected(submit)
-        
+        self.selectedPaymentOption = payOption
+        startProcess(paymentMethod: payOption.optionValue)
         self.viewNavigationWrapper.isHidden = false
         self.lblMethodPrecentTitle.isHidden = true
         self.lblselectedMethod.text = paymentOption[indexPath.section].0
@@ -731,72 +882,3 @@ private struct PaymentOption {
     var optionValue : String
     
 }
-
-private struct Submit : Mappable{
-    
-    var key : String?
-    var method : String?
-    
-    public init?(map: Map) {
-        
-    }
-    
-    public init(key : String, method : String){
-        self.key = key
-        self.method = method
-    }
-    
-    public mutating func mapping(map: Map) {
-        key <- map["key"]
-        method <- map["method"]
-    }
-    
-}
-
-extension Submit{
-    
-    func toRawRequest(url : String) -> URLRequest{
-        
-        var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "POST"
-        
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let pjson = self.toJSONString(prettyPrint: false)
-        
-        let data = (pjson?.data(using: .utf8))! as Data
-        
-        request.httpBody = data
-        
-        
-        return request
-        
-    }
-    
-}
-
-private class SubmitResponse: Codable {
-    var status: Int?
-    var msg: String?
-    var data: SubmitDataClass?
-    
-    init(status: Int?, msg: String?, data: SubmitDataClass?) {
-        self.status = status
-        self.msg = msg
-        self.data = data
-    }
-}
-
-// MARK: - DataClass
-private class SubmitDataClass: Codable {
-    var redirectType: String?
-    var url: String?
-    
-    init(redirectType: String?, url: String?) {
-        self.redirectType = redirectType
-        self.url = url
-    }
-}
-
-
-

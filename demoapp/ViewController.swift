@@ -12,7 +12,7 @@ import payHereSDK
 class ViewController: UIViewController {
     
     
-    let merchandID = "<<Your PayHere Merchent ID>>"
+    let merchandID = "210251"
     
    
     var initRequest : PHInitialRequest?
@@ -20,10 +20,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let item1 = Item(id: "001", name: "PayHere Test Item 01", quantity: 1, amount: 120.0)
-        let item2 = Item(id: "002", name: "PayHere Test Item 02", quantity: 2, amount: 150.0)
+        let item1 = Item(id: "001", name: "PayHere Test Item 01", quantity: 1, amount: 25.0)
+        let item2 = Item(id: "002", name: "PayHere Test Item 02", quantity: 2, amount: 25.0)
         
-        initRequest = PHInitialRequest(merchantID: merchandID, notifyURL: "", firstName: "Pay", lastName: "Here", email: "test@test.com", phone: "+9477123456", address: "Colombo", city: "Colombo", country: "Sri Lanka", orderID: "001", itemsDescription: "PayHere SDK Sample", itemsMap: [item1,item2], currency: .LKR, amount: 270.00, deliveryAddress: "", deliveryCity: "", deliveryCountry: "", custom1: "custom 01", custom2: "custom 02")
+        initRequest = PHInitialRequest(merchantID: merchandID, notifyURL: "", firstName: "Pay", lastName: "Here", email: "test@test.com", phone: "+9477123456", address: "Colombo", city: "Colombo", country: "Sri Lanka", orderID: "001", itemsDescription: "PayHere SDK Sample", itemsMap: [item1,item2], currency: .LKR, amount: 50.00, deliveryAddress: "", deliveryCity: "", deliveryCountry: "", custom1: "custom 01", custom2: "custom 02")
         
     }
     

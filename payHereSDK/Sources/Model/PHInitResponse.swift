@@ -8,33 +8,41 @@
 
 import Foundation
 
-// MARK: - InitResponse
+// MARK: - PHInitResponse
 struct PHInitResponse: Codable {
-    let status: Int
-    let msg: String?
-    let data: DataClass?
+    var status: Int?
+    var msg: String?
+    var data: DataClass?
 }
 
 // MARK: - DataClass
 struct DataClass: Codable {
-    let order: Order
-    let business: Business
-    let paymentMethods: [String]
+    var order: Order?
+    var business: Business?
+    var paymentMethods: [String]?
+    var redirection: Redirection?
 }
 
 // MARK: - Business
 struct Business: Codable {
-    let name: String
-    let logo: String
+    var name: String?
+    var logo: String?
 }
 
 // MARK: - Order
 struct Order: Codable {
-    let orderKey: String
-    let amount: Int
-    let amountFormatted, currency, currencyFormatted, shortDescription: String
-    let longDescription: String?
+    var orderKey: String?
+    var amount: Int?
+    var amountFormatted, currency, currencyFormatted, shortDescription: String?
+    var longDescription: String?
 }
+
+// MARK: - Redirection
+struct Redirection: Codable {
+    var redirectType: String?
+    var url: String?
+}
+
 
 // MARK: - Encode/decode helpers
 
