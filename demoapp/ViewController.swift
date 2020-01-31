@@ -12,7 +12,7 @@ import payHereSDK
 class ViewController: UIViewController {
     
     
-    let merchandID = "210251"
+    let merchandID = "<<>>"
     
    
     var initRequest : PHInitialRequest?
@@ -70,7 +70,17 @@ extension ViewController : PHViewControllerDelegate{
     }
     
     func onResponseReceived(response: PHResponse<Any>?) {
-        print("🤜 Sucess",response!)
+        if(response?.isSuccess())!{
+            
+            guard let resp = response?.getData() as? StatusResponse else{
+                return
+            }
+            
+            //Payment Sucess
+            
+        }else{
+            response?.getMessage()
+        }
     }
     
     
