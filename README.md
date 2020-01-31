@@ -62,8 +62,11 @@ PHPrecentController.precent(from: self, isSandBoxEnabled: false, withInitRequest
 
 ```swifit
 extension <<ViewController>> : PHViewControllerDelegate{
+    func onErrorReceived(error: Error) {
+        print("✋ Error",error)
+    }
+    
     func onResponseReceived(response: PHResponse<Any>?) {
-        
         if(response?.isSuccess())!{
             
             guard let resp = response?.getData() as? StatusResponse else{
