@@ -27,12 +27,14 @@ internal class PHBottomViewController: UIViewController {
     @IBOutlet var lblMethodPrecentTitle: UILabel!
     @IBOutlet var viewNavigationWrapper: UIView!
     @IBOutlet var lblThankYou: UILabel!
+    @IBOutlet var viewSandboxNoteBanner: UIView!
     
     @IBOutlet var viewPaymentSucess: UIView!
     @IBOutlet var lblPaymentID: UILabel!
     @IBOutlet var lblSecureWindow: UILabel!
     @IBOutlet weak var checkMark: WVCheckMark!
     @IBOutlet var lblPaymentStatus: UILabel!
+    
     
     internal var initialRequest : PHInitialRequest?
     internal var isSandBoxEnabled : Bool = false
@@ -69,8 +71,10 @@ internal class PHBottomViewController: UIViewController {
         
         if(isSandBoxEnabled){
             PHConfigs.setBaseUrl(url: PHConfigs.SANDBOX_URL)
+            self.viewSandboxNoteBanner.isHidden = false
         }else{
             PHConfigs.setBaseUrl(url: PHConfigs.LIVE_URL)
+            self.viewSandboxNoteBanner.isHidden = true
         }
         
         self.collectionView.delegate = self
@@ -103,6 +107,8 @@ internal class PHBottomViewController: UIViewController {
         }else{
             self.getPaymentUI()
         }
+        
+        webView.scrollView.delegate = self
         
     }
     
@@ -849,6 +855,12 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
         
     }
     
+}
+
+extension PHBottomViewController : UIScrollViewDelegate {
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        scrollView.pinchGestureRecognizer?.isEnabled = false
+    }
 }
 
 extension PHBottomViewController :  UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{

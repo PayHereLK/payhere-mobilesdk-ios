@@ -18,15 +18,15 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credit/Debit Card" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLO-7U-G61">
-                            <rect key="frame" x="8" y="16" width="120" height="18"/>
+                            <rect key="frame" x="15" y="16" width="120" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="TLO-7U-G61" firstAttribute="leading" secondItem="oPB-pk-Xtd" secondAttribute="leading" constant="8" id="gFX-Y2-w3K"/>
+                        <constraint firstItem="TLO-7U-G61" firstAttribute="leading" secondItem="oPB-pk-Xtd" secondAttribute="leading" constant="15" id="gFX-Y2-w3K"/>
                         <constraint firstItem="TLO-7U-G61" firstAttribute="centerY" secondItem="oPB-pk-Xtd" secondAttribute="centerY" id="vkH-5P-7ta"/>
                     </constraints>
                 </view>

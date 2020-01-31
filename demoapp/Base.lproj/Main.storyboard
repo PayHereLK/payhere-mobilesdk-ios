@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,7 +23,7 @@
                                     <constraint firstAttribute="height" constant="50" id="aJ9-Zz-ERB"/>
                                 </constraints>
                                 <size key="titleShadowOffset" width="1" height="1"/>
-                                <state key="normal" title="Pay with PayHere">
+                                <state key="normal" title="Check Out with PayHere">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -31,7 +32,26 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="btnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gTB-Vl-xkS"/>
+                                    <action selector="btnCheckOutPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8PO-nj-uko"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAm-4R-lEa">
+                                <rect key="frame" x="62" y="510" width="290" height="50"/>
+                                <color key="backgroundColor" red="0.2113312483" green="0.37968736889999999" blue="0.82357209919999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="9Ag-Db-4fO"/>
+                                </constraints>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="Pre Approval Payments with PayHere">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="btnPreApprovalPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="npz-Dq-jje"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Group 96" translatesAutoresizingMaskIntoConstraints="NO" id="VdI-7c-ppM">
@@ -40,14 +60,39 @@
                                     <constraint firstAttribute="width" secondItem="VdI-7c-ppM" secondAttribute="height" multiplier="69:67" id="A44-wM-YIn"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ets-6y-OuV">
+                                <rect key="frame" x="62" y="568" width="290" height="50"/>
+                                <color key="backgroundColor" red="0.2113312483" green="0.37968736889999999" blue="0.82357209919999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="7WG-8A-ESR"/>
+                                </constraints>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="Recurring Payments with PayHere">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="btnRecurringPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ngk-um-MdY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="WAm-4R-lEa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6sn-d6-cqV"/>
                             <constraint firstItem="JIu-tL-pYO" firstAttribute="top" secondItem="VdI-7c-ppM" secondAttribute="bottom" constant="50" id="GFY-H8-mjq"/>
+                            <constraint firstItem="WAm-4R-lEa" firstAttribute="width" secondItem="JIu-tL-pYO" secondAttribute="width" id="IKo-KY-N60"/>
+                            <constraint firstItem="ets-6y-OuV" firstAttribute="width" secondItem="WAm-4R-lEa" secondAttribute="width" id="Sef-jO-coJ"/>
                             <constraint firstItem="JIu-tL-pYO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Yf4-Kg-gQH"/>
+                            <constraint firstItem="ets-6y-OuV" firstAttribute="top" secondItem="WAm-4R-lEa" secondAttribute="bottom" constant="8" id="fMj-Rc-5an"/>
                             <constraint firstItem="VdI-7c-ppM" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="kFy-gX-LpJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VdI-7c-ppM" secondAttribute="trailing" id="mI9-dw-Z0Z"/>
                             <constraint firstItem="VdI-7c-ppM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="s3i-o1-l9q"/>
+                            <constraint firstItem="ets-6y-OuV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ta6-Wq-0DR"/>
+                            <constraint firstItem="WAm-4R-lEa" firstAttribute="top" secondItem="JIu-tL-pYO" secondAttribute="bottom" constant="8" id="upg-b5-ebD"/>
                             <constraint firstItem="JIu-tL-pYO" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.7" id="z9I-dj-PzE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
