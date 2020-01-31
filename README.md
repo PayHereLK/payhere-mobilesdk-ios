@@ -56,12 +56,12 @@ import payHereSDK
 ```
 #### PreApproval
 ```swift
- initRequest = PHInitialRequest(merchantID: merchandID, notifyURL: "", firstName: "", lastName: "", email: "", phone: "", address: "", city: "", country: "", orderID: "001", itemsDescription: "", itemsMap: [item1], currency: .LKR, custom1: "", custom2: "")
+ let initRequest = PHInitialRequest(merchantID: merchandID, notifyURL: "", firstName: "", lastName: "", email: "", phone: "", address: "", city: "", country: "", orderID: "001", itemsDescription: "", itemsMap: [item1], currency: .LKR, custom1: "", custom2: "")
 ```
 
 #### Recurring
 ```swift
- initRequest = PHInitialRequest(merchantID: merchandID, notifyURL: "", firstName: "", lastName: "", email: "", phone: "", address: "", city: "", country: "", orderID: "002", itemsDescription: "", itemsMap: [item1], currency: .LKR, amount: 60.50, deliveryAddress: "", deliveryCity: "", deliveryCountry: "", custom1: "", custom2: "", startupFee: 0.0, recurrence: .Month(duration: 2), duration: .Forver)
+ let initRequest = PHInitialRequest(merchantID: merchandID, notifyURL: "", firstName: "", lastName: "", email: "", phone: "", address: "", city: "", country: "", orderID: "002", itemsDescription: "", itemsMap: [item1], currency: .LKR, amount: 60.50, deliveryAddress: "", deliveryCity: "", deliveryCountry: "", custom1: "", custom2: "", startupFee: 0.0, recurrence: .Month(duration: 2), duration: .Forver)
 ```
 
 ### Precent PayHere Payment View
