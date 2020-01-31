@@ -90,7 +90,7 @@ internal class PHBottomViewController: UIViewController {
         self.initRequest = createInitRequest(phInitialRequest: initialRequest!)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowFunction(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil) //WillShow and not Did ;) The View will run animated and smooth
-               NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideFunction(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideFunction(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         if let data = UserDefaults().data(forKey: PHConstants.UI){
             do{
@@ -117,7 +117,7 @@ internal class PHBottomViewController: UIViewController {
         
         
         //MARK: Start PreApproval Process
-        if(self.apiMethod == .PreApproval){
+        if(self.apiMethod == .PreApproval || self.apiMethod == .Recurrence){
             self.collectionView.isHidden = true
             self.progressBar.isHidden = true
             self.selectedPaymentOption = PaymentOption(name: "Visa", image: getImage(withImageName: "visa"), optionValue: "VISA")
@@ -194,24 +194,24 @@ internal class PHBottomViewController: UIViewController {
         initialSubmitRequest.itemsDescription = phInitialRequest.itemsDescription
         
         if(phInitialRequest.itemsMap != nil){
-        
-        if(phInitialRequest.itemsMap!.count > 0){
             
-            var itemMap : [String : String] = [:]
-            
-            for (i,item) in (phInitialRequest.itemsMap?.enumerated())!{
+            if(phInitialRequest.itemsMap!.count > 0){
                 
-                itemMap[String(format: "item_name_%d", i+1)] = item.name
-                itemMap[String(format: "item_number_%d", i+1)] = item.id
-                itemMap[String(format: "amount_%d", i+1)] =  String(format : "%.2f",item.amount ?? 0.0)
-                itemMap[String(format: "quantity_%d", i+1)] = String(format : "%d",item.quantity ?? 0)
+                var itemMap : [String : String] = [:]
                 
-            }
-        
-            initialSubmitRequest.itemsMap = itemMap
-            
-        }else{
-            initialSubmitRequest.itemsMap = nil
+                for (i,item) in (phInitialRequest.itemsMap?.enumerated())!{
+                    
+                    itemMap[String(format: "item_name_%d", i+1)] = item.name
+                    itemMap[String(format: "item_number_%d", i+1)] = item.id
+                    itemMap[String(format: "amount_%d", i+1)] =  String(format : "%.2f",item.amount ?? 0.0)
+                    itemMap[String(format: "quantity_%d", i+1)] = String(format : "%d",item.quantity ?? 0)
+                    
+                }
+                
+                initialSubmitRequest.itemsMap = itemMap
+                
+            }else{
+                initialSubmitRequest.itemsMap = nil
             }
             
         }else{
@@ -247,17 +247,23 @@ internal class PHBottomViewController: UIViewController {
             initialSubmitRequest.auto = false
             
         }else{
+            
+            var recurrenceString : String = ""
+            
             switch phInitialRequest.recurrence {
             case .Month(duration: (let duration)):
-                print("Month :",duration)
+                recurrenceString = String(format : "%d Month",duration)
+                
             case .Week(duration: (let duration)):
-                print("Week :",duration)
+                recurrenceString = String(format : "%d Week",duration)
+                
             case .Year(duration: (let duration)):
-                print("Year :",duration)
+                recurrenceString = String(format : "%d Year",duration)
+                
             default:
-                print("Nothing Provided")
+                break
             }
-            
+            initialSubmitRequest.recurrence = recurrenceString
             initialSubmitRequest.auto = true
             self.apiMethod = .Recurrence
         }
@@ -267,19 +273,27 @@ internal class PHBottomViewController: UIViewController {
             initialSubmitRequest.auto = false
             
         }else{
+            
+            var durationString : String = ""
+            
             switch phInitialRequest.duration {
             case .Week(duration: (let duration)):
-                print("Week :",duration)
+                durationString = String(format : "%d Week",duration)
+                
             case .Month(duration: (let duration)):
-                print("Month :",duration)
+                durationString = String(format : "%d Month",duration)
+                
             case .Year(duration: (let duration)):
-                print("Year :",duration)
+                durationString = String(format : "%d Year",duration)
+                
             case .Forver:
-                print("Forver")
+                durationString = "Forever"
+                
             default:
-                print("Nothing Provided")
+                break
             }
             self.apiMethod = .Recurrence
+            initialSubmitRequest.duration = durationString
             initialSubmitRequest.auto = true
         }
         
@@ -343,8 +357,8 @@ internal class PHBottomViewController: UIViewController {
                 if (!connection) {
                     
                     self.dismiss(animated: true, completion: {
-                                   let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Unable to connect to the internet"])
-                                   self.delegate?.onErrorReceived(error: error)
+                        let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Unable to connect to the internet"])
+                        self.delegate?.onErrorReceived(error: error)
                     })
                     
                 }else{
@@ -356,20 +370,25 @@ internal class PHBottomViewController: UIViewController {
         
     }
     
-    
-    
     @objc private func viewWrapperClicked(){
         
-        self.calculateHeight()
-        
-        self.webView.isHidden = true
-        self.webView.loadHTMLString("", baseURL: nil)
-        self.viewNavigationWrapper.isHidden = true
-        
-        self.collectionView.isHidden = false
-        self.lblMethodPrecentTitle.isHidden = false
-        self.progressBar.isHidden = true
-        
+        if(apiMethod == .CheckOut){
+            self.calculateHeight()
+            
+            self.webView.isHidden = true
+            self.webView.loadHTMLString("", baseURL: nil)
+            self.viewNavigationWrapper.isHidden = true
+            
+            self.collectionView.isHidden = false
+            self.lblMethodPrecentTitle.isHidden = false
+            self.progressBar.isHidden = true
+            
+        }else{
+            self.dismiss(animated: true, completion: {
+                let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation Canceld"])
+                self.delegate?.onErrorReceived(error: error)
+            })
+        }
         
     }
     
@@ -453,43 +472,41 @@ internal class PHBottomViewController: UIViewController {
             .responseString{ response in
                 print(response.result.value ?? "")
         }
-            .responseData { (response) in
-                if let data = response.data{
-                    do{
-                        let  temp = try newJSONDecoder().decode(PHInitResponse.self, from: data)
+        .responseData { (response) in
+            if let data = response.data{
+                do{
+                    let  temp = try newJSONDecoder().decode(PHInitResponse.self, from: data)
+                    
+                    if(temp.status == 1){
+                        self.initRepsonse = temp
+                        self.progressBar.isHidden = true
+                        self.collectionView.isHidden = true
                         
-                        if(temp.status == 1){
-                            self.initRepsonse = temp
-                            self.progressBar.isHidden = true
-                            self.collectionView.isHidden = true
-                            
-                            self.initWebView(self.initRepsonse!)
-                            
-                            
-                        }else{
-                            self.dismiss(animated: true, completion: {
-                                let error = NSError(domain: "", code: 501, userInfo: [NSLocalizedDescriptionKey: temp.msg ?? ""])
-                                self.delegate?.onErrorReceived(error: error)
-                            })
-                        }
+                        self.initWebView(self.initRepsonse!)
                         
-                    }catch{
                         
+                    }else{
                         self.dismiss(animated: true, completion: {
+                            let error = NSError(domain: "", code: 501, userInfo: [NSLocalizedDescriptionKey: temp.msg ?? ""])
                             self.delegate?.onErrorReceived(error: error)
                         })
                     }
+                    
+                }catch{
+                    
+                    self.dismiss(animated: true, completion: {
+                        self.delegate?.onErrorReceived(error: error)
+                    })
                 }
+            }
         }
         
     }
-        
+    
     private func initWebView(_ submitResponse : PHInitResponse){
         
         self.viewNavigationWrapper.isHidden = false
         self.lblMethodPrecentTitle.isHidden = true
-        
-        
         
         if let url = submitResponse.data?.redirection?.url{
             
@@ -619,14 +636,14 @@ internal class PHBottomViewController: UIViewController {
             
         }else{
             
-        if(lastResponse.getStatusState() == StatusResponse.Status.SUCCESS || lastResponse.getStatusState() == StatusResponse.Status.FAILED){
-            delegate?.onResponseReceived(response: PHResponse(status: self.getStatusFromResponse(lastResponse: lastResponse), message: "Payment completed. Check response data", data: lastResponse))
-        }
-        
-        self.dismiss(animated: true, completion: {
-            self.progressBar?.stopAnimating()
-            self.progressBar?.isHidden = true
-        })
+            if(lastResponse.getStatusState() == StatusResponse.Status.SUCCESS || lastResponse.getStatusState() == StatusResponse.Status.FAILED){
+                delegate?.onResponseReceived(response: PHResponse(status: self.getStatusFromResponse(lastResponse: lastResponse), message: "Payment completed. Check response data", data: lastResponse))
+            }
+            
+            self.dismiss(animated: true, completion: {
+                self.progressBar?.stopAnimating()
+                self.progressBar?.isHidden = true
+            })
             
         }
     }
@@ -703,7 +720,7 @@ internal class PHBottomViewController: UIViewController {
                 return "Invalid amount";
             }
         }
-            
+        
         if (initRequest?.currency == nil || initRequest?.currency?.count != 3) {
             return "Invalid currency";
         }
@@ -725,9 +742,13 @@ internal class PHBottomViewController: UIViewController {
         
         initRequest?.referer = Bundle.main.bundleIdentifier
         
-        if(self.apiMethod == .PreApproval || self.apiMethod == .Recurrence){
+        if(self.apiMethod == .PreApproval){
             initRequest?.auto  = true
+        }else{
+            initRequest?.auto = false
         }
+        
+      
         
         
         return nil
@@ -797,11 +818,11 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
     internal func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         
-            if((navigationAction.request.mainDocumentURL?.absoluteString.contains("https://www.payhere.lk/pay/payment/complete"))!){
-                if(self.initRepsonse?.data?.order != nil){
-                    self.checkStatus(orderKey: self.initRepsonse?.data!.order?.orderKey ?? "")
-                }
+        if((navigationAction.request.mainDocumentURL?.absoluteString.contains("https://www.payhere.lk/pay/payment/complete"))!){
+            if(self.initRepsonse?.data?.order != nil){
+                self.checkStatus(orderKey: self.initRepsonse?.data!.order?.orderKey ?? "")
             }
+        }
         
         decisionHandler(.allow)
     }
@@ -825,8 +846,6 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
             }
             
         }
-        
-        
         
     }
     

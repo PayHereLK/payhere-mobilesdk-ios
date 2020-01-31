@@ -20,13 +20,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let item1 = Item(id: "001", name: "PayHere Test Item 01", quantity: 1, amount: 25.0)
+        let item1 = Item(id: "001", name: "PayHere Test Item 01", quantity: 1, amount: 60.00)
         let item2 = Item(id: "002", name: "PayHere Test Item 02", quantity: 2, amount: 25.0)
         
 //        initRequest = PHInitialRequest(merchantID: merchandID, notifyURL: "", firstName: "Pay", lastName: "Here", email: "test@test.com", phone: "+9477123456", address: "Colombo", city: "Colombo", country: "Sri Lanka", orderID: "001", itemsDescription: "PayHere SDK Sample", itemsMap: [item1,item2], currency: .LKR, amount: 50.00, deliveryAddress: "", deliveryCity: "", deliveryCountry: "", custom1: "custom 01", custom2: "custom 02")
         
         
-        initRequest = PHInitialRequest(merchantID: merchandID, notifyURL: "", firstName: "", lastName: "", email: "", phone: "", address: "", city: "", country: "", orderID: "001", itemsDescription: "", itemsMap: [item1], currency: .LKR, custom1: "", custom2: "")
+//        initRequest = PHInitialRequest(merchantID: merchandID, notifyURL: "", firstName: "", lastName: "", email: "", phone: "", address: "", city: "", country: "", orderID: "001", itemsDescription: "", itemsMap: [item1], currency: .LKR, custom1: "", custom2: "")
+        
+        
+        initRequest = PHInitialRequest(merchantID: merchandID, notifyURL: "", firstName: "", lastName: "", email: "", phone: "", address: "", city: "", country: "", orderID: "002", itemsDescription: "", itemsMap: [item1], currency: .LKR, amount: 60.50, deliveryAddress: "", deliveryCity: "", deliveryCountry: "", custom1: "", custom2: "", startupFee: 0.0, recurrence: .Month(duration: 2), duration: .Forver)
     }
     
     override func viewDidAppear(_ animated: Bool) {
