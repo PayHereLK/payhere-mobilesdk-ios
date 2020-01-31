@@ -51,61 +51,22 @@ import payHereSDK
 In order to make a payment request, first initialize PayHere ViewController as below;
 
 ```swift
-let phVC = PHViewController()
-phVC.initRequest = req
-phVC.delegate = self
-phVC.isSandBoxEnabled = true  
-phVC.modalPresentationStyle = .overCurrentContext
-        
-self.present(phVC, animated: true, completion: nil)
+PHPrecentController.precent(from: self, isSandBoxEnabled: false, withInitRequest: initRequest!, delegate: self)
 ```
 ### Create InitRequest
 
 ```swift
-        let req : InitRequest = InitRequest()
-        req.merchantId = <Your PayHere MerchantID>
-        req.merchantSecret = <Your PayHere Merchant Secret>
-        req.amount = 100.0
-        req.currency = "LKR"
-        req.orderId = "ABCDWXYZ"
-        req.itemsDescription = "1 Greeting Card"
-        req.custom1 = "This is the custom 1 message"
-        req.custom2 = "This is the custom 2 message"
-        
-        
-        let customer = Customer()
-        
-        customer.firstName = "Nuwan"
-        customer.lastName = "Kumara"
-        customer.email = "n@gmail.com"
-        customer.phone = "+94700000000"
-        
-        
-        let address = Address()
-        address.address = "No 43, Galle Road"
-        address.city = "Colombo"
-        address.country = "Sri Lanka"
-        
-        
-        let deliverAddress = Address()
-        deliverAddress.address = "No 100, Galle Road"
-        deliverAddress.city = "Kadawatha"
-        deliverAddress.country = "Sri Lanka"
-        
-        
-        customer.address = address
-        customer.deliveryAddress = deliverAddress
-        
-        req.customer = customer
-        
-        req.items = [Item(id: "1", name: "Card", quantity: 1)]
+ let initRequest = PHInitialRequest(merchantID: merchandID, notifyURL: "", firstName: "Pay", lastName: "Here", email: "test@test.com", phone: "+9477123456", address: "Colombo", city: "Colombo", country: "Sri Lanka", orderID: "001", itemsDescription: "PayHere SDK Sample", itemsMap: [item1,item2], currency: .LKR, amount: 50.00, deliveryAddress: "", deliveryCity: "", deliveryCountry: "", custom1: "custom 01", custom2: "custom 02")
 ```
 ### Handle Payment Response
 
 ```swifit
 extension <<ViewController>> : PHViewControllerDelegate{
+    func onErrorReceived(error: Error) {
+        print("✋ Error",error)
+    }
+    
     func onResponseReceived(response: PHResponse<Any>?) {
-        
         if(response?.isSuccess())!{
             
             guard let resp = response?.getData() as? StatusResponse else{
