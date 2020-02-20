@@ -13,8 +13,8 @@ PayHere Mobile SDK for iOS allows you to accept payments seamlessly within your 
 -  [Usage](#Usage)
 
 ## Requirements
-- iOS 10.0+
-- Xcode 10.2+
+- iOS 111.0+
+- Xcode 11.0+
 - Swift 5.0+
 
 ## Installation
