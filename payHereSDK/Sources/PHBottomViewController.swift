@@ -824,7 +824,7 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
     internal func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         
-        if((navigationAction.request.mainDocumentURL?.absoluteString.contains("https://www.payhere.lk/pay/payment/complete"))!){
+        if((navigationAction.request.mainDocumentURL?.absoluteString.contains("https://www.payhere.lk/pay/payment/complete"))! || (navigationAction.request.mainDocumentURL?.absoluteString.contains("https://sandbox.payhere.lk/pay/status/test"))!){
             if(self.initRepsonse?.data?.order != nil){
                 self.checkStatus(orderKey: self.initRepsonse?.data!.order?.orderKey ?? "")
             }
@@ -921,7 +921,12 @@ extension PHBottomViewController :  UICollectionViewDelegate, UICollectionViewDa
         let payOption = paymentOption[indexPath.section].1[indexPath.row]
         
         self.selectedPaymentOption = payOption
-        startProcess(paymentMethod: payOption.optionValue)
+        if(self.isSandBoxEnabled){
+            startProcess(paymentMethod: "TEST")
+        }else{
+            startProcess(paymentMethod: payOption.optionValue)
+        }
+        
         self.viewNavigationWrapper.isHidden = false
         self.lblMethodPrecentTitle.isHidden = true
         self.lblselectedMethod.text = paymentOption[indexPath.section].0
