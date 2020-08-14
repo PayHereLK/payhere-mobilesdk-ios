@@ -7,11 +7,11 @@
 //
 
 import Foundation
-import SwiftHash
 
-extension String {
-    
-    var md5: String? {
+
+//extension String {
+//
+//    var md5: String? {
 //        guard let data = self.data(using: String.Encoding.utf8) else { return nil }
 //
 //        let hash = data.withUnsafeBytes { (bytes: UnsafePointer<Data>) -> [UInt8] in
@@ -19,11 +19,11 @@ extension String {
 //            CC_MD5(bytes, CC_LONG(data.count), &hash)
 //            return hash
 //        }
-        
-       return  MD5(self)
-        
+
+//       return  MD5(self)
+
 //        return hash.map { String(format: "%02x", $0) }.joined()
-    }
+//    }
     
     
-}
+//}

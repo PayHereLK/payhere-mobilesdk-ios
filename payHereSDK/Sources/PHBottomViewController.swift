@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import ObjectMapper
+import AlamofireObjectMapper
 import WebKit
 
 public protocol PHViewControllerDelegate{
@@ -257,14 +258,14 @@ internal class PHBottomViewController: UIViewController {
             var recurrenceString : String = ""
             
             switch phInitialRequest.recurrence {
-            case .Month(duration: (let duration)):
-                recurrenceString = String(format : "%d Month",duration)
+            case .Month(period: (let period)):
+                recurrenceString = String(format : "%d Month",period)
                 
-            case .Week(duration: (let duration)):
-                recurrenceString = String(format : "%d Week",duration)
+            case .Week(period: (let period)):
+                recurrenceString = String(format : "%d Week",period)
                 
-            case .Year(duration: (let duration)):
-                recurrenceString = String(format : "%d Year",duration)
+            case .Year(period: (let period)):
+                recurrenceString = String(format : "%d Year",period)
                 
             default:
                 break
@@ -340,16 +341,14 @@ internal class PHBottomViewController: UIViewController {
         
         let net = NetworkReachabilityManager()
         
-        net?.startListening()
-        
-        net?.listener = { status in
+        net?.startListening(onUpdatePerforming: { (status) in
             if(net?.isReachable ?? false){
                 
                 switch status{
                 case .reachable(.ethernetOrWiFi):
                     connection = true
                     
-                case .reachable(.wwan):
+                case .reachable(.cellular):
                     connection = true
                     
                 case .notReachable:
@@ -372,7 +371,9 @@ internal class PHBottomViewController: UIViewController {
                     self.sentInitRequest(paymentMethod: paymentMethod)
                 }
             }
-        }
+        })
+        
+        
         
     }
     
@@ -387,6 +388,8 @@ internal class PHBottomViewController: UIViewController {
             
             self.collectionView.isHidden = false
             self.lblMethodPrecentTitle.isHidden = false
+            
+            self.isBackPressed = true
             self.progressBar.isHidden = true
             
         }else{
@@ -461,10 +464,12 @@ internal class PHBottomViewController: UIViewController {
         }
     }
     
+    var isBackPressed : Bool =  false
     
     private func sentInitRequest(paymentMethod : String){
         
         //TODO Submit And Init
+        isBackPressed = false
         
         self.progressBar.isHidden = false
         self.collectionView.isHidden = true
@@ -474,37 +479,46 @@ internal class PHBottomViewController: UIViewController {
         
         let request = initRequest?.toRawRequest(url: "\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.SUBMIT)")
         
-        Alamofire.request(request!).validate()
-            .responseString{ response in
-                print(response.result.value ?? "")
-        }
-        .responseData { (response) in
-            if let data = response.data{
-                do{
-                    let  temp = try newJSONDecoder().decode(PHInitResponse.self, from: data)
-                    
-                    if(temp.status == 1){
-                        self.initRepsonse = temp
-                        self.progressBar.isHidden = true
-                        self.collectionView.isHidden = true
+        
+        AF.request(request!)
+            .validate()
+            .responseData { response in
+                switch response.result {
+                case .success(let data):
+                    do{
+                        let  temp = try newJSONDecoder().decode(PHInitResponse.self, from: data)
                         
-                        self.initWebView(self.initRepsonse!)
+                        if(temp.status == 1){
+                            self.initRepsonse = temp
+                            self.progressBar.isHidden = true
+                            self.collectionView.isHidden = true
+                            
+                            if(!self.isBackPressed){
+                                self.initWebView(self.initRepsonse!)
+                            }
+                            
+                        }else{
+                            self.dismiss(animated: true, completion: {
+                                let error = NSError(domain: "", code: 501, userInfo: [NSLocalizedDescriptionKey: temp.msg ?? ""])
+                                self.delegate?.onErrorReceived(error: error)
+                            })
+                        }
                         
                         
-                    }else{
+                    }catch let err{
                         self.dismiss(animated: true, completion: {
-                            let error = NSError(domain: "", code: 501, userInfo: [NSLocalizedDescriptionKey: temp.msg ?? ""])
-                            self.delegate?.onErrorReceived(error: error)
+                            self.delegate?.onErrorReceived(error: err)
                         })
                     }
                     
-                }catch{
-                    
+                case .failure(let error):
                     self.dismiss(animated: true, completion: {
-                        self.delegate?.onErrorReceived(error: error)
+                        
+                        let err = NSError(domain: "", code: error.responseCode!, userInfo: [NSLocalizedDescriptionKey: error.errorDescription ?? ""])
+                        
+                        self.delegate?.onErrorReceived(error: err)
                     })
                 }
-            }
         }
         
     }
@@ -601,22 +615,31 @@ internal class PHBottomViewController: UIViewController {
             "order_key" : orderKey
         ]
         
-        let headers = [
+        let headers : HTTPHeaders = [
             "Content-Type": "application/x-www-form-urlencoded"
         ]
         
         
-        Alamofire.request(PHConfigs.BASE_URL! + PHConfigs.STATUS, method: .post, parameters: params, encoding: URLEncoding.default, headers: headers)
-            .responseObject{ (response: DataResponse<StatusResponse>) in
-                
-                if(response.result.isSuccess){
-                    self.responseListner(response: response.result.value)
-                }else{
+        AF.request(PHConfigs.BASE_URL! + PHConfigs.STATUS,
+                   method: .post,
+                   parameters: params,
+                   headers: headers).validate()
+            .responseString(completionHandler: { (resonse) in
+                switch resonse.result{
+                case let .success(value):
+                    print(value)
+                case .failure(_):
+                    print("Error")
+                }
+            })
+            .responseObject(completionHandler: { (response: DataResponse<StatusResponse,AFError>) in
+                switch response.result{
+                case let .success(statusResponse):
+                    self.responseListner(response: statusResponse)
+                case .failure(_):
                     self.responseListner(response: nil)
                 }
-                
-        }
-        
+            })
     }
     
     private func responseListner(response : StatusResponse?){
@@ -669,7 +692,7 @@ internal class PHBottomViewController: UIViewController {
             checkMark.clear()
             checkMark.start()
             self.lblPaymentStatus.text = "Payment Approved"
-            self.lblPaymentID.text = "Payment ID #\(lastResponse.paymentNo ?? 0.0)"
+            self.lblPaymentID.text = String(format : "Payment ID #%.0f",lastResponse.paymentNo ?? 0.0)
         }else{
             checkMark.clear()
             checkMark.startX()
@@ -765,9 +788,12 @@ internal class PHBottomViewController: UIViewController {
         
         let urlRequest = URLRequest(url: URL(string: "\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.UI)")!)
         
-        Alamofire.request(urlRequest).validate()
+        
+        AF.request(urlRequest).validate()
             .responseData { (response) in
-                if let data = response.data{
+                
+                switch response.result{
+                case let .success(data):
                     do{
                         let  temp = try newJSONDecoder().decode(PaymentUI.self, from: data)
                         
@@ -791,11 +817,12 @@ internal class PHBottomViewController: UIViewController {
                             self.delegate?.onErrorReceived(error: error)
                         })
                     }
+                    
+                case .failure(_):
+                    break
                 }
+                
         }
-        
-        
-        
     }
     
     
@@ -826,7 +853,15 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
         
         if((navigationAction.request.mainDocumentURL?.absoluteString.contains("https://www.payhere.lk/pay/payment/complete"))! || (navigationAction.request.mainDocumentURL?.absoluteString.contains("https://sandbox.payhere.lk/pay/status/test"))!){
             if(self.initRepsonse?.data?.order != nil){
-                self.checkStatus(orderKey: self.initRepsonse?.data!.order?.orderKey ?? "")
+                if isSandBoxEnabled{
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                        self.checkStatus(orderKey: self.initRepsonse?.data!.order?.orderKey ?? "")
+                    }
+                    
+                }else{
+                    self.checkStatus(orderKey: self.initRepsonse?.data!.order?.orderKey ?? "")
+                }
             }
         }
         

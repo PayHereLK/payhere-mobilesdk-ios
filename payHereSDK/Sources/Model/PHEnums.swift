@@ -26,9 +26,9 @@ public enum PHCurrency : String{
  
  */
 public enum PHRecurrenceTime{
-    case Week(duration : Int)
-    case Month(duration : Int)
-    case Year(duration : Int)
+    case Week(period : Int)
+    case Month(period : Int)
+    case Year(period : Int)
 }
 
 

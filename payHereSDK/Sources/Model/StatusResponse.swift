@@ -42,9 +42,6 @@ public class StatusResponse : Mappable{
         }
     }
     
-    
-    
-    
     public func getStatusState() -> Status?{
         return Status(rawValue: status!)
     }
