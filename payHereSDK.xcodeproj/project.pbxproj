@@ -45,7 +45,8 @@
 		C799349823A9FEFC005E5A7B /* PayOptionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C799349623A9FEFC005E5A7B /* PayOptionCollectionViewCell.xib */; };
 		C7A7DA3323C5D6F90029210E /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7DA3123C5D6F90029210E /* HeaderCollectionReusableView.swift */; };
 		C7A7DA3423C5D6F90029210E /* HeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7A7DA3223C5D6F90029210E /* HeaderCollectionReusableView.xib */; };
-		C7DF81FE24E65DD500241DA6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7DF81FD24E65DD500241DA6 /* WebKit.framework */; };
+		C7DF81FF24E6789100241DA6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7DF81FD24E65DD500241DA6 /* WebKit.framework */; };
+		C7DF820024E6789100241DA6 /* WebKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C7DF81FD24E65DD500241DA6 /* WebKit.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D68AD170D5E2B0BDB07655F7 /* Pods_demoapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5C73F5CCE9DE42DB20A5A09 /* Pods_demoapp.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				C793DE7223C717F000666008 /* payHereSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C7DF820124E6789100241DA6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C7DF820024E6789100241DA6 /* WebKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,7 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7DF81FE24E65DD500241DA6 /* WebKit.framework in Frameworks */,
+				C7DF81FF24E6789100241DA6 /* WebKit.framework in Frameworks */,
 				C3ECA3CC61479DD760DF138C /* Pods_payHereSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,6 +295,7 @@
 				8A74D7DA20528D9800CF10AB /* Frameworks */,
 				8A74D7DB20528D9800CF10AB /* Headers */,
 				8A74D7DC20528D9800CF10AB /* Resources */,
+				C7DF820124E6789100241DA6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
