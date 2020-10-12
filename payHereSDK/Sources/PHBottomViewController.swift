@@ -128,7 +128,11 @@ internal class PHBottomViewController: UIViewController {
             self.collectionView.isHidden = true
             self.progressBar.isHidden = true
             self.selectedPaymentOption = PaymentOption(name: "Visa", image: getImage(withImageName: "visa"), optionValue: "VISA")
-            self.startProcess(paymentMethod: "VISA")
+            if(isSandBoxEnabled){
+                self.startProcess(paymentMethod: "TEST")
+            } else {
+                self.startProcess(paymentMethod: "VISA")
+            }
             self.lblselectedMethod.text = "Credit/Debit Card"
         }
         
