@@ -128,11 +128,13 @@ internal class PHBottomViewController: UIViewController {
             self.collectionView.isHidden = true
             self.progressBar.isHidden = true
             self.selectedPaymentOption = PaymentOption(name: "Visa", image: getImage(withImageName: "visa"), optionValue: "VISA")
-            if(isSandBoxEnabled){
-                self.startProcess(paymentMethod: "TEST")
-            } else {
-                self.startProcess(paymentMethod: "VISA")
-            }
+            // Deprecated August 2021
+            // if(isSandBoxEnabled){
+            //     self.startProcess(paymentMethod: "TEST")
+            // } else {
+            //     self.startProcess(paymentMethod: "VISA")
+            // }
+            self.startProcess(paymentMethod: "VISA")
             self.lblselectedMethod.text = "Credit/Debit Card"
         }
         
@@ -855,7 +857,7 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
     internal func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         
-        if((navigationAction.request.mainDocumentURL?.absoluteString.contains("https://www.payhere.lk/pay/payment/complete"))! || (navigationAction.request.mainDocumentURL?.absoluteString.contains("https://sandbox.payhere.lk/pay/status/test"))!){
+        if((navigationAction.request.mainDocumentURL?.absoluteString.contains("https://www.payhere.lk/pay/payment/complete"))! || (navigationAction.request.mainDocumentURL?.absoluteString.contains("https://sandbox.payhere.lk/pay/payment/complete"))!){
             if(self.initRepsonse?.data?.order != nil){
                 if isSandBoxEnabled{
                     
@@ -960,11 +962,13 @@ extension PHBottomViewController :  UICollectionViewDelegate, UICollectionViewDa
         let payOption = paymentOption[indexPath.section].1[indexPath.row]
         
         self.selectedPaymentOption = payOption
-        if(self.isSandBoxEnabled){
-            startProcess(paymentMethod: "TEST")
-        }else{
-            startProcess(paymentMethod: payOption.optionValue)
-        }
+        // Deprecated August 2021
+        // if(self.isSandBoxEnabled){
+        //     startProcess(paymentMethod: "TEST")
+        // }else{
+        //     startProcess(paymentMethod: payOption.optionValue)
+        // }
+        startProcess(paymentMethod: payOption.optionValue)
         
         self.viewNavigationWrapper.isHidden = false
         self.lblMethodPrecentTitle.isHidden = true
