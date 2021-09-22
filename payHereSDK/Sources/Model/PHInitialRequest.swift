@@ -23,6 +23,7 @@ public class PHInitialRequest{
     internal var startupFee: Double?
     internal var recurrence : PHRecurrenceTime?
     internal var duration: PHDuration?
+    internal var api : SelectedAPI = .CheckOut
     
     /**
      Use this constructor when you are using [PayHere Checkout API](https://support.payhere.lk/api-&-mobile-sdk/payhere-checkout)
@@ -65,6 +66,7 @@ public class PHInitialRequest{
         self.deliveryCountry = deliveryCountry
         self.custom1 = custom1
         self.custom2 = custom2
+        self.api = .CheckOut
     }
     
     /**
@@ -117,6 +119,7 @@ public class PHInitialRequest{
         self.startupFee = startupFee
         self.recurrence = recurrence
         self.duration = duration
+        self.api = .Recurrence
     }
     
     /**
@@ -135,9 +138,10 @@ public class PHInitialRequest{
      - Parameter currency : `PHCurrency` Object
      - Parameter custom1 : Custom param 1 set by merchant (Optional)
      - Parameter custom2 : Custom param 2 set by merchant (Optional)
+     - Parameter amount : PreApproval Initial Charge Amount (Optional)
      */
     
-    public init(merchantID: String?, notifyURL: String?, firstName: String?, lastName: String?, email: String?, phone: String?, address: String?, city: String?, country: String?, orderID: String?, itemsDescription: String?, itemsMap: [Item]?, currency: PHCurrency?, custom1: String? = nil, custom2: String? = nil) {
+    public init(merchantID: String?, notifyURL: String?, firstName: String?, lastName: String?, email: String?, phone: String?, address: String?, city: String?, country: String?, orderID: String?, itemsDescription: String?, itemsMap: [Item]?, currency: PHCurrency?, custom1: String? = nil, custom2: String? = nil,amount: Double = 0.0) {
         self.merchantID = merchantID
         self.notifyURL = notifyURL
         self.firstName = firstName
@@ -153,6 +157,10 @@ public class PHInitialRequest{
         self.currency = currency
         self.custom1 = custom1
         self.custom2 = custom2
+        if amount > 0.0{
+            self.amount  = amount
+        }
+        self.api =  .PreApproval
     }
     
     

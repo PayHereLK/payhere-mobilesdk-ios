@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     
     
     
-    let merchandID = "210251"
+    let merchandID = "1210731" //"210251"
    
     var initRequest : PHInitialRequest?
 
@@ -62,7 +62,22 @@ class ViewController: UIViewController {
                           amount: 60.00)
         
         //MARK: Pre Approval API
-        initRequest = PHInitialRequest(merchantID: merchandID, notifyURL: "", firstName: "", lastName: "", email: "", phone: "", address: "", city: "", country: "", orderID: "001", itemsDescription: "", itemsMap: [item1], currency: .LKR, custom1: "", custom2: "")
+        initRequest = PHInitialRequest(merchantID: merchandID,
+                                       notifyURL: "",
+                                       firstName: "",
+                                       lastName: "",
+                                       email: "",
+                                       phone: "",
+                                       address: "",
+                                       city: "",
+                                       country: "",
+                                       orderID: "001",
+                                       itemsDescription: "",
+                                       itemsMap: [item1],
+                                       currency: .LKR,
+                                       custom1: "",
+                                       custom2: "",
+                                       amount: 60.0)
         
         
         

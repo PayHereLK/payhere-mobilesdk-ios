@@ -128,12 +128,6 @@ internal class PHBottomViewController: UIViewController {
             self.collectionView.isHidden = true
             self.progressBar.isHidden = true
             self.selectedPaymentOption = PaymentOption(name: "Visa", image: getImage(withImageName: "visa"), optionValue: "VISA")
-            // Deprecated August 2021
-            // if(isSandBoxEnabled){
-            //     self.startProcess(paymentMethod: "TEST")
-            // } else {
-            //     self.startProcess(paymentMethod: "VISA")
-            // }
             self.startProcess(paymentMethod: "VISA")
             self.lblselectedMethod.text = "Credit/Debit Card"
         }
@@ -234,7 +228,7 @@ internal class PHBottomViewController: UIViewController {
         initialSubmitRequest.currency = phInitialRequest.currency?.rawValue
         if(phInitialRequest.amount == nil){
             initialSubmitRequest.amount = nil
-            self.apiMethod = .PreApproval
+//            self.apiMethod = .PreApproval
         }else{
             initialSubmitRequest.amount = phInitialRequest.amount
         }
@@ -278,7 +272,7 @@ internal class PHBottomViewController: UIViewController {
             }
             initialSubmitRequest.recurrence = recurrenceString
             initialSubmitRequest.auto = true
-            self.apiMethod = .Recurrence
+//            self.apiMethod = .Recurrence
         }
         
         if(phInitialRequest.duration == nil){
@@ -305,12 +299,13 @@ internal class PHBottomViewController: UIViewController {
             default:
                 break
             }
-            self.apiMethod = .Recurrence
+//            self.apiMethod = .Recurrence
             initialSubmitRequest.duration = durationString
             initialSubmitRequest.auto = true
         }
         
         
+        self.apiMethod  = phInitialRequest.api
         
         
         initialSubmitRequest.referer = Bundle.main.bundleIdentifier
