@@ -716,7 +716,7 @@ internal class PHBottomViewController: UIViewController {
     @objc private func update() {
         if(count > 0) {
             count = count - 1
-            lblSecureWindow.text = String(format :"This secure payment window is cloing in %d seconds...",count)
+            lblSecureWindow.text = String(format :"This secure payment window is closing in %d seconds...",count)
         }else{
             delegate?.onResponseReceived(response: PHResponse(status: self.getStatusFromResponse(lastResponse: statusResponse!), message: "Payment completed. Check response data", data: statusResponse!))
             
