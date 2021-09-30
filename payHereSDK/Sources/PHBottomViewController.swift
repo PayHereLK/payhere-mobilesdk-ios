@@ -515,7 +515,7 @@ internal class PHBottomViewController: UIViewController {
                 case .failure(let error):
                     self.dismiss(animated: true, completion: {
                         
-                        let err = NSError(domain: "", code: error.responseCode!, userInfo: [NSLocalizedDescriptionKey: error.errorDescription ?? ""])
+                        let err = NSError(domain: "", code: error.responseCode ?? 0, userInfo: [NSLocalizedDescriptionKey: error.errorDescription ?? ""])
                         
                         self.delegate?.onErrorReceived(error: err)
                     })

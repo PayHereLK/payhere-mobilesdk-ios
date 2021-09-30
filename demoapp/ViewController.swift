@@ -76,8 +76,7 @@ class ViewController: UIViewController {
                                        itemsMap: [item1],
                                        currency: .LKR,
                                        custom1: "",
-                                       custom2: "",
-                                       amount: 60.0)
+                                       custom2: "")
         
         
         
