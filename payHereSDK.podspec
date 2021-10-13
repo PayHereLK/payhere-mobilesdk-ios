@@ -20,7 +20,7 @@ s.author = { "PayHere" => "support@payhere.lk" }
 s.homepage = "https://www.payhere.lk/"
 
 # 6 - Replace this URL with your own Git URL from "Quick Setup"
-s.source = { :git => "https://github.com/Thisura98/payhere-mobilesdk-ios.git", :tag => "#{s.version}"}
+s.source = { :git => "https://github.com/PayHereLK/payhere-mobilesdk-ios.git", :tag => "#{s.version}"}
 # s.resource_bundle = { 'payHereSDK' => 'payHereSDK/Sources/**/*.storyboard' }
 
 
