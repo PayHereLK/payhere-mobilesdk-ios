@@ -34,12 +34,13 @@ extension Bundle{
         if let debugBundle = Bundle(identifier: "lk.payahere.payHereSDK"){
             return debugBundle
         }
-        else if let prodBundle = Bundle(identifier: "org.cocoapods.payHereSDK"){
-            return prodBundle
+        else if let prodBundleURL = Bundle.main.url(forResource: "payHereSDK", withExtension: "bundle"){
+            // payHereSDK is built through spec.resource_bundles
+            if let prodBundle = Bundle(url: prodBundleURL){
+                return prodBundle
+            }
         }
-        else{
-            fatalError("PayHere Bundle could not be found!")
-        }
+        fatalError("PayHere Bundle could not be found!")
     }
     
 }
