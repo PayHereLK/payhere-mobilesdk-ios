@@ -133,7 +133,7 @@ let initRequest = PHInitialRequest(
 In order to make a payment request, first initialize PayHere ViewController as below;
 
 ```swift
-PHPrecentController.precent(from: self, withInitRequest: initRequest!, delegate: self)
+PHPrecentController.precent(from: self, withInitRequest: initRequest, delegate: self)
 ```
 
 ### Handle Payment Response
