@@ -28,7 +28,7 @@ public class PHPrecentController{
                                shouldShowPaymentStatus showPaymentStatus:Bool = true,
                                delegate : PHViewControllerDelegate){
         
-        let bundle = Bundle(for: PHPrecentController.self)
+        let bundle = Bundle.payHereBundle
         let storyBoard: UIStoryboard = UIStoryboard(name: "PayHere", bundle: bundle)
         if let initialController = storyBoard.instantiateViewController(withIdentifier: "PHBottomViewController") as? PHBottomViewController{
             
