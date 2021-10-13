@@ -63,10 +63,10 @@ internal class PHBottomViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        var nib = UINib(nibName: "PayOptionCollectionViewCell", bundle: Bundle(for: PHBottomViewController.self))
+        var nib = UINib(nibName: "PayOptionCollectionViewCell", bundle: Bundle.payHereBundle)
         self.collectionView.register(nib, forCellWithReuseIdentifier: "PayOptionCollectionViewCell")
         
-        nib = UINib(nibName: "HeaderCollectionReusableView", bundle: Bundle(for: PHBottomViewController.self))
+        nib = UINib(nibName: "HeaderCollectionReusableView", bundle: Bundle.payHereBundle)
         self.collectionView.register(nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderCollectionReusableView")
         
         
@@ -604,7 +604,7 @@ internal class PHBottomViewController: UIViewController {
     
     
     private func getImage(withImageName : String) -> UIImage{
-        return UIImage(named: withImageName, in: Bundle(for: PHBottomViewController.self), compatibleWith: nil)!
+        return UIImage(named: withImageName, in: Bundle.payHereBundle, compatibleWith: nil)!
     }
     
     private func checkStatus(orderKey : String){

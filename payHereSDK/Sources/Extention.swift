@@ -27,3 +27,19 @@ import Foundation
     
     
 //}
+
+extension Bundle{
+    
+    internal static var payHereBundle: Bundle{
+        if let debugBundle = Bundle(identifier: "lk.payahere.payHereSDK"){
+            return debugBundle
+        }
+        else if let prodBundle = Bundle(identifier: "org.cocoapods.payHereSDK"){
+            return prodBundle
+        }
+        else{
+            fatalError("PayHere Bundle could not be found!")
+        }
+    }
+    
+}
