@@ -21,7 +21,7 @@ s.homepage = "https://www.payhere.lk/"
 
 # 6 - Replace this URL with your own Git URL from "Quick Setup"
 s.source = { :git => "https://github.com/Thisura98/payhere-mobilesdk-ios.git", :tag => "#{s.version}"}
-#s.resource_bundle = { 'payHereSDK' => 'payHereSDK/Sources/**/*.storyboard' }
+# s.resource_bundle = { 'payHereSDK' => 'payHereSDK/Sources/**/*.storyboard' }
 
 
 
@@ -36,7 +36,9 @@ s.dependency 'AlamofireObjectMapper'
 # 8
 s.source_files = "payHereSDK/Sources/**/*.{h,m,swift}"
 # s.resources = 'payHereSDK/**/*.{lproj,storyboard,xcdatamodeld,xib,xcassets,json}'
-s.resource_bundle = 'payHereSDK/**/*.{lproj,storyboard,xcdatamodeld,xib,xcassets,json}'
+s.resource_bundles = { 
+   'payHereSDK' => ['payHereSDK/**/*.{lproj,storyboard,xcdatamodeld,xib,xcassets,json}'] 
+}
 
 s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
 
