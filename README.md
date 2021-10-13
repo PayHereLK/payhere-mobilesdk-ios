@@ -55,7 +55,7 @@ import payHereSDK
 let merchantID = ""
 let item = Item(id: "item_1", name: "Item 1", quantity: 1, amount: 50.0)
 let initRequest = PHInitialRequest(
-    merchantID: merchandID, 
+    merchantID: merchantID, 
     notifyURL: "", 
     firstName: "Pay", 
     lastName: "Here", 
@@ -81,7 +81,7 @@ let initRequest = PHInitialRequest(
 let merchantID = ""
 let item = Item(id: "item_1", name: "Item 1", quantity: 1, amount: 50.0)
 let initRequest = PHInitialRequest(
-    merchantID: merchandID, 
+    merchantID: merchantID, 
     notifyURL: "", 
     firstName: "", 
     lastName: "", 
@@ -104,7 +104,7 @@ let initRequest = PHInitialRequest(
 let merchantID = ""
 let item = Item(id: "item_1", name: "Item 1", quantity: 1, amount: 50.0)
 let initRequest = PHInitialRequest(
-    merchantID: merchandID, 
+    merchantID: merchantID, 
     notifyURL: "", 
     firstName: "", 
     lastName: "", 
@@ -133,7 +133,7 @@ let initRequest = PHInitialRequest(
 In order to make a payment request, first initialize PayHere ViewController as below;
 
 ```swift
-PHPrecentController.precent(from: self, withInitRequest: initRequest, delegate: self)
+PHPrecentController.precent(from: self, withInitRequest: initRequest!, delegate: self)
 ```
 
 ### Handle Payment Response
@@ -145,16 +145,25 @@ extension ViewController : PHViewControllerDelegate{
     }
     
     func onResponseReceived(response: PHResponse<Any>?) {
-        if(response?.isSuccess())!{
+        guard let response = response else {
+            print("Could not receive payment response")
+            return
+        }
+        if(response.isSuccess()){
             
-            guard let resp = response?.getData() as? StatusResponse else{
+            guard let resp = response.getData() as? payHereSDK.StatusResponse else{
                 return
             }
             
-            //Payment Sucess
+            print("Payment Success")
+            print("Payment Status", resp.status ?? -1)
+            print("Message", resp.message ?? "Unknown Message")
+            print("Payment No", resp.paymentNo ?? -1.0)
+            print("Payment Amount", resp.price ?? -1.0)
             
-        }else{
-            response?.getMessage()
+        }
+        else{
+            print("Payment Error", response.getMessage() ?? "Unknown Message")
         }
     }
 }
