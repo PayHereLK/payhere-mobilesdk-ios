@@ -31,16 +31,7 @@ import Foundation
 extension Bundle{
     
     internal static var payHereBundle: Bundle{
-        if let debugBundle = Bundle(identifier: "lk.payahere.payHereSDK"){
-            return debugBundle
-        }
-        else if let prodBundleURL = Bundle.main.url(forResource: "payHereSDK", withExtension: "bundle"){
-            // payHereSDK is built through spec.resource_bundles
-            if let prodBundle = Bundle(url: prodBundleURL){
-                return prodBundle
-            }
-        }
-        fatalError("PayHere Bundle could not be found!")
+        return Bundle(for: PHPrecentController.self)
     }
     
 }
