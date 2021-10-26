@@ -8,7 +8,7 @@ s.summary = "Mobile SDK for payHere"
 s.requires_arc = true
 
 # 2
-s.version = "2.2.2"
+s.version = "2.2.3"
 
 # 3
 s.license = { :type => "MIT", :file => "LICENSE" }
@@ -35,10 +35,10 @@ s.dependency 'AlamofireObjectMapper'
 
 # 8
 s.source_files = "payHereSDK/Sources/**/*.{h,m,swift}"
-# s.resources = 'payHereSDK/**/*.{lproj,storyboard,xcdatamodeld,xib,xcassets,json}'
-s.resource_bundles = { 
-   'payHereSDK' => ['payHereSDK/**/*.{lproj,storyboard,xcdatamodeld,xib,xcassets,json}'] 
-}
+s.resources = 'payHereSDK/**/*.{lproj,storyboard,xcdatamodeld,xib,xcassets,json}'
+# s.resource_bundles = { 
+#    'payHereSDK' => ['payHereSDK/**/*.{lproj,storyboard,xcdatamodeld,xib,xcassets,json}'] 
+# }
 
 s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
 
