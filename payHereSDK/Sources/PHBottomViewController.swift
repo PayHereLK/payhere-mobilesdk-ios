@@ -111,6 +111,9 @@ internal class PHBottomViewController: UIViewController {
         
         webView.scrollView.delegate = self
         
+        if #available(iOS 13.0, *){
+            self.collectionView.overrideUserInterfaceStyle = .light
+        }
     }
     
     public override func viewWillAppear(_ animated: Bool) {

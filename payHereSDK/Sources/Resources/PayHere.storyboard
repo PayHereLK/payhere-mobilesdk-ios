@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_0" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -252,6 +252,7 @@
                                 </connections>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="sgM-dY-QIl"/>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="2XC-NF-f7C" firstAttribute="leading" secondItem="sgM-dY-QIl" secondAttribute="leading" id="20K-8V-1Ww"/>
@@ -259,7 +260,6 @@
                             <constraint firstAttribute="bottom" secondItem="2XC-NF-f7C" secondAttribute="bottom" priority="999" id="EwH-Sc-bn7"/>
                             <constraint firstItem="2XC-NF-f7C" firstAttribute="trailing" secondItem="sgM-dY-QIl" secondAttribute="trailing" id="bye-oe-7Kf"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="sgM-dY-QIl"/>
                     </view>
                     <navigationItem key="navigationItem" id="4pf-W8-8WE"/>
                     <connections>
