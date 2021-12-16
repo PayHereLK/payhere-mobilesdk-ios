@@ -26,6 +26,7 @@ internal  class PHInitRequest : Mappable{
     internal  var referer, hash: String?
     internal  var method : String?
     internal  var auto : Bool = false
+    internal  var authorize : Bool = false
     
     
     internal init(){
@@ -96,6 +97,7 @@ internal  class PHInitRequest : Mappable{
         self.hash <- map["hash"]
         self.auto <- map["auto"]
         self.method <- map["method"]
+        self.authorize <- map["authorize"]
     }
     
 }

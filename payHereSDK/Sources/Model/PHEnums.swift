@@ -52,4 +52,5 @@ internal enum SelectedAPI{
     case PreApproval
     case Recurrence
     case CheckOut
+    case Authorize
 }

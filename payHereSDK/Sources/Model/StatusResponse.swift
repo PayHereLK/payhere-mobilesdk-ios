@@ -51,6 +51,7 @@ public class StatusResponse : Mappable{
         case PAYMENT = 1
         case SUCCESS = 2
         case FAILED = -2
+        case AUTHORIZED = 3
     }
 }
 
