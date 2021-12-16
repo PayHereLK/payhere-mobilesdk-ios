@@ -268,6 +268,7 @@
                         <outlet property="checkMark" destination="xgn-F8-Voe" id="PkB-sa-cgW"/>
                         <outlet property="collectionView" destination="gHx-1m-qBq" id="ADw-QB-9ac"/>
                         <outlet property="height" destination="xOx-fC-3SQ" id="7HH-MT-pA9"/>
+                        <outlet property="lblBottomMessage" destination="lah-ko-WNI" id="9P7-H0-iGo"/>
                         <outlet property="lblMethodPrecentTitle" destination="Lia-Ob-8TY" id="KmL-zL-8BK"/>
                         <outlet property="lblPaymentID" destination="sEN-8y-t8S" id="i7M-be-Vve"/>
                         <outlet property="lblPaymentStatus" destination="ntg-vY-Dx9" id="DRy-w5-Iip"/>

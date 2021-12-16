@@ -35,6 +35,7 @@ internal class PHBottomViewController: UIViewController {
     @IBOutlet var lblSecureWindow: UILabel!
     @IBOutlet weak var checkMark: WVCheckMark!
     @IBOutlet var lblPaymentStatus: UILabel!
+    @IBOutlet weak var lblBottomMessage: UILabel!
     
     
     internal var initialRequest : PHInitialRequest?
@@ -701,10 +702,12 @@ internal class PHBottomViewController: UIViewController {
             checkMark.start()
             self.lblPaymentStatus.text = "Payment Approved"
             self.lblPaymentID.text = String(format : "Payment ID #%.0f",lastResponse.paymentNo ?? 0.0)
+            self.lblBottomMessage.text = "You'll receive and Email Receipt with this Payment ID for further reference"
         }else if(lastResponse.getStatusState() == StatusResponse.Status.AUTHORIZED){
             checkMark.clear()
             checkMark.start()
             self.lblPaymentStatus.text = "Payment Authorized"
+            self.lblBottomMessage.text = "You'll be charged once the merchant process this payment"
             self.lblPaymentID.text = String(format : lastResponse.message ?? "")
         }else{
             checkMark.clear()
