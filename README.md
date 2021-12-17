@@ -175,7 +175,7 @@ let initRequest = PHInitialRequest(
             deliveryCountry: "",
             custom1: "",
             custom2: "",
-         ** isHoldOnCardEnabled: true **
+            isHoldOnCardEnabled: true 
 )
 ```
 
