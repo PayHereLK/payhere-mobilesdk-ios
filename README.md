@@ -128,6 +128,56 @@ let initRequest = PHInitialRequest(
     duration: .Forver
 )
 ```
+#### PreApproval
+```swift
+let merchantID = ""
+let item = Item(id: "item_1", name: "Item 1", quantity: 1, amount: 50.0)
+let initRequest = PHInitialRequest(
+    merchantID: merchantID, 
+    notifyURL: "", 
+    firstName: "", 
+    lastName: "", 
+    email: "", 
+    phone: "", 
+    address: "", 
+    city: "", 
+    country: "", 
+    orderID: "001", 
+    itemsDescription: "", 
+    itemsMap: [item1], 
+    currency: .LKR, 
+    custom1: "", 
+    custom2: ""
+)
+```
+
+#### Hold On Card
+```swift
+let merchantID = ""
+let item = Item(id: "item_1", name: "Item 1", quantity: 1, amount: 50.0)
+let initRequest = PHInitialRequest(
+            merchantID: merchandID,
+            notifyURL: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            address: "",
+            city: "",
+            country: "",
+            orderID: "",
+            itemsDescription: "",
+            itemsMap: [item1,item2],
+            currency: .LKR,
+            amount: 0.0,
+            deliveryAddress: "",
+            deliveryCity: "",
+            deliveryCountry: "",
+            custom1: "",
+            custom2: "",
+         ** isHoldOnCardEnabled: true **
+)
+```
 
 ### Precent PayHere Payment View
 In order to make a payment request, first initialize PayHere ViewController as below;
