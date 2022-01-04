@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     
     
     
-    let merchandID = "1211149" //"210251"
+    let merchandID = "210251" //"1211149" //"210251"
    
     var initRequest : PHInitialRequest?
 

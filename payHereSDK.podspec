@@ -34,10 +34,10 @@ s.dependency 'AlamofireObjectMapper'
 
 
 # 8
-s.source_files = "payHereSDK/Sources/**/*.{h,m,swift}"
-s.resources = 'payHereSDK/**/*.{lproj,storyboard,xcdatamodeld,xib,xcassets,json}'
+s.source_files = "payHereSDK/Sources/**/*.{h,m,swift,ttf}"
+s.resources = 'payHereSDK/**/*.{lproj,storyboard,xcdatamodeld,xib,xcassets,json,ttf}'
 # s.resource_bundles = { 
-#    'payHereSDK' => ['payHereSDK/**/*.{lproj,storyboard,xcdatamodeld,xib,xcassets,json}'] 
+#    'payHereSDK' => ['payHereSDK/**/*.{lproj,storyboard,xcdatamodeld,xib,xcassets,json,ttf}']
 # }
 
 s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }

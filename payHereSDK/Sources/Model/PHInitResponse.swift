@@ -17,17 +17,26 @@ struct PHInitResponse: Codable {
 
 // MARK: - DataClass
 struct DataClass: Codable {
+    var type: String?
     var order: Order?
     var business: Business?
-    var paymentMethods: [String]?
-    var redirection: Redirection?
+    var paymentMethods: [PaymentMethod]?
 }
 
 // MARK: - Business
 struct Business: Codable {
     var name: String?
     var logo: String?
+    var primaryColor, textColor: String?
 }
+
+// MARK: - PaymentMethod
+struct PaymentMethod : Codable{
+    var method: String?
+    var discountPercentage: Int?
+    var submission: Submission?
+}
+
 
 // MARK: - Order
 struct Order: Codable {
@@ -42,6 +51,13 @@ struct Redirection: Codable {
     var redirectType: String?
     var url: String?
 }
+
+// MARK: - Submission
+struct Submission : Codable{
+    var redirectType: String?
+    var url: String?
+}
+
 
 
 // MARK: - Encode/decode helpers

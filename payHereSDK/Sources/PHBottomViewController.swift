@@ -18,17 +18,14 @@ public protocol PHViewControllerDelegate{
 }
 internal class PHBottomViewController: UIViewController {
     
-    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var progressBar: UIActivityIndicatorView!
     @IBOutlet var height: NSLayoutConstraint!
     @IBOutlet var bottomConstraint: NSLayoutConstraint!
     @IBOutlet var webView: WKWebView!
     @IBOutlet var bottomView: UIView!
-    @IBOutlet var lblselectedMethod: UILabel!
-    @IBOutlet var lblMethodPrecentTitle: UILabel!
-    @IBOutlet var viewNavigationWrapper: UIView!
-    @IBOutlet var lblThankYou: UILabel!
     @IBOutlet var viewSandboxNoteBanner: UIView!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var lblPayWithTitle: UILabel!
     
     @IBOutlet var viewPaymentSucess: UIView!
     @IBOutlet var lblPaymentID: UILabel!
@@ -61,15 +58,13 @@ internal class PHBottomViewController: UIViewController {
     }
     
     override public func viewDidLoad() {
+        
+        UIFont.loadFonts()
+        
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        var nib = UINib(nibName: "PayOptionCollectionViewCell", bundle: Bundle.payHereBundle)
-        self.collectionView.register(nib, forCellWithReuseIdentifier: "PayOptionCollectionViewCell")
         
-        nib = UINib(nibName: "HeaderCollectionReusableView", bundle: Bundle.payHereBundle)
-        self.collectionView.register(nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderCollectionReusableView")
-        
+        self.lblPayWithTitle.font =  UIFont(name: "HPayBold", size: 24)
         
         if(isSandBoxEnabled){
             PHConfigs.setBaseUrl(url: PHConfigs.SANDBOX_URL)
@@ -79,17 +74,10 @@ internal class PHBottomViewController: UIViewController {
             self.viewSandboxNoteBanner.isHidden = true
         }
         
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
         
         calculateHeight()
         
-        let tapGestrue = UITapGestureRecognizer(target: self, action: #selector(self.viewWrapperClicked))
-        tapGestrue.numberOfTapsRequired = 1
         
-        self.viewNavigationWrapper.addGestureRecognizer(tapGestrue)
-        self.viewNavigationWrapper.isHidden = true
-        self.lblThankYou.isHidden = true
         self.viewPaymentSucess.isHidden = true
         
         
@@ -112,9 +100,32 @@ internal class PHBottomViewController: UIViewController {
         
         webView.scrollView.delegate = self
         
-        if #available(iOS 13.0, *){
-            self.collectionView.overrideUserInterfaceStyle = .light
-        }
+        
+        let helaPayNib = UINib(nibName: "PayWithHelaPayTableViewCell", bundle: Bundle.payHereBundle)
+        self.tableView.register(helaPayNib, forCellReuseIdentifier: "PayWithHelaPayTableViewCell")
+        
+        let paymentOptionNib = UINib(nibName: "PaymentOptionTableViewCell", bundle: Bundle.payHereBundle)
+        self.tableView.register(paymentOptionNib, forCellReuseIdentifier: "PaymentOptionTableViewCell")
+        
+        let nib = UINib(nibName: "PHBottomSheetTableViewSectioHeader", bundle: Bundle.payHereBundle)
+        self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: "PHBottomSheetTableViewSectioHeader")
+        
+        
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        
+        self.bottomView.layer.cornerRadius = 12
+        self.bottomView.layer.masksToBounds = true
+        
+        
+        self.startProcess(paymentMethod: "VISA")
+        
+        self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 0.00001))
+        
+        
+//        if #available(iOS 13.0, *){
+//            self.collectionView.overrideUserInterfaceStyle = .light
+//        }
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -123,17 +134,17 @@ internal class PHBottomViewController: UIViewController {
         bottomConstraint.constant = -height.constant
         self.view.layoutIfNeeded()
         
-        self.collectionView.isHidden = false
+//        self.collectionView.isHidden = false
         self.progressBar.isHidden = true
         
         
         //MARK: Start PreApproval Process
         if(self.apiMethod == .PreApproval || self.apiMethod == .Recurrence || self.apiMethod == .Authorize){
-            self.collectionView.isHidden = true
+//            self.collectionView.isHidden = true
             self.progressBar.isHidden = true
             self.selectedPaymentOption = PaymentOption(name: "Visa", image: getImage(withImageName: "visa"), optionValue: "VISA")
             self.startProcess(paymentMethod: "VISA")
-            self.lblselectedMethod.text = "Credit/Debit Card"
+//            self.lblselectedMethod.text = "Credit/Debit Card"
         }
         
         
@@ -303,7 +314,7 @@ internal class PHBottomViewController: UIViewController {
             default:
                 break
             }
-//            self.apiMethod = .Recurrence
+
             initialSubmitRequest.duration = durationString
             initialSubmitRequest.auto = true
         }
@@ -329,7 +340,7 @@ internal class PHBottomViewController: UIViewController {
     
     private func startProcess(paymentMethod : String){
         
-        self.initRequest?.method = paymentMethod
+//        self.initRequest?.method = paymentMethod
         
         let validate = self.Validate()
         
@@ -393,10 +404,10 @@ internal class PHBottomViewController: UIViewController {
             
             self.webView.isHidden = true
             self.webView.loadHTMLString("", baseURL: nil)
-            self.viewNavigationWrapper.isHidden = true
+//            self.viewNavigationWrapper.isHidden = true
             
-            self.collectionView.isHidden = false
-            self.lblMethodPrecentTitle.isHidden = false
+//            self.collectionView.isHidden = false
+//            self.lblMethodPrecentTitle.isHidden = false
             
             self.isBackPressed = true
             self.progressBar.isHidden = true
@@ -440,7 +451,7 @@ internal class PHBottomViewController: UIViewController {
         
         self.orgHeight = self.height.constant
         
-        
+        self.view.layer.cornerRadius = 12
     }
     
     
@@ -481,16 +492,23 @@ internal class PHBottomViewController: UIViewController {
         isBackPressed = false
         
         self.progressBar.isHidden = false
-        self.collectionView.isHidden = true
+//        self.collectionView.isHidden = true
         
         
         print("Url :","\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.SUBMIT)")
-        
-        let request = initRequest?.toRawRequest(url: "\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.SUBMIT)")
-        
+                
+        let request = initRequest?.toRawRequest(url: "\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.INIT)")
         
         AF.request(request!)
             .validate()
+            .responseString{response in
+                switch response.result{
+                case .success(let value):
+                    print(value)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
             .responseData { response in
                 switch response.result {
                 case .success(let data):
@@ -500,10 +518,11 @@ internal class PHBottomViewController: UIViewController {
                         if(temp.status == 1){
                             self.initRepsonse = temp
                             self.progressBar.isHidden = true
-                            self.collectionView.isHidden = true
+//                            self.collectionView.isHidden = true
                             
                             if(!self.isBackPressed){
                                 self.initWebView(self.initRepsonse!)
+                                self.initalizedUI(self.initRepsonse!)
                             }
                             
                         }else{
@@ -532,44 +551,70 @@ internal class PHBottomViewController: UIViewController {
         
     }
     
+    var bankAccount : [PaymentMethod] = []
+    var bankCard : [PaymentMethod] =  []
+    var other : [PaymentMethod]  =  []
+    
+    private func initalizedUI(_ response : PHInitResponse){
+        if let paymentMethods = response.data?.paymentMethods{
+            
+            for method in paymentMethods{
+                
+                if let methodName = method.method{
+                    if methodName.uppercased() == "HELAPAY"{
+                        bankAccount.append(method)
+                    }else if methodName.uppercased() == "MASTER" || methodName.uppercased() == "VISA" || methodName.uppercased() == "MASTER" || methodName.uppercased() ==  "AMEX"{
+                        bankCard.append(method)
+                    }else{
+                        other.append(method)
+                    }
+                }
+            }
+            
+            self.tableView.reloadData()
+        }
+    }
+    
     private func initWebView(_ submitResponse : PHInitResponse){
         
-        self.viewNavigationWrapper.isHidden = false
-        self.lblMethodPrecentTitle.isHidden = true
+//        self.viewNavigationWrapper.isHidden = false
+//        self.lblMethodPrecentTitle.isHidden = true
         
-        if let url = submitResponse.data?.redirection?.url{
-            
-            self.collectionView.isHidden = true
-            self.webView.isHidden = false
-            
-            self.webView.contentMode = .scaleAspectFill
-            self.webView.uiDelegate = self
-            self.webView.navigationDelegate = self
-            
-            self.calculateWebHeight()
-            
-            if let URL = URL(string: url){
-                
-                let request = URLRequest(url: URL)
-                self.webView.load(request)
-                self.progressBar.isHidden = false
-                self.webView.isHidden = true
-                
-                
-            }else{
-                //MARK:TODO
-                //ERROR HANDLING
-                self.dismiss(animated: true, completion: {
-                    let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
-                    self.delegate?.onErrorReceived(error: error)
-                })
-            }
-        }else{
-            self.dismiss(animated: true, completion: {
-                let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
-                self.delegate?.onErrorReceived(error: error)
-            })
-        }
+        //MARK: TODO Remove comment when submit API Precent
+        
+//        if let url = submitResponse.data?.redirection?.url{
+//
+////            self.collectionView.isHidden = true
+//            self.webView.isHidden = false
+//
+//            self.webView.contentMode = .scaleAspectFill
+//            self.webView.uiDelegate = self
+//            self.webView.navigationDelegate = self
+//
+//            self.calculateWebHeight()
+//
+//            if let URL = URL(string: url){
+//
+//                let request = URLRequest(url: URL)
+//                self.webView.load(request)
+//                self.progressBar.isHidden = false
+//                self.webView.isHidden = true
+//
+//
+//            }else{
+//                //MARK:TODO
+//                //ERROR HANDLING
+//                self.dismiss(animated: true, completion: {
+//                    let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
+//                    self.delegate?.onErrorReceived(error: error)
+//                })
+//            }
+//        }else{
+//            self.dismiss(animated: true, completion: {
+//                let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
+//                self.delegate?.onErrorReceived(error: error)
+//            })
+//        }
         
     }
     
@@ -653,10 +698,10 @@ internal class PHBottomViewController: UIViewController {
     
     private func responseListner(response : StatusResponse?){
         
-        self.lblThankYou.isHidden = false
-        self.viewNavigationWrapper.isHidden = true
-        self.lblselectedMethod.isHidden = true
-        self.collectionView.isHidden = true
+//        self.lblThankYou.isHidden = false
+//        self.viewNavigationWrapper.isHidden = true
+//        self.lblselectedMethod.isHidden = true
+//        self.collectionView.isHidden = true
         self.viewPaymentSucess.isHidden = false
         
         guard let lastResponse = response else{
@@ -914,82 +959,125 @@ extension PHBottomViewController : UIScrollViewDelegate {
     }
 }
 
-extension PHBottomViewController :  UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
+extension PHBottomViewController : UITableViewDelegate,UITableViewDataSource{
     
-    public func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return paymentOption.count
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        let options = paymentOption[section].1
-        
-        return options.count
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
-        let headerTitle = paymentOption[indexPath.section].0
-        
-        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HeaderCollectionReusableView", for: indexPath) as? HeaderCollectionReusableView{
-            sectionHeader.lblSectionTitle.text = headerTitle
-            return sectionHeader
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0{
+            return bankAccount.count > 0 ? 1:0
+        }else{
+            return 1
         }
         
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = PHBottomSheetTableViewSectioHeader.dequeue(fromTableView: tableView)
         
-        return UICollectionReusableView()
+        if section ==  0{
+            header.lblPaymentMethod.text = "Bank Account"
+        }else if section == 1{
+            header.lblPaymentMethod.text = "Bank Card"
+        }else{
+            header.lblPaymentMethod.text = "Other"
+        }
+        
+       
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.section == 0{
+           return PayWithHelaPayTableViewCell.dequeue(fromTableView: tableView)
+        }else if indexPath.section == 1{
+            return PaymentOptionTableViewCell.dequeue(fromTableView: tableView,list: bankCard, delegate: self)
+        }else if indexPath.section == 2{
+            return PaymentOptionTableViewCell.dequeue(fromTableView: tableView,list: other,delegate: self)
+        }
+        
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0{
+            
+            let method = bankAccount[indexPath.row]
+            
+            if let url = method.submission?.url{
+                
+                if let urlValue = URL(string: url){
+                    UIApplication.shared.open(urlValue, options: [:], completionHandler: nil)
+                }
+                
+                
+            }
+            
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0  && bankAccount.count > 0{
+            print("Section ",section," Height : ",24)
+            return 24
+        }else if section == 1 && bankCard.count > 0{
+            print("Section ",section," Height : ",24)
+            return 24
+        }else if section == 2 && other.count > 0{
+            print("Section ",section," Height : ",24)
+            return 24
+        }else {
+            print("Section ",section," Height : ",0)
+            return 0.0
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 54
     }
     
     
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.size.width, height: 50)
-    }
-    
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let width = ((self.collectionView.frame.width - 20) / 5) - 15
-        
-        
-        return CGSize(width: width, height: width)
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PayOptionCollectionViewCell", for: indexPath) as! PayOptionCollectionViewCell
-        
-        let payOption = paymentOption[indexPath.section].1[indexPath.row]
-        
-        cell.imgOptionImage.image = payOption.image
-        
-        
-        
-        
-        return cell
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let payOption = paymentOption[indexPath.section].1[indexPath.row]
-        
-        self.selectedPaymentOption = payOption
-        // Deprecated August 2021
-        // if(self.isSandBoxEnabled){
-        //     startProcess(paymentMethod: "TEST")
-        // }else{
-        //     startProcess(paymentMethod: payOption.optionValue)
-        // }
-        startProcess(paymentMethod: payOption.optionValue)
-        
-        self.viewNavigationWrapper.isHidden = false
-        self.lblMethodPrecentTitle.isHidden = true
-        self.lblselectedMethod.text = paymentOption[indexPath.section].0
-        
-    }
 }
+
+extension PHBottomViewController : PaymentOptionTableViewCellDelegate{
+    func didSelectedPaymentOption(paymentMethod: PaymentMethod) {
+        //MARK: Call Submit Method With Order Key
+        print(paymentMethod.method)
+    }
+    
+    
+}
+
+
 
 private struct PaymentOption {
     var name : String
     var image : UIImage
     var optionValue : String
     
+}
+
+extension UIFont {
+    private static func registerFont(withName name: String, fileExtension: String) {
+        let frameworkBundle = Bundle.payHereBundle
+        let pathForResourceString = frameworkBundle.path(forResource: name, ofType: fileExtension)
+        let fontData = NSData(contentsOfFile: pathForResourceString!)
+        let dataProvider = CGDataProvider(data: fontData!)
+        let fontRef = CGFont(dataProvider!)
+        var errorRef: Unmanaged<CFError>? = nil
+
+        if (CTFontManagerRegisterGraphicsFont(fontRef!, &errorRef) == false) {
+            print("Error registering font")
+        }
+    }
+
+    public static func loadFonts() {
+        registerFont(withName: "HPay", fileExtension: "ttf")
+        registerFont(withName: "HPayBold", fileExtension: "ttf")
+    }
 }

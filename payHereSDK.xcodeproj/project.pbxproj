@@ -25,6 +25,8 @@
 		C3ECA3CC61479DD760DF138C /* Pods_payHereSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */; };
 		C72750CB23A75AAD00AE9037 /* PayHere.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C72750CA23A75AAD00AE9037 /* PayHere.storyboard */; };
 		C72750CD23A75B8A00AE9037 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C72750CC23A75B8A00AE9037 /* image.xcassets */; };
+		C72A13D12784500D00F08E22 /* PaymentOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72A13CF2784500C00F08E22 /* PaymentOptionTableViewCell.swift */; };
+		C72A13D22784500D00F08E22 /* PaymentOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C72A13D02784500C00F08E22 /* PaymentOptionTableViewCell.xib */; };
 		C746D510234C9A7300F9D06F /* PHPrecentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C746D50F234C9A7300F9D06F /* PHPrecentController.swift */; };
 		C75702BB23D802ED00805AF8 /* PaymentUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75702BA23D802ED00805AF8 /* PaymentUI.swift */; };
 		C75702BD23D8381700805AF8 /* WVCheckMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75702BC23D8381600805AF8 /* WVCheckMark.swift */; };
@@ -46,6 +48,12 @@
 		C7A7DA3323C5D6F90029210E /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7DA3123C5D6F90029210E /* HeaderCollectionReusableView.swift */; };
 		C7A7DA3423C5D6F90029210E /* HeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7A7DA3223C5D6F90029210E /* HeaderCollectionReusableView.xib */; };
 		C7DF820324E6846300241DA6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7DF81FD24E65DD500241DA6 /* WebKit.framework */; };
+		C7E9F6B8277C2FA20013D2D4 /* PayWithHelaPayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E9F6B6277C2FA10013D2D4 /* PayWithHelaPayTableViewCell.swift */; };
+		C7E9F6B9277C2FA20013D2D4 /* PayWithHelaPayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7E9F6B7277C2FA10013D2D4 /* PayWithHelaPayTableViewCell.xib */; };
+		C7E9F6BC277C31810013D2D4 /* HPayBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7E9F6BA277C31810013D2D4 /* HPayBold.ttf */; };
+		C7E9F6BD277C31810013D2D4 /* HPay.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7E9F6BB277C31810013D2D4 /* HPay.ttf */; };
+		C7E9F6BF277C76A10013D2D4 /* PHBottomSheetTableViewSectioHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E9F6BE277C76A10013D2D4 /* PHBottomSheetTableViewSectioHeader.swift */; };
+		C7E9F6C1277C76B70013D2D4 /* PHBottomSheetTableViewSectioHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7E9F6C0277C76B70013D2D4 /* PHBottomSheetTableViewSectioHeader.xib */; };
 		D68AD170D5E2B0BDB07655F7 /* Pods_demoapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5C73F5CCE9DE42DB20A5A09 /* Pods_demoapp.framework */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +105,8 @@
 		C5C73F5CCE9DE42DB20A5A09 /* Pods_demoapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_demoapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72750CA23A75AAD00AE9037 /* PayHere.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PayHere.storyboard; sourceTree = "<group>"; };
 		C72750CC23A75B8A00AE9037 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
+		C72A13CF2784500C00F08E22 /* PaymentOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentOptionTableViewCell.swift; sourceTree = "<group>"; };
+		C72A13D02784500C00F08E22 /* PaymentOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentOptionTableViewCell.xib; sourceTree = "<group>"; };
 		C746D50F234C9A7300F9D06F /* PHPrecentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPrecentController.swift; sourceTree = "<group>"; };
 		C75702BA23D802ED00805AF8 /* PaymentUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentUI.swift; sourceTree = "<group>"; };
 		C75702BC23D8381600805AF8 /* WVCheckMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WVCheckMark.swift; sourceTree = "<group>"; };
@@ -118,6 +128,12 @@
 		C7A7DA3123C5D6F90029210E /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		C7A7DA3223C5D6F90029210E /* HeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		C7DF81FD24E65DD500241DA6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
+		C7E9F6B6277C2FA10013D2D4 /* PayWithHelaPayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWithHelaPayTableViewCell.swift; sourceTree = "<group>"; };
+		C7E9F6B7277C2FA10013D2D4 /* PayWithHelaPayTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PayWithHelaPayTableViewCell.xib; sourceTree = "<group>"; };
+		C7E9F6BA277C31810013D2D4 /* HPayBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HPayBold.ttf; sourceTree = "<group>"; };
+		C7E9F6BB277C31810013D2D4 /* HPay.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HPay.ttf; sourceTree = "<group>"; };
+		C7E9F6BE277C76A10013D2D4 /* PHBottomSheetTableViewSectioHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHBottomSheetTableViewSectioHeader.swift; sourceTree = "<group>"; };
+		C7E9F6C0277C76B70013D2D4 /* PHBottomSheetTableViewSectioHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PHBottomSheetTableViewSectioHeader.xib; sourceTree = "<group>"; };
 		D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_payHereSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E98AA3326CB2BEE8C4106D35 /* Pods-payHereSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payHereSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-payHereSDK/Pods-payHereSDK.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -217,12 +233,20 @@
 		C72750C923A75A8600AE9037 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C7E9F6BB277C31810013D2D4 /* HPay.ttf */,
+				C7E9F6BA277C31810013D2D4 /* HPayBold.ttf */,
 				C72750CA23A75AAD00AE9037 /* PayHere.storyboard */,
 				C799349523A9FEFC005E5A7B /* PayOptionCollectionViewCell.swift */,
 				C799349623A9FEFC005E5A7B /* PayOptionCollectionViewCell.xib */,
 				C7A7DA3123C5D6F90029210E /* HeaderCollectionReusableView.swift */,
 				C7A7DA3223C5D6F90029210E /* HeaderCollectionReusableView.xib */,
 				C75702BC23D8381600805AF8 /* WVCheckMark.swift */,
+				C7E9F6B6277C2FA10013D2D4 /* PayWithHelaPayTableViewCell.swift */,
+				C7E9F6B7277C2FA10013D2D4 /* PayWithHelaPayTableViewCell.xib */,
+				C7E9F6BE277C76A10013D2D4 /* PHBottomSheetTableViewSectioHeader.swift */,
+				C7E9F6C0277C76B70013D2D4 /* PHBottomSheetTableViewSectioHeader.xib */,
+				C72A13CF2784500C00F08E22 /* PaymentOptionTableViewCell.swift */,
+				C72A13D02784500C00F08E22 /* PaymentOptionTableViewCell.xib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -358,11 +382,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7E9F6C1277C76B70013D2D4 /* PHBottomSheetTableViewSectioHeader.xib in Resources */,
 				C7A7DA3423C5D6F90029210E /* HeaderCollectionReusableView.xib in Resources */,
 				8A1FF74B206254DF00924B21 /* README.md in Resources */,
+				C7E9F6B9277C2FA20013D2D4 /* PayWithHelaPayTableViewCell.xib in Resources */,
 				8AD11E6420612739002E4F82 /* payHereSDK.podspec in Resources */,
+				C72A13D22784500D00F08E22 /* PaymentOptionTableViewCell.xib in Resources */,
 				C799349823A9FEFC005E5A7B /* PayOptionCollectionViewCell.xib in Resources */,
 				C72750CD23A75B8A00AE9037 /* image.xcassets in Resources */,
+				C7E9F6BD277C31810013D2D4 /* HPay.ttf in Resources */,
+				C7E9F6BC277C31810013D2D4 /* HPayBold.ttf in Resources */,
 				8AD11E6320612739002E4F82 /* LICENSE in Resources */,
 				C72750CB23A75AAD00AE9037 /* PayHere.storyboard in Resources */,
 			);
@@ -451,6 +480,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7A7DA3323C5D6F90029210E /* HeaderCollectionReusableView.swift in Sources */,
+				C7E9F6B8277C2FA20013D2D4 /* PayWithHelaPayTableViewCell.swift in Sources */,
+				C72A13D12784500D00F08E22 /* PaymentOptionTableViewCell.swift in Sources */,
 				8A74D7FC20528E5C00CF10AB /* Address.swift in Sources */,
 				8A74D7FD20528E5C00CF10AB /* InitRequest.swift in Sources */,
 				C799349723A9FEFC005E5A7B /* PayOptionCollectionViewCell.swift in Sources */,
@@ -462,6 +493,7 @@
 				8A74D7EE20528E3900CF10AB /* PHViewController.swift in Sources */,
 				C746D510234C9A7300F9D06F /* PHPrecentController.swift in Sources */,
 				8A74D7F920528E5C00CF10AB /* Customer.swift in Sources */,
+				C7E9F6BF277C76A10013D2D4 /* PHBottomSheetTableViewSectioHeader.swift in Sources */,
 				C75702BD23D8381700805AF8 /* WVCheckMark.swift in Sources */,
 				C75702BF23D963F700805AF8 /* PHInitialRequest.swift in Sources */,
 				8A74D7FB20528E5C00CF10AB /* Item.swift in Sources */,
