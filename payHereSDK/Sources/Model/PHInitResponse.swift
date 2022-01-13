@@ -21,6 +21,8 @@ struct DataClass: Codable {
     var order: Order?
     var business: Business?
     var paymentMethods: [PaymentMethod]?
+    var redirectType: String?
+    var url: String?
 }
 
 // MARK: - Business
@@ -56,6 +58,13 @@ struct Redirection: Codable {
 struct Submission : Codable{
     var redirectType: String?
     var url: String?
+}
+
+// MARK: - PayHereSubmitResponse
+struct PayHereSubmitResponse : Codable{
+    var status: Int?
+    var msg: String?
+    var data: DataClass?
 }
 
 
