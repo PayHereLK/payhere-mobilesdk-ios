@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,15 +21,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="visa" translatesAutoresizingMaskIntoConstraints="NO" id="cQ1-TB-pXr">
-                                <rect key="frame" x="2" y="18" width="46" height="14"/>
+                                <rect key="frame" x="8" y="8" width="34" height="34"/>
                             </imageView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="JMw-4d-bte"/>
                         <color key="backgroundColor" red="0.937425077" green="0.94481736419999995" blue="0.9568658471" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="cQ1-TB-pXr" firstAttribute="centerX" secondItem="0hD-uJ-rdI" secondAttribute="centerX" id="E9I-WM-Q6s"/>
-                            <constraint firstItem="cQ1-TB-pXr" firstAttribute="centerY" secondItem="0hD-uJ-rdI" secondAttribute="centerY" id="dIG-od-NEx"/>
+                            <constraint firstItem="JMw-4d-bte" firstAttribute="bottom" secondItem="cQ1-TB-pXr" secondAttribute="bottom" constant="8" id="Gvo-Qr-E3n"/>
+                            <constraint firstItem="cQ1-TB-pXr" firstAttribute="leading" secondItem="0hD-uJ-rdI" secondAttribute="leading" constant="8" id="Mly-Cb-WCV"/>
+                            <constraint firstAttribute="trailing" secondItem="cQ1-TB-pXr" secondAttribute="trailing" constant="8" id="QbN-Au-LPK"/>
+                            <constraint firstItem="cQ1-TB-pXr" firstAttribute="top" secondItem="0hD-uJ-rdI" secondAttribute="top" constant="8" id="uvL-CH-JAr"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="JMw-4d-bte"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                 <integer key="value" value="8"/>
@@ -38,13 +40,13 @@
                     </view>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="0hD-uJ-rdI" secondAttribute="bottom" id="JuD-27-Dqk"/>
                 <constraint firstItem="0hD-uJ-rdI" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="WW0-BW-qQk"/>
                 <constraint firstItem="0hD-uJ-rdI" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="WuA-Fr-A1g"/>
                 <constraint firstAttribute="trailing" secondItem="0hD-uJ-rdI" secondAttribute="trailing" id="fpB-zA-xzb"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="178" height="144"/>
             <connections>
                 <outlet property="imgOptionImage" destination="cQ1-TB-pXr" id="4KO-03-FvF"/>
@@ -54,6 +56,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="visa" width="45.5" height="14"/>
+        <image name="visa" width="39" height="12"/>
     </resources>
 </document>

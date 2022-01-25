@@ -35,8 +35,17 @@ struct Business: Codable {
 // MARK: - PaymentMethod
 struct PaymentMethod : Codable{
     var method: String?
-    var discountPercentage: Int?
+    var orderNo : Int?
+    var discount: Int?
+    var submissionCode : String?
     var submission: Submission?
+    var view : UISize?
+    
+}
+
+struct UISize : Codable{
+    var imageUrl : String?
+    var windowSize : ViewSize?
 }
 
 
@@ -58,6 +67,11 @@ struct Redirection: Codable {
 struct Submission : Codable{
     var redirectType: String?
     var url: String?
+    var mobileUrls : MobileUrls?
+}
+
+struct MobileUrls : Codable{
+    var IOS : String?
 }
 
 // MARK: - PayHereSubmitResponse

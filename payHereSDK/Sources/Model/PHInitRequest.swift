@@ -96,7 +96,7 @@ internal  class PHInitRequest : Mappable{
         self.referer <- map["referer"]
         self.hash <- map["hash"]
         self.auto <- map["auto"]
-//        self.method <- map["method"]
+        self.method <- map["method"]
         self.authorize <- map["authorize"]
     }
     

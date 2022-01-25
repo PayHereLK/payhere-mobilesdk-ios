@@ -8,24 +8,27 @@
 
 import UIKit
 
+
 protocol PaymentOptionTableViewCellDelegate{
-    func didSelectedPaymentOption(paymentMethod : PaymentMethod)
+    func didSelectedPaymentOption(paymentMethod : PaymentMethod,selectedSection : Int)
 }
 class PaymentOptionTableViewCell: UITableViewCell {
     
     private var list : [PaymentMethod] = []
+    private var sectionID : Int = 0
     
     @IBOutlet weak var collectionView: UICollectionView!
     
     var delegate : PaymentOptionTableViewCellDelegate?
     
     
-    public static func dequeue(fromTableView tv: UITableView,list : [PaymentMethod],delegate : PaymentOptionTableViewCellDelegate) -> PaymentOptionTableViewCell{
+    public static func dequeue(fromTableView tv: UITableView,list : [PaymentMethod],indexPath path : IndexPath,delegate : PaymentOptionTableViewCellDelegate) -> PaymentOptionTableViewCell{
         let cell = tv.dequeueReusableCell(withIdentifier: "PaymentOptionTableViewCell") as! PaymentOptionTableViewCell
         cell.list = list
         cell.selectionStyle = .none
         cell.delegate = delegate
         cell.collectionView.reloadData()
+        cell.sectionID = path.section
         return cell
     }
     
@@ -82,13 +85,22 @@ extension PaymentOptionTableViewCell: UICollectionViewDataSource {
         
         let method  = list[indexPath.row]
         
-        cell.imgOptionImage.image = getImage(withImageName: method.method?.lowercased() ?? "visa")
+        if let  url = method.view?.imageUrl{
+            if let urlObj = URL(string: url){
+                cell.imgOptionImage.setImage(from: urlObj, placeholder: getImage(withImageName: method.method?.lowercased() ?? "visa"))
+            }
+            
+        }else{
+            cell.imgOptionImage.image = getImage(withImageName: method.method?.lowercased() ?? "visa")
+        }
+        
+//        cell.imgOptionImage.image = getImage(withImageName: method.method?.lowercased() ?? "visa")
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if delegate != nil{
-            delegate?.didSelectedPaymentOption(paymentMethod: list[indexPath.row])
+            delegate?.didSelectedPaymentOption(paymentMethod: list[indexPath.row],selectedSection: sectionID)
         }
     }
     
