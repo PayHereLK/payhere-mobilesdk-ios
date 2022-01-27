@@ -11,7 +11,8 @@ import Foundation
 
 public enum PHCurrency : String{
     case LKR = "LKR"
-    case USD = "GBP"
+    case USD = "USD"
+    case GBP = "GBP"
     case EUR = "EUR"
     case AUD = "AUD"
 }
