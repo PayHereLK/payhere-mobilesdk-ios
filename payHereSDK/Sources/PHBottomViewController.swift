@@ -746,7 +746,8 @@ internal class PHBottomViewController: UIViewController {
     
     private func getStatusFromResponse(lastResponse : StatusResponse) -> Int{
         
-        if(lastResponse.getStatusState() == StatusResponse.Status.SUCCESS){
+        if(lastResponse.getStatusState() == StatusResponse.Status.SUCCESS ||
+           lastResponse.getStatusState() == StatusResponse.Status.AUTHORIZED){
             return PHResponse<Any>.STATUS_SUCCESS
         }else{
             return PHResponse<Any>.STATUS_ERROR_PAYMENT
