@@ -99,9 +99,7 @@ extension PaymentOptionTableViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if delegate != nil{
-            delegate?.didSelectedPaymentOption(paymentMethod: list[indexPath.row],selectedSection: sectionID)
-        }
+        delegate?.didSelectedPaymentOption(paymentMethod: list[indexPath.row],selectedSection: sectionID)
     }
     
     private func getImage(withImageName : String) -> UIImage{

@@ -45,6 +45,15 @@ internal class PHBottomViewController: UIViewController {
     internal var keyBoardHeightMax : CGFloat = 0
     internal var shouldShowSucessView : Bool = true
     
+    private var count : Int = 5
+    private var statusResponse : StatusResponse?
+    private var timer : Timer?
+    private var isBackPressed : Bool =  false
+    
+    private var bankAccount : [PaymentMethod] = []
+    private var bankCard : [PaymentMethod] =  []
+    private var other : [PaymentMethod]  =  []
+    
     private var initRequest : PHInitRequest?
     private var initRepsonse : PHInitResponse?
     private var paymentUI : PaymentUI = PaymentUI()
@@ -94,6 +103,7 @@ internal class PHBottomViewController: UIViewController {
         }
         
         
+        
         calculateHeight()
         
         
@@ -138,6 +148,8 @@ internal class PHBottomViewController: UIViewController {
         
         self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 0.00001))
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(backButtonClicked))
+        stackViewBackViewWrapper.addGestureRecognizer(tap)
     
     }
     
@@ -422,20 +434,25 @@ internal class PHBottomViewController: UIViewController {
         })
     }
     
-    @objc private func viewWrapperClicked(){
+    @objc private func backButtonClicked(){
         
         if(apiMethod == .CheckOut){
-            self.calculateHeight()
+            self.selectedPaymentOption = nil
+            self.selectedPaymentMethod = nil
             
+            self.calculateHeight()
             self.webView.isHidden = true
             self.webView.loadHTMLString("", baseURL: nil)
             //            self.viewNavigationWrapper.isHidden = true
             
             //            self.collectionView.isHidden = false
             //            self.lblMethodPrecentTitle.isHidden = false
+            self.tableView.isHidden = false
             
             self.isBackPressed = true
             self.progressBar.isHidden = true
+            
+            self.handleNavigation(stepId: .Dashboard, sectionId: -1)
             
         }else{
             self.dismiss(animated: true, completion: {
@@ -476,9 +493,8 @@ internal class PHBottomViewController: UIViewController {
         
         self.orgHeight = self.height.constant
         
-        self.view.layer.cornerRadius = 12
+        self.bottomView.layer.cornerRadius = 12
     }
-    
     
     @IBAction func panGestureRegonizer(_ sender: UIPanGestureRecognizer) {
         
@@ -508,8 +524,6 @@ internal class PHBottomViewController: UIViewController {
             }
         }
     }
-    
-    var isBackPressed : Bool =  false
     
     private func sentInitRequest(){
         
@@ -690,10 +704,6 @@ internal class PHBottomViewController: UIViewController {
         
         
     }
-    
-    var bankAccount : [PaymentMethod] = []
-    var bankCard : [PaymentMethod] =  []
-    var other : [PaymentMethod]  =  []
     
     private func initalizedUI(_ response : PHInitResponse){
         if let paymentMethods = response.data?.paymentMethods{
@@ -962,10 +972,6 @@ internal class PHBottomViewController: UIViewController {
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
     }
     
-    private var count : Int = 5
-    private var statusResponse : StatusResponse?
-    private var timer : Timer?
-    
     
     
     @objc private func update() {
@@ -1086,6 +1092,7 @@ internal class PHBottomViewController: UIViewController {
         switch(stepId){
         case .Dashboard:
             self.lblPayWithTitle.text = "Pay With"
+            self.btnBackImage.isHidden = true
         case .Payment:
             
             var title = ""
