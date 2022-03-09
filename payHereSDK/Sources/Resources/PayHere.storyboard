@@ -191,11 +191,6 @@
                                     <constraint firstAttribute="height" constant="360" id="xOx-fC-3SQ"/>
                                     <constraint firstAttribute="bottom" secondItem="Zao-GE-SYO" secondAttribute="bottom" id="xpM-fH-ush"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="subviews">
-                                        <exclude reference="wac-8e-qWJ"/>
-                                    </mask>
-                                </variation>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="dYA-Ai-L1P" appends="YES" id="Ng3-cT-LYG"/>
                                 </connections>
@@ -223,6 +218,7 @@
                         <outlet property="lblPaymentStatus" destination="ntg-vY-Dx9" id="DRy-w5-Iip"/>
                         <outlet property="lblSecureWindow" destination="egX-RN-DkB" id="Z5n-85-cja"/>
                         <outlet property="progressBar" destination="wac-8e-qWJ" id="xyI-B4-Nh8"/>
+                        <outlet property="stackViewBackViewWrapper" destination="zP4-ke-IJr" id="v54-vz-jBO"/>
                         <outlet property="tableView" destination="pif-qj-Mpl" id="Z45-Xw-7Np"/>
                         <outlet property="viewPaymentSucess" destination="Zao-GE-SYO" id="mzJ-tZ-aIm"/>
                         <outlet property="viewSandboxNoteBanner" destination="rb5-Dg-YbH" id="YjS-vC-747"/>

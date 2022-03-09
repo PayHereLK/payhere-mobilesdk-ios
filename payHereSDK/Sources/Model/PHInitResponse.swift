@@ -36,7 +36,7 @@ struct Business: Codable {
 struct PaymentMethod : Codable{
     var method: String?
     var orderNo : Int?
-    var discount: Int?
+//    var discount: Int?
     var submissionCode : String?
     var submission: Submission?
     var view : UISize?

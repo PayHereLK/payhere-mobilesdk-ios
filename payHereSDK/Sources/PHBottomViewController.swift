@@ -34,6 +34,8 @@ internal class PHBottomViewController: UIViewController {
     @IBOutlet weak var checkMark: WVCheckMark!
     @IBOutlet var lblPaymentStatus: UILabel!
     @IBOutlet weak var lblBottomMessage: UILabel!
+    @IBOutlet weak var stackViewBackViewWrapper: UIStackView!
+    
     
     
     internal var initialRequest : PHInitialRequest?
@@ -134,15 +136,9 @@ internal class PHBottomViewController: UIViewController {
         self.bottomView.layer.cornerRadius = 12
         self.bottomView.layer.masksToBounds = true
         
-        
-        
-        
         self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 0.00001))
         
-        
-        //        if #available(iOS 13.0, *){
-        //            self.collectionView.overrideUserInterfaceStyle = .light
-        //        }
+    
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -361,6 +357,8 @@ internal class PHBottomViewController: UIViewController {
     private func startProcess(selectedAPI : SelectedAPI){
         
         //        self.initRequest?.method = paymentMethod
+        self.progressBar.isHidden = false
+        self.tableView.isHidden  = true
         
         let validate = self.Validate()
         
@@ -535,6 +533,10 @@ internal class PHBottomViewController: UIViewController {
                 }
             }
             .responseData { response in
+                
+                self.progressBar.isHidden = true
+                self.tableView.isHidden  = false
+                
                 switch response.result {
                 case .success(let data):
                     do{
@@ -593,6 +595,10 @@ internal class PHBottomViewController: UIViewController {
         AF.request(request!)
             .validate()
             .responseData { response in
+                
+                self.progressBar.isHidden = true
+                self.tableView.isHidden  = false
+                
                 switch response.result {
                 case .success(let data):
                     do{
@@ -1221,7 +1227,7 @@ extension PHBottomViewController : UITableViewDelegate,UITableViewDataSource{
             
             let method = bankAccount[indexPath.row]
             
-            if let url = method.submission?.url{
+            if let url = method.submission?.mobileUrls?.IOS{
                 
                 if let urlValue = URL(string: url){
                     UIApplication.shared.open(urlValue, options: [:], completionHandler: nil)
