@@ -55,7 +55,7 @@ internal class PHBottomViewController: UIViewController {
     private var other : [PaymentMethod]  =  []
     
     private var initRequest : PHInitRequest?
-    private var initRepsonse : PHInitResponse?
+    private var initResponse : PHInitResponse?
     private var paymentUI : PaymentUI = PaymentUI()
     private var selectedPaymentOption : PaymentOption?
     private var apiMethod : SelectedAPI = .CheckOut
@@ -104,7 +104,7 @@ internal class PHBottomViewController: UIViewController {
         
         
         
-        calculateHeight()
+        setInitialHeight()
         
         
         self.viewPaymentSucess.isHidden = true
@@ -440,7 +440,7 @@ internal class PHBottomViewController: UIViewController {
             self.selectedPaymentOption = nil
             self.selectedPaymentMethod = nil
             
-            self.calculateHeight()
+            self.setInitialHeight()
             self.webView.isHidden = true
             self.webView.loadHTMLString("", baseURL: nil)
             //            self.viewNavigationWrapper.isHidden = true
@@ -484,7 +484,7 @@ internal class PHBottomViewController: UIViewController {
     }
     
     
-    private func calculateHeight(){
+    private func setInitialHeight(){
         
         let cellHeight = (((self.view.frame.width - 20) / 5) - 15) * 3
         let constHeight = 45.0 + (50.0 * 3.0)
@@ -557,13 +557,13 @@ internal class PHBottomViewController: UIViewController {
                         let  temp = try newJSONDecoder().decode(PHInitResponse.self, from: data)
                         
                         if(temp.status == 1){
-                            self.initRepsonse = temp
+                            self.initResponse = temp
                             self.progressBar.isHidden = true
                             //                            self.collectionView.isHidden = true
                             
                             if(!self.isBackPressed){
                                 
-                                self.initalizedUI(self.initRepsonse!)
+                                self.initalizedUI(self.initResponse!)
                             }
                             
                         }else{
@@ -619,7 +619,12 @@ internal class PHBottomViewController: UIViewController {
                         let  temp = try newJSONDecoder().decode(PayHereInitnSubmitResponse.self, from: data)
                         
                         if(temp.status == 1){
-                            self.initRepsonse?.data?.order?.orderKey = temp.data?.order?.orderKey
+                            if self.initResponse == nil{
+                                self.initResponse = PHInitResponse(temp)
+                            }
+                            else{
+                                self.initResponse?.data?.order = temp.data?.order
+                            }
                             self.progressBar.isHidden = true
                             self.tableView.isHidden = true
                             
@@ -658,7 +663,7 @@ internal class PHBottomViewController: UIViewController {
         let submitObject = SubmitRequest()
         
         submitObject.method = method
-        submitObject.key = self.initRepsonse?.data?.order?.orderKey
+        submitObject.key = self.initResponse?.data?.order?.orderKey
         
         
         let request = submitObject.toRawRequest(url: "\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.SUBMIT)")
@@ -706,16 +711,20 @@ internal class PHBottomViewController: UIViewController {
     }
     
     private func initalizedUI(_ response : PHInitResponse){
+        let bankCardMethods = ["MASTER", "VISA", "MASTER", "AMEX", "DISCOVER", "DINERS"]
+        
         if let paymentMethods = response.data?.paymentMethods{
             
             for method in paymentMethods{
-                
-                if let methodName = method.method{
-                    if methodName.uppercased() == "HELAPAY"{
+                // .uppercased() is important!
+                if let methodName = method.method?.uppercased(){
+                    if methodName == "HELAPAY"{
                         bankAccount.append(method)
-                    }else if methodName.uppercased() == "MASTER" || methodName.uppercased() == "VISA" || methodName.uppercased() == "MASTER" || methodName.uppercased() ==  "AMEX" || methodName.uppercased() == "DISCOVER" || methodName.uppercased() == "DINERS"{
+                    }
+                    else if bankCardMethods.contains(methodName){
                         bankCard.append(method)
-                    }else{
+                    }
+                    else{
                         other.append(method)
                     }
                 }
@@ -1138,17 +1147,18 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
     
     internal func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
+        print(navigationAction.request.mainDocumentURL?.absoluteString ?? "Navigating to unknown location")
         
         if((navigationAction.request.mainDocumentURL?.absoluteString.contains("https://www.payhere.lk/pay/payment/complete"))! || (navigationAction.request.mainDocumentURL?.absoluteString.contains("https://sandbox.payhere.lk/pay/payment/complete"))!){
-            if(self.initRepsonse?.data?.order != nil){
+            if(self.initResponse?.data?.order != nil){
                 if isSandBoxEnabled{
                     
                     DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                        self.checkStatus(orderKey: self.initRepsonse?.data!.order?.orderKey ?? "")
+                        self.checkStatus(orderKey: self.initResponse?.data!.order?.orderKey ?? "")
                     }
                     
                 }else{
-                    self.checkStatus(orderKey: self.initRepsonse?.data!.order?.orderKey ?? "")
+                    self.checkStatus(orderKey: self.initResponse?.data!.order?.orderKey ?? "")
                 }
             }
         }

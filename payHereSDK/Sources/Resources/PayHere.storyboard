@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_0" orientation="portrait" appearance="dark"/>
+    <device id="retina3_5" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
@@ -21,11 +21,11 @@
             <objects>
                 <viewController storyboardIdentifier="PHBottomViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GSY-c3-ibo" customClass="PHBottomViewController" customModule="payHereSDK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eqH-Eu-cff">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2XC-NF-f7C">
-                                <rect key="frame" x="0.0" y="208" width="320" height="360"/>
+                                <rect key="frame" x="0.0" y="120" width="320" height="360"/>
                                 <subviews>
                                     <wkWebView contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="01m-3n-WaP">
                                         <rect key="frame" x="0.0" y="64" width="320" height="296"/>
@@ -77,20 +77,20 @@
                                         <rect key="frame" x="0.0" y="64" width="320" height="296"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xgn-F8-Voe" customClass="WVCheckMark" customModule="payHereSDK" customModuleProvider="target">
-                                                <rect key="frame" x="125" y="47" width="70" height="70"/>
+                                                <rect key="frame" x="125" y="39" width="70" height="70"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="xgn-F8-Voe" secondAttribute="height" multiplier="1:1" id="ZUK-re-MCD"/>
                                                     <constraint firstAttribute="height" constant="70" id="lVu-Qb-mRt"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Approved" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ntg-vY-Dx9">
-                                                <rect key="frame" x="109.5" y="117" width="101" height="13"/>
+                                                <rect key="frame" x="109.5" y="119" width="101" height="13"/>
                                                 <fontDescription key="fontDescription" name="HPay" family="HPay" pointSize="12"/>
                                                 <color key="textColor" red="0.34509803921568627" green="0.36862745098039218" blue="0.39215686274509803" alpha="0.8047979909477504" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U4a-PJ-G07">
-                                                <rect key="frame" x="0.0" y="162" width="320" height="85"/>
+                                                <rect key="frame" x="0.0" y="154" width="320" height="85"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment ID #0000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sEN-8y-t8S">
                                                         <rect key="frame" x="107.5" y="16" width="105.5" height="14.5"/>
@@ -116,7 +116,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This secure payment window is cloing in 5 seconds..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egX-RN-DkB">
-                                                <rect key="frame" x="32" y="272" width="256" height="12"/>
+                                                <rect key="frame" x="32" y="264" width="256" height="12"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" red="0.1521497071" green="0.29932612180000001" blue="0.91769903900000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
@@ -129,12 +129,12 @@
                                             <constraint firstItem="ntg-vY-Dx9" firstAttribute="centerX" secondItem="Zao-GE-SYO" secondAttribute="centerX" id="Lu9-ub-Xdu"/>
                                             <constraint firstItem="U4a-PJ-G07" firstAttribute="centerX" secondItem="Zao-GE-SYO" secondAttribute="centerX" id="Pof-dF-ptv"/>
                                             <constraint firstItem="xgn-F8-Voe" firstAttribute="centerX" secondItem="Zao-GE-SYO" secondAttribute="centerX" id="ScA-mr-Im2"/>
-                                            <constraint firstAttribute="bottom" secondItem="egX-RN-DkB" secondAttribute="bottom" constant="12" id="XQT-bf-86i"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="egX-RN-DkB" secondAttribute="bottom" constant="12" id="XQT-bf-86i"/>
                                             <constraint firstItem="egX-RN-DkB" firstAttribute="top" secondItem="U4a-PJ-G07" secondAttribute="bottom" constant="25" id="YNE-to-EQU"/>
                                             <constraint firstItem="U4a-PJ-G07" firstAttribute="leading" secondItem="Zao-GE-SYO" secondAttribute="leading" id="ZEI-WH-0Qy"/>
-                                            <constraint firstItem="U4a-PJ-G07" firstAttribute="top" secondItem="ntg-vY-Dx9" secondAttribute="bottom" constant="32" id="cXg-Qm-Nha"/>
+                                            <constraint firstItem="U4a-PJ-G07" firstAttribute="top" secondItem="ntg-vY-Dx9" secondAttribute="bottom" constant="22" id="cXg-Qm-Nha"/>
                                             <constraint firstItem="egX-RN-DkB" firstAttribute="centerX" secondItem="Zao-GE-SYO" secondAttribute="centerX" id="nx9-s5-M8e"/>
-                                            <constraint firstItem="ntg-vY-Dx9" firstAttribute="top" secondItem="xgn-F8-Voe" secondAttribute="bottom" id="tf9-Aj-xJt"/>
+                                            <constraint firstItem="ntg-vY-Dx9" firstAttribute="top" secondItem="xgn-F8-Voe" secondAttribute="bottom" constant="10" id="tf9-Aj-xJt"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rb5-Dg-YbH">

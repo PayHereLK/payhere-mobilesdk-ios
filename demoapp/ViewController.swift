@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     
     
     
-    let merchandID = "210251" //"1211149" //"210251"
+    let merchantID = "1211149" //"1211149" //"210251"
    
     var initRequest : PHInitialRequest?
 
@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         let item2 = Item(id: "002", name: "PayHere Test Item 02", quantity: 2, amount: 25.0)
         
         //MARK: CheckOut API
-        initRequest = PHInitialRequest(merchantID: merchandID,
+        initRequest = PHInitialRequest(merchantID: merchantID,
                                        notifyURL: "",
                                        firstName: "Pay",
                                        lastName: "Here",
@@ -62,7 +62,7 @@ class ViewController: UIViewController {
                           amount: 60.00)
         
         //MARK: Pre Approval API
-        initRequest = PHInitialRequest(merchantID: merchandID,
+        initRequest = PHInitialRequest(merchantID: merchantID,
                                        notifyURL: "",
                                        firstName: "",
                                        lastName: "",
@@ -89,7 +89,29 @@ class ViewController: UIViewController {
         
         
         //MARK: Recurring API
-        initRequest = PHInitialRequest(merchantID: merchandID, notifyURL: "", firstName: "", lastName: "", email: "", phone: "", address: "", city: "", country: "", orderID: "002", itemsDescription: "", itemsMap: [item1], currency: .LKR, amount: 60.50, deliveryAddress: "", deliveryCity: "", deliveryCountry: "", custom1: "", custom2: "", startupFee: 0.0, recurrence: .Month(period: 2), duration: .Forver)
+        initRequest = PHInitialRequest(
+            merchantID: merchantID,
+            notifyURL: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            address: "",
+            city: "",
+            country: "",
+            orderID: "002",
+            itemsDescription: "",
+            itemsMap: [item1],
+            currency: .LKR,
+            amount: 60.50,
+            deliveryAddress: "",
+            deliveryCity: "",
+            deliveryCountry: "",
+            custom1: "",
+            custom2: "",
+            startupFee: 0.0,
+            recurrence: .Month(period: 2),
+            duration: .Forver)
         
         PHPrecentController.precent(from: self, withInitRequest: initRequest!, delegate: self)
         
@@ -102,7 +124,7 @@ class ViewController: UIViewController {
         
         //MARK: CheckOut API
         initRequest = PHInitialRequest(
-            merchantID: merchandID,
+            merchantID: merchantID,
             notifyURL: "",
             firstName: "Pay",
             lastName: "Here",

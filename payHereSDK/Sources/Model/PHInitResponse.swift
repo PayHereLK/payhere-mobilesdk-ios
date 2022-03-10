@@ -13,6 +13,14 @@ struct PHInitResponse: Codable {
     var status: Int?
     var msg: String?
     var data: DataClass?
+    
+    init(_ other: PayHereInitnSubmitResponse){
+        self.status = other.status
+        self.msg = other.msg
+        if let otherData = other.data{
+            self.data = DataClass(otherData)
+        }
+    }
 }
 
 // MARK: - DataClass
@@ -23,6 +31,15 @@ struct DataClass: Codable {
     var paymentMethods: [PaymentMethod]?
     var redirectType: String?
     var url: String?
+    
+    init(_ other: InitAndSubmitData){
+        self.type = nil
+        self.order = other.order
+        self.business = other.business
+        self.paymentMethods = []
+        self.redirectType = other.redirection?.redirectType
+        self.url = other.redirection?.url
+    }
 }
 
 // MARK: - Business
