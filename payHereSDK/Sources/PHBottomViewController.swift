@@ -1114,6 +1114,9 @@ internal class PHBottomViewController: UIViewController {
                 title = "Other"
             }
             
+            self.tableView.isHidden  = true
+            self.webView.isHidden = true
+            self.progressBar.isHidden = false
             self.lblPayWithTitle.text = title
             self.btnBackImage.isHidden = false
         case .Complete:
