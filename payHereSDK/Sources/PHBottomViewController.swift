@@ -161,7 +161,10 @@ internal class PHBottomViewController: UIViewController {
         
         //        self.collectionView.isHidden = false
         self.progressBar.isHidden = true
-        self.btnBackImage.isHidden = true
+        
+        if apiMethod == .CheckOut{
+            self.btnBackImage.isHidden = true
+        }
         
         
         //MARK: Start PreApproval Process
@@ -352,7 +355,7 @@ internal class PHBottomViewController: UIViewController {
         initialSubmitRequest.authorize = phInitialRequest.isHoldOnCardEnabled
         
         
-        self.apiMethod  = phInitialRequest.api
+        self.apiMethod = phInitialRequest.api
         
         
         initialSubmitRequest.referer = Bundle.main.bundleIdentifier
@@ -1102,7 +1105,7 @@ internal class PHBottomViewController: UIViewController {
         
         switch(stepId){
         case .Dashboard:
-            self.lblPayWithTitle.text = "Pay With"
+            self.lblPayWithTitle.text = "Pay with"
             self.btnBackImage.isHidden = true
         case .Payment:
             
