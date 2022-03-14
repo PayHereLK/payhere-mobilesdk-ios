@@ -436,7 +436,8 @@ internal class PHBottomViewController: UIViewController {
     
     @objc private func backButtonClicked(){
         
-        if(apiMethod == .CheckOut){
+        if(apiMethod == .CheckOut && selectedPaymentOption != nil){
+            
             self.selectedPaymentOption = nil
             self.selectedPaymentMethod = nil
             
@@ -453,8 +454,8 @@ internal class PHBottomViewController: UIViewController {
             self.progressBar.isHidden = true
             
             self.handleNavigation(stepId: .Dashboard, sectionId: -1)
-            
-        }else{
+        }
+        else{
             self.dismiss(animated: true, completion: {
                 let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation Canceld"])
                 self.delegate?.onErrorReceived(error: error)
@@ -531,6 +532,7 @@ internal class PHBottomViewController: UIViewController {
         isBackPressed = false
         
         self.progressBar.isHidden = false
+        self.webView.isHidden = true
         //        self.collectionView.isHidden = true
         
         
