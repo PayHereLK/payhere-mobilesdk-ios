@@ -1252,8 +1252,10 @@ extension PHBottomViewController : UITableViewDelegate,UITableViewDataSource{
             
             let method = bankAccount[indexPath.row]
             
+            /**
+             Deep link into Helakuru > HelaPay
+             */
             if let url = method.submission?.mobileUrls?.IOS{
-                
                 if let urlValue = URL(string: url){
                     UIApplication.shared.open(urlValue, options: [:], completionHandler: nil)
                 }
