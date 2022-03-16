@@ -9,7 +9,7 @@
 import UIKit
 
 
-protocol PaymentOptionTableViewCellDelegate{
+protocol PaymentOptionTableViewCellDelegate: AnyObject{
     func didSelectedPaymentOption(paymentMethod : PaymentMethod,selectedSection : Int)
 }
 class PaymentOptionTableViewCell: UITableViewCell {
@@ -19,7 +19,7 @@ class PaymentOptionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var delegate : PaymentOptionTableViewCellDelegate?
+    weak var delegate : PaymentOptionTableViewCellDelegate?
     
     
     public static func dequeue(fromTableView tv: UITableView,list : [PaymentMethod],indexPath path : IndexPath,delegate : PaymentOptionTableViewCellDelegate) -> PaymentOptionTableViewCell{

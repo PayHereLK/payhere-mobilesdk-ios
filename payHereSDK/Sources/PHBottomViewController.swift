@@ -12,35 +12,33 @@ import ObjectMapper
 import AlamofireObjectMapper
 import WebKit
 
-public protocol PHViewControllerDelegate{
+public protocol PHViewControllerDelegate: AnyObject{
     func onResponseReceived(response : PHResponse<Any>?)
     func onErrorReceived(error : Error)
 }
 internal class PHBottomViewController: UIViewController {
     
-    @IBOutlet var progressBar: UIActivityIndicatorView!
-    @IBOutlet var height: NSLayoutConstraint!
+    @IBOutlet weak var progressBar: UIActivityIndicatorView!
+    @IBOutlet weak var height: NSLayoutConstraint!
     @IBOutlet var bottomConstraint: NSLayoutConstraint!
-    @IBOutlet var webView: WKWebView!
-    @IBOutlet var bottomView: UIView!
-    @IBOutlet var viewSandboxNoteBanner: UIView!
+    @IBOutlet weak var webView: WKWebView!
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var viewSandboxNoteBanner: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lblPayWithTitle: UILabel!
     @IBOutlet weak var btnBackImage: UIImageView!
     
-    @IBOutlet var viewPaymentSucess: UIView!
-    @IBOutlet var lblPaymentID: UILabel!
-    @IBOutlet var lblSecureWindow: UILabel!
+    @IBOutlet weak var viewPaymentSucess: UIView!
+    @IBOutlet weak var lblPaymentID: UILabel!
+    @IBOutlet weak var lblSecureWindow: UILabel!
     @IBOutlet weak var checkMark: WVCheckMark!
-    @IBOutlet var lblPaymentStatus: UILabel!
+    @IBOutlet weak var lblPaymentStatus: UILabel!
     @IBOutlet weak var lblBottomMessage: UILabel!
     @IBOutlet weak var stackViewBackViewWrapper: UIStackView!
     
-    
-    
     internal var initialRequest : PHInitialRequest?
     internal var isSandBoxEnabled : Bool = false
-    internal var delegate : PHViewControllerDelegate?
+    internal weak var delegate : PHViewControllerDelegate?
     internal var orgHeight : CGFloat = 0
     internal var keyBoardHeightMax : CGFloat = 0
     internal var shouldShowSucessView : Bool = true
@@ -49,6 +47,7 @@ internal class PHBottomViewController: UIViewController {
     private var statusResponse : StatusResponse?
     private var timer : Timer?
     private var isBackPressed : Bool =  false
+    private let net = NetworkReachabilityManager()
     
     private var bankAccount : [PaymentMethod] = []
     private var bankCard : [PaymentMethod] =  []
@@ -219,6 +218,16 @@ internal class PHBottomViewController: UIViewController {
         
     }
     
+    private func close(and callback: (() -> Void)? = nil){
+        webView.scrollView.delegate = nil
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        dismiss(animated: true) {
+            callback?()
+        }
+    }
+    
     private func createInitRequest(phInitialRequest : PHInitialRequest) ->PHInitRequest{
         
         let initialSubmitRequest = PHInitRequest()
@@ -380,10 +389,10 @@ internal class PHBottomViewController: UIViewController {
         if(validate == nil){
             checkNetworkAvailability(selectedAPI: selectedAPI);
         }else{
-            self.dismiss(animated: true, completion: {
+            close {
                 let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: validate as Any])
                 self.delegate?.onErrorReceived(error: error)
-            })
+            }
         }
         
     }
@@ -392,10 +401,10 @@ internal class PHBottomViewController: UIViewController {
         
         var connection : Bool = false
         
-        let net = NetworkReachabilityManager()
-        
-        net?.startListening(onUpdatePerforming: { (status) in
-            if(net?.isReachable ?? false){
+        net?.startListening(onUpdatePerforming: { [weak self] (status) in
+            guard let `self` = self else { return }
+            
+            if(self.net?.isReachable ?? false){
                 
                 switch status{
                 case .reachable(.ethernetOrWiFi):
@@ -414,10 +423,10 @@ internal class PHBottomViewController: UIViewController {
                 
                 if (!connection) {
                     
-                    self.dismiss(animated: true, completion: {
+                    self.close {
                         let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Unable to connect to the internet"])
                         self.delegate?.onErrorReceived(error: error)
-                    })
+                    }
                     
                 }else{
                     
@@ -459,10 +468,10 @@ internal class PHBottomViewController: UIViewController {
             self.handleNavigation(stepId: .Dashboard, sectionId: -1)
         }
         else{
-            self.dismiss(animated: true, completion: {
+            self.close {
                 let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation Canceld"])
                 self.delegate?.onErrorReceived(error: error)
-            })
+            }
         }
         
     }
@@ -516,10 +525,10 @@ internal class PHBottomViewController: UIViewController {
                 self.bottomConstraint.constant = -self.height.constant
                 animateChanges { [weak self] in
                     
-                    self!.dismiss(animated: true, completion: {
+                    self?.close {
                         let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation Canceld"])
                         self!.delegate?.onErrorReceived(error: error)
-                    })
+                    }
                 }
                 
             }else{
@@ -572,26 +581,26 @@ internal class PHBottomViewController: UIViewController {
                             }
                             
                         }else{
-                            self.dismiss(animated: true, completion: {
+                            self.close {
                                 let error = NSError(domain: "", code: 501, userInfo: [NSLocalizedDescriptionKey: temp.msg ?? ""])
                                 self.delegate?.onErrorReceived(error: error)
-                            })
+                            }
                         }
                         
                         
                     }catch let err{
-                        self.dismiss(animated: true, completion: {
+                        self.close {
                             self.delegate?.onErrorReceived(error: err)
-                        })
+                        }
                     }
                     
                 case .failure(let error):
-                    self.dismiss(animated: true, completion: {
+                    self.close {
                         
                         let err = NSError(domain: "", code: error.responseCode ?? 0, userInfo: [NSLocalizedDescriptionKey: error.errorDescription ?? ""])
                         
                         self.delegate?.onErrorReceived(error: err)
-                    })
+                    }
                 }
             }
         
@@ -638,26 +647,26 @@ internal class PHBottomViewController: UIViewController {
                             }
                             
                         }else{
-                            self.dismiss(animated: true, completion: {
+                            self.close {
                                 let error = NSError(domain: "", code: 501, userInfo: [NSLocalizedDescriptionKey: temp.msg ?? ""])
                                 self.delegate?.onErrorReceived(error: error)
-                            })
+                            }
                         }
                         
                         
                     }catch let err{
-                        self.dismiss(animated: true, completion: {
+                        self.close {
                             self.delegate?.onErrorReceived(error: err)
-                        })
+                        }
                     }
                     
                 case .failure(let error):
-                    self.dismiss(animated: true, completion: {
+                    self.close {
                         
                         let err = NSError(domain: "", code: error.responseCode ?? 0, userInfo: [NSLocalizedDescriptionKey: error.errorDescription ?? ""])
                         
                         self.delegate?.onErrorReceived(error: err)
-                    })
+                    }
                 }
             }
         
@@ -695,19 +704,19 @@ internal class PHBottomViewController: UIViewController {
                         
                         
                     }catch let err{
-                        self.dismiss(animated: true, completion: {
+                        self.close {
                             self.delegate?.onErrorReceived(error: err)
-                        })
+                        }
                     }
                     
                     
                 case .failure(let error):
-                    self.dismiss(animated: true, completion: {
+                    self.close {
                         
                         let err = NSError(domain: "", code: error.responseCode ?? 0, userInfo: [NSLocalizedDescriptionKey: error.errorDescription ?? ""])
                         
                         self.delegate?.onErrorReceived(error: err)
-                    })
+                    }
                 }
                 
             }
@@ -767,16 +776,16 @@ internal class PHBottomViewController: UIViewController {
             }else{
                 //MARK:TODO
                 //ERROR HANDLING
-                self.dismiss(animated: true, completion: {
+                self.close {
                     let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
                     self.delegate?.onErrorReceived(error: error)
-                })
+                }
             }
         }else{
-            self.dismiss(animated: true, completion: {
+            self.close {
                 let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
                 self.delegate?.onErrorReceived(error: error)
-            })
+            }
         }
         
     }
@@ -809,16 +818,16 @@ internal class PHBottomViewController: UIViewController {
             }else{
                 //MARK:TODO
                 //ERROR HANDLING
-                self.dismiss(animated: true, completion: {
+                self.close {
                     let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
                     self.delegate?.onErrorReceived(error: error)
-                })
+                }
             }
         }else{
-            self.dismiss(animated: true, completion: {
+            self.close {
                 let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
                 self.delegate?.onErrorReceived(error: error)
-            })
+            }
         }
         
     }
@@ -925,9 +934,9 @@ internal class PHBottomViewController: UIViewController {
         
         guard let lastResponse = response else{
             
-            self.dismiss(animated: true, completion: {
+            self.close {
                 self.delegate?.onResponseReceived(response: nil)
-            })
+            }
             
             return
         }
@@ -942,10 +951,10 @@ internal class PHBottomViewController: UIViewController {
                 delegate?.onResponseReceived(response: PHResponse(status: self.getStatusFromResponse(lastResponse: lastResponse), message: "Payment completed. Check response data", data: lastResponse))
             }
             
-            self.dismiss(animated: true, completion: {
+            self.close {
                 self.progressBar?.stopAnimating()
                 self.progressBar?.isHidden = true
-            })
+            }
             
         }
     }
@@ -954,9 +963,9 @@ internal class PHBottomViewController: UIViewController {
         
         guard let lastResponse = response else{
             
-            self.dismiss(animated: true, completion: {
+            self.close {
                 self.delegate?.onResponseReceived(response: nil)
-            })
+            }
             
             return
         }
@@ -997,10 +1006,10 @@ internal class PHBottomViewController: UIViewController {
             
             self.timer?.invalidate()
             
-            self.dismiss(animated: true, completion: {
+            self.close {
                 self.progressBar?.stopAnimating()
                 self.progressBar?.isHidden = true
-            })
+            }
         }
     }
     
@@ -1081,17 +1090,17 @@ internal class PHBottomViewController: UIViewController {
 
 
                         }else{
-                            self.dismiss(animated: true, completion: {
+                            self.close {
                                 let error = NSError(domain: "", code: 501, userInfo: [NSLocalizedDescriptionKey: temp.msg ?? ""])
                                 self.delegate?.onErrorReceived(error: error)
-                            })
+                            }
                         }
 
                     }catch{
 
-                        self.dismiss(animated: true, completion: {
+                        self.close {
                             self.delegate?.onErrorReceived(error: error)
-                        })
+                        }
                     }
 
                 case .failure(_):
