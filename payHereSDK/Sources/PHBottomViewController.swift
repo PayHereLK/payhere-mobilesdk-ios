@@ -43,6 +43,7 @@ internal class PHBottomViewController: UIViewController {
     internal var keyBoardHeightMax : CGFloat = 0
     internal var shouldShowSucessView : Bool = true
     
+    private var didHandlePaymentStatus: Bool = false
     private var count : Int = 5
     private var statusResponse : StatusResponse?
     private var timer : Timer?
@@ -119,7 +120,7 @@ internal class PHBottomViewController: UIViewController {
                 self.paymentUI = try newJSONDecoder().decode(PaymentUI.self, from: data)
 
             }catch{
-                print(error)
+                xprint(error)
             }
             self.getPaymentUI()
         }else{
@@ -219,6 +220,7 @@ internal class PHBottomViewController: UIViewController {
     }
     
     private func close(and callback: (() -> Void)? = nil){
+        timer?.invalidate()
         webView.scrollView.delegate = nil
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -555,9 +557,9 @@ internal class PHBottomViewController: UIViewController {
             .responseString{response in
                 switch response.result{
                 case .success(let value):
-                    print(value)
+                    xprint(value)
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    xprint(error.localizedDescription)
                 }
             }
             .responseData { response in
@@ -615,7 +617,7 @@ internal class PHBottomViewController: UIViewController {
         self.tableView.isHidden = true
         
         
-        print("Url :","\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.INITNSUBMIT)")
+        xprint("Url :","\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.INITNSUBMIT)")
         
         let request = initRequest?.toRawRequest(url: "\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.INITNSUBMIT)")
         
@@ -687,9 +689,9 @@ internal class PHBottomViewController: UIViewController {
             .responseString{ response  in
                 switch response.result{
                 case .success(let data):
-                    print(data)
+                    xprint(data)
                 case .failure(let error):
-                    print(error)
+                    xprint(error)
                 }
             }
             .responseData { response in
@@ -888,10 +890,17 @@ internal class PHBottomViewController: UIViewController {
         return UIImage(named: withImageName, in: Bundle.payHereBundle, compatibleWith: nil)  ?? UIImage()
     }
     
-    private func checkStatus(orderKey : String){
+    private func startOrderStatusCheckTimer(){
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(orderStatusTimerTicked), userInfo: nil, repeats: true)
+    }
+    
+    private func checkStatus(orderKey: String, showProgress: Bool, _ completion: ((_ response: StatusResponse?) -> Void)? = nil){
         
-        self.progressBar?.startAnimating()
-        self.progressBar?.isHidden = false
+        if showProgress{
+            self.progressBar?.startAnimating()
+            self.progressBar?.isHidden = false
+        }
         
         let params = [
             "order_key" : orderKey
@@ -901,7 +910,6 @@ internal class PHBottomViewController: UIViewController {
             "Content-Type": "application/x-www-form-urlencoded"
         ]
         
-        
         AF.request(PHConfigs.BASE_URL! + PHConfigs.STATUS,
                    method: .post,
                    parameters: params,
@@ -909,22 +917,30 @@ internal class PHBottomViewController: UIViewController {
             .responseString(completionHandler: { (resonse) in
                 switch resonse.result{
                 case let .success(value):
-                    print(value)
+                    xprint(value)
                 case .failure(_):
-                    print("Error")
+                    xprint("Error")
                 }
             })
             .responseObject(completionHandler: { (response: DataResponse<StatusResponse,AFError>) in
+                
+                let handler = completion ?? self.handlePaymentStatus
+                
                 switch response.result{
                 case let .success(statusResponse):
-                    self.responseListner(response: statusResponse)
+                    handler(statusResponse)
                 case .failure(_):
-                    self.responseListner(response: nil)
+                    handler(nil)
                 }
             })
     }
     
-    private func responseListner(response : StatusResponse?){
+    private func handlePaymentStatus(response : StatusResponse?){
+        
+        guard !didHandlePaymentStatus else { return }
+        didHandlePaymentStatus = true
+        
+        xprint("handlePaymentStatus called")
         
         //        self.lblThankYou.isHidden = false
         //        self.viewNavigationWrapper.isHidden = true
@@ -942,12 +958,12 @@ internal class PHBottomViewController: UIViewController {
         }
         
         if(shouldShowSucessView){
-            
             showStatus(response: lastResponse)
-            
         }else{
             
-            if(lastResponse.getStatusState() == StatusResponse.Status.SUCCESS || lastResponse.getStatusState() == StatusResponse.Status.FAILED || lastResponse.getStatusState() == StatusResponse.Status.AUTHORIZED){
+            if(lastResponse.getStatusState() == StatusResponse.Status.SUCCESS ||
+               lastResponse.getStatusState() == StatusResponse.Status.FAILED ||
+               lastResponse.getStatusState() == StatusResponse.Status.AUTHORIZED){
                 delegate?.onResponseReceived(response: PHResponse(status: self.getStatusFromResponse(lastResponse: lastResponse), message: "Payment completed. Check response data", data: lastResponse))
             }
             
@@ -992,6 +1008,7 @@ internal class PHBottomViewController: UIViewController {
         
         self.statusResponse = lastResponse
         
+        timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
     }
     
@@ -1134,9 +1151,20 @@ internal class PHBottomViewController: UIViewController {
             self.lblPayWithTitle.text = title
             self.btnBackImage.isHidden = false
         case .Complete:
-            print("Complete")
+            xprint("Complete")
         }
         
+    }
+    
+    @objc private func orderStatusTimerTicked(){
+        xprint("orderStatusTimerTicked")
+        let orderKey = initResponse?.data!.order?.orderKey ?? ""
+        self.checkStatus(orderKey: orderKey, showProgress: false){ [weak self] (statusResponse) in
+            guard let `self` = self else { return }
+            guard let status = statusResponse?.status else { return }
+            guard status != StatusResponse.Status.INIT.rawValue else { return }
+            self.handlePaymentStatus(response: statusResponse)
+        }
     }
     
     
@@ -1164,18 +1192,18 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
     
     internal func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
-        print(navigationAction.request.mainDocumentURL?.absoluteString ?? "Navigating to unknown location")
+        xprint(navigationAction.request.mainDocumentURL?.absoluteString ?? "Navigating to unknown location")
         
         if((navigationAction.request.mainDocumentURL?.absoluteString.contains("https://www.payhere.lk/pay/payment/complete"))! || (navigationAction.request.mainDocumentURL?.absoluteString.contains("https://sandbox.payhere.lk/pay/payment/complete"))!){
             if(self.initResponse?.data?.order != nil){
                 if isSandBoxEnabled{
                     
                     DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                        self.checkStatus(orderKey: self.initResponse?.data!.order?.orderKey ?? "")
+                        self.checkStatus(orderKey: self.initResponse?.data!.order?.orderKey ?? "", showProgress: true)
                     }
                     
                 }else{
-                    self.checkStatus(orderKey: self.initResponse?.data!.order?.orderKey ?? "")
+                    self.checkStatus(orderKey: self.initResponse?.data!.order?.orderKey ?? "", showProgress: true)
                 }
             }
         }
@@ -1267,6 +1295,7 @@ extension PHBottomViewController : UITableViewDelegate,UITableViewDataSource{
             if let url = method.submission?.mobileUrls?.IOS{
                 if let urlValue = URL(string: url){
                     UIApplication.shared.open(urlValue, options: [:], completionHandler: nil)
+                    startOrderStatusCheckTimer()
                 }
             }
         }
@@ -1338,7 +1367,7 @@ extension UIFont {
         var errorRef: Unmanaged<CFError>? = nil
         
         if (CTFontManagerRegisterGraphicsFont(fontRef!, &errorRef) == false) {
-            print("Error registering font")
+            xprint("Error registering font")
         }
     }
     
