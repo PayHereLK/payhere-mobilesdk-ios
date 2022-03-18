@@ -1326,6 +1326,9 @@ extension PHBottomViewController : PaymentOptionTableViewCellDelegate{
     func didSelectedPaymentOption(paymentMethod: PaymentMethod, selectedSection: Int) {
         //MARK: Call Submit Method With Order Key
         
+        // Stop any started HelaPay counters
+        timer?.invalidate()
+        
         if let temp =  self.paymentOption.filter({$0.optionValue.uppercased() == paymentMethod.method?.uppercased()}).first{
             self.selectedPaymentOption = temp
         }else{

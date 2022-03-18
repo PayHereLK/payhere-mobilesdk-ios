@@ -8,15 +8,32 @@
 
 import UIKit
 
-class PayOptionCollectionViewCell: UICollectionViewCell {
+final class PayOptionCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imgOptionImage: UIImageView!
     @IBOutlet weak var viewBackground: UIView!
     
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    override var isSelected: Bool{
+        didSet{
+            updateSelection()
+        }
+    }
+    
+    override var isHighlighted: Bool{
+        didSet{
+            updateSelection()
+        }
+    }
+    
+    private func updateSelection(){
+        UIView.animate(withDuration: PHConfigs.kCellAnimateDuration) {
+            if self.isSelected || self.isHighlighted{
+                self.viewBackground.backgroundColor = PHConfigs.kHighlightColor
+            }
+            else{
+                self.viewBackground.backgroundColor = PHConfigs.kNormalColor
+            }
+        }
     }
 
 }
