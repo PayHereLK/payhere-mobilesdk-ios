@@ -1338,7 +1338,7 @@ extension PHBottomViewController : PaymentOptionTableViewCellDelegate{
         self.selectedPaymentMethod = paymentMethod
         
         self.handleNavigation(stepId: .Payment, sectionId: selectedSection)
-        self.createSubmitRequest(method: paymentMethod.method ?? "VISA")
+        self.createSubmitRequest(method: paymentMethod.submissionCode ?? "VISA")
         
     }
     
