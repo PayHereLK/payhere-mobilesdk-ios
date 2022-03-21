@@ -183,7 +183,7 @@ internal class PHBottomViewController: UIViewController {
     }
     
     private func performInitialSteps(){
-        
+        self.didHandlePaymentStatus = false
         self.progressBar.isHidden = true
         
         if apiMethod == .CheckOut{
@@ -1198,6 +1198,7 @@ internal class PHBottomViewController: UIViewController {
             self.lblPayWithTitle.text = title
             self.btnBackImage.isHidden = false
         case .Complete:
+            self.tableView.isHidden = true
             self.viewPaymentSucess.isHidden = false
             self.btnBackImage.isHidden = true
         }
