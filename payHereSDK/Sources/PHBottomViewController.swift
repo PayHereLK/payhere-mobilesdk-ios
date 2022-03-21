@@ -18,23 +18,30 @@ public protocol PHViewControllerDelegate: AnyObject{
 }
 internal class PHBottomViewController: UIViewController {
     
-    @IBOutlet weak var progressBar: UIActivityIndicatorView!
-    @IBOutlet weak var height: NSLayoutConstraint!
-    @IBOutlet var bottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var webView: WKWebView!
-    @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var viewSandboxNoteBanner: UIView!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var lblPayWithTitle: UILabel!
-    @IBOutlet weak var btnBackImage: UIImageView!
+    @IBOutlet private weak var progressBar: UIActivityIndicatorView!
+    @IBOutlet private weak var height: NSLayoutConstraint!
+    @IBOutlet private var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var webView: WKWebView!
+    @IBOutlet private weak var bottomView: UIView!
+    @IBOutlet private weak var viewSandboxNoteBanner: UIView!
+    @IBOutlet private weak var tableView: UITableView!
     
-    @IBOutlet weak var viewPaymentSucess: UIView!
-    @IBOutlet weak var lblPaymentID: UILabel!
-    @IBOutlet weak var lblSecureWindow: UILabel!
-    @IBOutlet weak var checkMark: WVCheckMark!
-    @IBOutlet weak var lblPaymentStatus: UILabel!
-    @IBOutlet weak var lblBottomMessage: UILabel!
-    @IBOutlet weak var stackViewBackViewWrapper: UIStackView!
+    @IBOutlet private weak var lblPayWithTitle: UILabel!
+    @IBOutlet private weak var btnBackImage: UIImageView!
+    @IBOutlet private weak var stackViewBackViewWrapper: UIStackView!
+    
+    @IBOutlet private weak var viewPaymentSucess: UIView!
+    // @IBOutlprivate et weak var lblSecureWindow: UILabel!
+    
+    @IBOutlet private weak var checkMark: WVCheckMark!
+    @IBOutlet private weak var imgDeclined: UIImageView!
+    @IBOutlet private weak var lblPaymentStatus: UILabel!
+    @IBOutlet private weak var lblBottomMessage: UILabel!
+    @IBOutlet private weak var lblPaymentID: UILabel!
+    
+    @IBOutlet private weak var btnDone: UIButton!
+    @IBOutlet private weak var btnCancel: UIButton!
+    @IBOutlet private weak var btnTryAgain: UIButton!
     
     internal var initialRequest : PHInitialRequest?
     internal var isSandBoxEnabled : Bool = false
@@ -89,10 +96,14 @@ internal class PHBottomViewController: UIViewController {
         
         super.viewDidLoad()
         
-        
-        
-        
         self.lblPayWithTitle.font =  UIFont(name: "HPayBold", size: 18)
+        self.lblPaymentStatus.font = UIFont(name: "HPay", size: 16)
+        self.lblPaymentID.font = UIFont(name: "HPay", size: 14)
+        self.lblBottomMessage.font = UIFont(name: "HPay", size: 12)
+        
+        self.btnDone.titleLabel?.font = UIFont(name: "HPayBold", size: PHConfigs.kFontSize)!
+        self.btnCancel.titleLabel?.font = UIFont(name: "HPayBold", size: PHConfigs.kFontSize)!
+        self.btnTryAgain.titleLabel?.font = UIFont(name: "HPayBold", size: PHConfigs.kFontSize)!
         
         if(isSandBoxEnabled){
             PHConfigs.setBaseUrl(url: PHConfigs.SANDBOX_URL)
@@ -112,18 +123,27 @@ internal class PHBottomViewController: UIViewController {
         
         self.initRequest = createInitRequest(phInitialRequest: initialRequest!)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowFunction(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil) //WillShow and not Did ;) The View will run animated and smooth
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideFunction(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        // Keyboard Notifications
+        // WillShow and not Did ;) The View will run animated and smooth
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShowFunction(notification:)),
+            name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHideFunction(notification:)),
+            name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         
         if let data = UserDefaults().data(forKey: PHConstants.UI){
             do{
                 self.paymentUI = try newJSONDecoder().decode(PaymentUI.self, from: data)
-
             }catch{
                 xprint(error)
             }
             self.getPaymentUI()
-        }else{
+        }
+        else{
             self.getPaymentUI()
         }
         
@@ -157,28 +177,21 @@ internal class PHBottomViewController: UIViewController {
         super.viewWillAppear(animated)
         
         bottomConstraint.constant = -height.constant
-        self.view.layoutIfNeeded()
+        view.layoutIfNeeded()
+        performInitialSteps()
         
-        //        self.collectionView.isHidden = false
+    }
+    
+    private func performInitialSteps(){
+        
         self.progressBar.isHidden = true
         
         if apiMethod == .CheckOut{
             self.btnBackImage.isHidden = true
         }
         
-        
-        //MARK: Start PreApproval Process
-//        if(self.apiMethod == .PreApproval || self.apiMethod == .Recurrence || self.apiMethod == .Authorize){
-//            self.tableView.isHidden = true
-//            self.progressBar.isHidden = true
-//            self.selectedPaymentOption = PaymentOption(name: "Visa", image: getImage(withImageName: "visa"), optionValue: "VISA")
-//            self.startProcess(selectedAPI: self.apiMethod)
-//
-//        }else{
-//            self.startProcess(selectedAPI: self.apiMethod)
-//        }
+        self.handleNavigation(stepId: .Dashboard, sectionId: -1)
         self.startProcess(selectedAPI: self.apiMethod)
-        
     }
     
     @objc func keyboardWillShowFunction(notification: NSNotification) {
@@ -382,7 +395,7 @@ internal class PHBottomViewController: UIViewController {
     
     private func startProcess(selectedAPI : SelectedAPI){
         
-        //        self.initRequest?.method = paymentMethod
+        self.viewPaymentSucess.isHidden = true
         self.progressBar.isHidden = false
         self.tableView.isHidden  = true
         
@@ -440,6 +453,7 @@ internal class PHBottomViewController: UIViewController {
                         self.initRequest?.method = "VISA"
                         self.sentInitNSubmitRequest()
                     }else{
+                        self.handleNavigation(stepId: .Dashboard, sectionId: -1)
                         self.sentInitRequest()
                     }
                     
@@ -458,10 +472,6 @@ internal class PHBottomViewController: UIViewController {
             self.setInitialHeight()
             self.webView.isHidden = true
             self.webView.loadHTMLString("", baseURL: nil)
-            //            self.viewNavigationWrapper.isHidden = true
-            
-            //            self.collectionView.isHidden = false
-            //            self.lblMethodPrecentTitle.isHidden = false
             self.tableView.isHidden = false
             
             self.isBackPressed = true
@@ -729,6 +739,10 @@ internal class PHBottomViewController: UIViewController {
     private func initalizedUI(_ response : PHInitResponse){
         let bankCardMethods = ["MASTER", "VISA", "MASTER", "AMEX", "DISCOVER", "DINERS"]
         
+        bankAccount = []
+        bankCard = []
+        other = []
+        
         if let paymentMethods = response.data?.paymentMethods{
             
             for method in paymentMethods{
@@ -958,6 +972,7 @@ internal class PHBottomViewController: UIViewController {
         }
         
         if(shouldShowSucessView){
+            handleNavigation(stepId: .Complete, sectionId: -1)
             showStatus(response: lastResponse)
         }else{
             
@@ -978,57 +993,92 @@ internal class PHBottomViewController: UIViewController {
     private func showStatus(response : StatusResponse?){
         
         guard let lastResponse = response else{
-            
             self.close {
                 self.delegate?.onResponseReceived(response: nil)
             }
-            
             return
         }
         
         if(lastResponse.getStatusState() == StatusResponse.Status.SUCCESS){
+            imgDeclined.isHidden = true
+            checkMark.isHidden = false
             checkMark.clear()
             checkMark.start()
-            self.lblPaymentStatus.text = "Payment Approved"
-            self.lblPaymentID.text = String(format : "Payment ID #%.0f",lastResponse.paymentNo ?? 0.0)
-            self.lblBottomMessage.text = "You'll receive and Email Receipt with this Payment ID for further reference"
-        }else if(lastResponse.getStatusState() == StatusResponse.Status.AUTHORIZED){
+            self.lblPaymentID.textColor = PHConfigs.kBlue
+            
+            if self.apiMethod == .PreApproval{
+                self.lblPaymentStatus.text = "Card Saved"
+                self.lblPaymentID.text = String(format : "Payment ID #%.0f",lastResponse.paymentNo ?? 0.0)
+                self.lblBottomMessage.text = "You’ll receive an email with above Reference ID for further reference."
+                self.lblPayWithTitle.text = "Saved"
+            }
+            else{
+                self.lblPaymentStatus.text = "Payment Approved"
+                self.lblPaymentID.text = String(format : "Reference ID #%.0f",lastResponse.paymentNo ?? 0.0)
+                self.lblBottomMessage.text = "You’ll receive an email with above Payment ID for further reference."
+                self.lblPayWithTitle.text = "Paid"
+            }
+            
+            btnDone.isHidden = false
+            btnTryAgain.isHidden = true
+            btnCancel.isHidden = true
+        }
+        else if(lastResponse.getStatusState() == StatusResponse.Status.AUTHORIZED){
+            imgDeclined.isHidden = true
+            checkMark.isHidden = false
             checkMark.clear()
             checkMark.start()
+            self.lblPaymentID.textColor = PHConfigs.kBlue
             self.lblPaymentStatus.text = "Payment Authorized"
             self.lblBottomMessage.text = "You'll be charged once the merchant process this payment"
             self.lblPaymentID.text = String(format : lastResponse.message ?? "")
-        }else{
+            self.lblPayWithTitle.text = "Paid"
+            
+            btnDone.isHidden = false
+            btnTryAgain.isHidden = true
+            btnCancel.isHidden = true
+        }
+        else{
+            imgDeclined.isHidden = false
+            checkMark.isHidden = true
             checkMark.clear()
             checkMark.startX()
-            self.lblPaymentStatus.text = "Payment Decline"
-            self.lblPaymentID.text = lastResponse.message ?? "Error completing the payment"
             
+            self.lblPaymentID.textColor = PHConfigs.kRed
+            self.lblPaymentStatus.text = "Your bank declined the payment"
+            self.lblPaymentID.text = lastResponse.message ?? "Error completing the payment"
+            self.lblBottomMessage.text = "Please try again with a different card or method"
+            self.lblPayWithTitle.text = "Declined"
+            
+            btnDone.isHidden = true
+            btnTryAgain.isHidden = false
+            btnCancel.isHidden = false
         }
         
         self.statusResponse = lastResponse
         
         timer?.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+        // DEBUG
+        // timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
     }
     
     
     
-    @objc private func update() {
-        if(count > 0) {
-            count = count - 1
-            lblSecureWindow.text = String(format :"This secure payment window is closing in %d seconds...",count)
-        }else{
-            delegate?.onResponseReceived(response: PHResponse(status: self.getStatusFromResponse(lastResponse: statusResponse!), message: "Payment completed. Check response data", data: statusResponse!))
-            
-            self.timer?.invalidate()
-            
-            self.close {
-                self.progressBar?.stopAnimating()
-                self.progressBar?.isHidden = true
-            }
-        }
-    }
+//    @objc private func update() {
+//        if(count > 0) {
+//            count = count - 1
+//            lblSecureWindow.text = String(format :"This secure payment window is closing in %d seconds...",count)
+//        }else{
+//            delegate?.onResponseReceived(response: PHResponse(status: self.getStatusFromResponse(lastResponse: statusResponse!), message: "Payment completed. Check response data", data: statusResponse!))
+//
+//            self.timer?.invalidate()
+//
+//            self.close {
+//                self.progressBar?.stopAnimating()
+//                self.progressBar?.isHidden = true
+//            }
+//        }
+//    }
     
     private func getStatusFromResponse(lastResponse : StatusResponse) -> Int{
         
@@ -1086,10 +1136,7 @@ internal class PHBottomViewController: UIViewController {
     }
     
     func getPaymentUI(){
-
-
         let urlRequest = URLRequest(url: URL(string: "\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.UI)")!)
-
 
         AF.request(urlRequest).validate()
             .responseData { (response) in
@@ -1151,13 +1198,13 @@ internal class PHBottomViewController: UIViewController {
             self.lblPayWithTitle.text = title
             self.btnBackImage.isHidden = false
         case .Complete:
-            xprint("Complete")
+            self.viewPaymentSucess.isHidden = false
+            self.btnBackImage.isHidden = true
         }
         
     }
     
     @objc private func orderStatusTimerTicked(){
-        xprint("orderStatusTimerTicked")
         let orderKey = initResponse?.data!.order?.orderKey ?? ""
         self.checkStatus(orderKey: orderKey, showProgress: false){ [weak self] (statusResponse) in
             guard let `self` = self else { return }
@@ -1165,6 +1212,32 @@ internal class PHBottomViewController: UIViewController {
             guard status != StatusResponse.Status.INIT.rawValue else { return }
             self.handlePaymentStatus(response: statusResponse)
         }
+    }
+    
+    @IBAction private func btnDoneTapped(){
+        delegate?.onResponseReceived(
+            response: PHResponse(
+                status: self.getStatusFromResponse(lastResponse: statusResponse!),
+                message: "Payment completed. Check response data",
+                data: statusResponse!))
+        
+        self.timer?.invalidate()
+        self.close {
+            self.progressBar?.stopAnimating()
+            self.progressBar?.isHidden = true
+        }
+    }
+    
+    @IBAction private func btnCancelTapped(){
+        self.timer?.invalidate()
+        self.close { [weak self] in
+            let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation Canceld"])
+            self?.delegate?.onErrorReceived(error: error)
+        }
+    }
+    
+    @IBAction private func btnTryAgainTapped(){
+        performInitialSteps()
     }
     
     

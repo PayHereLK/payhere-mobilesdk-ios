@@ -21,6 +21,8 @@ class PHConfigs {
     internal static let SUBMIT : String = "api/payment/submit"
     public static let UI : String = "api/data/paymentMethods"
     
+    internal static let kFontSize = 16.0
+    
     internal static let kNormalColor = UIColor(
         displayP3Red: 239/255,
         green: 241/255,
@@ -31,6 +33,18 @@ class PHConfigs {
         displayP3Red: 208/255,
         green: 211/255,
         blue: 215/255,
+        alpha: 1.0)
+    
+    internal static let kBlue = UIColor(
+        displayP3Red: 0,
+        green: 121/255,
+        blue: 254/255,
+        alpha: 1.0)
+    
+    internal static let kRed = UIColor(
+        displayP3Red: 1,
+        green: 64/255,
+        blue: 67/255,
         alpha: 1.0)
     
     internal static let kCellAnimateDuration: TimeInterval = 0.08
