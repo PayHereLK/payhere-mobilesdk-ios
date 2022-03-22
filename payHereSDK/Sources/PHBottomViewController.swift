@@ -1008,13 +1008,13 @@ internal class PHBottomViewController: UIViewController {
             
             if self.apiMethod == .PreApproval{
                 self.lblPaymentStatus.text = "Card Saved"
-                self.lblPaymentID.text = String(format : "Payment ID #%.0f",lastResponse.paymentNo ?? 0.0)
+                self.lblPaymentID.text = String(format : "Reference ID #%.0f",lastResponse.paymentNo ?? 0.0)
                 self.lblBottomMessage.text = "You’ll receive an email with above Reference ID for further reference."
                 self.lblPayWithTitle.text = "Saved"
             }
             else{
                 self.lblPaymentStatus.text = "Payment Approved"
-                self.lblPaymentID.text = String(format : "Reference ID #%.0f",lastResponse.paymentNo ?? 0.0)
+                self.lblPaymentID.text = String(format : "Payment ID #%.0f",lastResponse.paymentNo ?? 0.0)
                 self.lblBottomMessage.text = "You’ll receive an email with above Payment ID for further reference."
                 self.lblPayWithTitle.text = "Paid"
             }
@@ -1058,27 +1058,34 @@ internal class PHBottomViewController: UIViewController {
         self.statusResponse = lastResponse
         
         timer?.invalidate()
-        // DEBUG
-        // timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: false)
     }
     
-    
-    
-//    @objc private func update() {
-//        if(count > 0) {
-//            count = count - 1
-//            lblSecureWindow.text = String(format :"This secure payment window is closing in %d seconds...",count)
-//        }else{
-//            delegate?.onResponseReceived(response: PHResponse(status: self.getStatusFromResponse(lastResponse: statusResponse!), message: "Payment completed. Check response data", data: statusResponse!))
-//
-//            self.timer?.invalidate()
-//
-//            self.close {
-//                self.progressBar?.stopAnimating()
-//                self.progressBar?.isHidden = true
-//            }
-//        }
-//    }
+    @objc private func update() {
+        delegate?.onResponseReceived(response: PHResponse(status: self.getStatusFromResponse(lastResponse: statusResponse!), message: "Payment completed. Check response data", data: statusResponse!))
+
+        self.timer?.invalidate()
+        self.close {
+            self.progressBar?.stopAnimating()
+            self.progressBar?.isHidden = true
+        }
+        
+        /*
+        if(count > 0) {
+            count = count - 1
+            lblSecureWindow.text = String(format :"This secure payment window is closing in %d seconds...",count)
+        }else{
+            delegate?.onResponseReceived(response: PHResponse(status: self.getStatusFromResponse(lastResponse: statusResponse!), message: "Payment completed. Check response data", data: statusResponse!))
+
+            self.timer?.invalidate()
+
+            self.close {
+                self.progressBar?.stopAnimating()
+                self.progressBar?.isHidden = true
+            }
+        }
+         */
+    }
     
     private func getStatusFromResponse(lastResponse : StatusResponse) -> Int{
         
