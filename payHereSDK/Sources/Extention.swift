@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 
 //extension String {
@@ -24,8 +25,8 @@ import Foundation
 
 //        return hash.map { String(format: "%02x", $0) }.joined()
 //    }
-    
-    
+
+
 //}
 
 extension Bundle{
@@ -34,4 +35,26 @@ extension Bundle{
         return Bundle(for: PHPrecentController.self)
     }
     
+}
+
+
+extension Data {
+    func mapToObject<T: Codable>() throws -> T {
+        do {
+            let decodedData = try JSONDecoder().decode(T.self, from: self)
+            return decodedData
+        } catch  {
+            let failureReason = "Failed to serialize response."
+            throw AFError.responseSerializationFailed(reason: .decodingFailed(error: Data.newError(failureReason: failureReason)))
+        }
+    }
+    
+    internal static func newError(failureReason: String) -> NSError {
+        let errorDomain = "com.alamofireobjectmapper.error"
+        
+        let userInfo = [NSLocalizedFailureReasonErrorKey: failureReason]
+        let returnError = NSError(domain: errorDomain, code: 1, userInfo: userInfo)
+        
+        return returnError
+    }
 }

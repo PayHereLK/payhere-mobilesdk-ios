@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61CB76014B8E8F9A72370551 /* Pods_payHereSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E3DEB4B37A5FEE8F670FCC /* Pods_payHereSDK.framework */; };
 		8A1FF74B206254DF00924B21 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8A1FF74A206254DF00924B21 /* README.md */; };
 		8A74D7E320528D9800CF10AB /* payHereSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A74D7E120528D9800CF10AB /* payHereSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8A74D7EE20528E3900CF10AB /* PHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7E920528E3800CF10AB /* PHViewController.swift */; };
@@ -22,7 +23,7 @@
 		8A74D7FF20528E7100CF10AB /* Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7FE20528E7100CF10AB /* Extention.swift */; };
 		8AD11E6320612739002E4F82 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 8AD11E6120612739002E4F82 /* LICENSE */; };
 		8AD11E6420612739002E4F82 /* payHereSDK.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 8AD11E6220612739002E4F82 /* payHereSDK.podspec */; };
-		C3ECA3CC61479DD760DF138C /* Pods_payHereSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */; };
+		A9D8D315A6C913808937BC6D /* Pods_demoapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBE9705B7B158E4A03B1795 /* Pods_demoapp.framework */; };
 		C72750CB23A75AAD00AE9037 /* PayHere.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C72750CA23A75AAD00AE9037 /* PayHere.storyboard */; };
 		C72750CD23A75B8A00AE9037 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C72750CC23A75B8A00AE9037 /* image.xcassets */; };
 		C72A13D12784500D00F08E22 /* PaymentOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72A13CF2784500C00F08E22 /* PaymentOptionTableViewCell.swift */; };
@@ -57,7 +58,6 @@
 		C7E9F6BD277C31810013D2D4 /* HPay.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7E9F6BB277C31810013D2D4 /* HPay.ttf */; };
 		C7E9F6BF277C76A10013D2D4 /* PHBottomSheetTableViewSectioHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E9F6BE277C76A10013D2D4 /* PHBottomSheetTableViewSectioHeader.swift */; };
 		C7E9F6C1277C76B70013D2D4 /* PHBottomSheetTableViewSectioHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7E9F6C0277C76B70013D2D4 /* PHBottomSheetTableViewSectioHeader.xib */; };
-		D68AD170D5E2B0BDB07655F7 /* Pods_demoapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5C73F5CCE9DE42DB20A5A09 /* Pods_demoapp.framework */; };
 		F503041127E4744C008844E5 /* PHUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F503041027E4744C008844E5 /* PHUtils.swift */; };
 /* End PBXBuildFile section */
 
@@ -86,9 +86,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1F05633F685428B114E02914 /* Pods-payHereSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payHereSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-payHereSDK/Pods-payHereSDK.release.xcconfig"; sourceTree = "<group>"; };
-		547B7E44B64D5C6D38524F2C /* Pods-demoapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demoapp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-demoapp/Pods-demoapp.debug.xcconfig"; sourceTree = "<group>"; };
-		5FDC1A5183C0F1C20EFA647A /* Pods-demoapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demoapp.release.xcconfig"; path = "Pods/Target Support Files/Pods-demoapp/Pods-demoapp.release.xcconfig"; sourceTree = "<group>"; };
+		3A2F126623F88A16A29F656C /* Pods-payHereSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payHereSDK.debug.xcconfig"; path = "Target Support Files/Pods-payHereSDK/Pods-payHereSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		77415AA0397369388EEC6999 /* Pods-demoapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demoapp.release.xcconfig"; path = "Target Support Files/Pods-demoapp/Pods-demoapp.release.xcconfig"; sourceTree = "<group>"; };
 		8A1FF74A206254DF00924B21 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8A74D7DE20528D9800CF10AB /* payHereSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = payHereSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A74D7E120528D9800CF10AB /* payHereSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = payHereSDK.h; sourceTree = "<group>"; };
@@ -106,7 +105,8 @@
 		8A74D7FE20528E7100CF10AB /* Extention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extention.swift; sourceTree = "<group>"; };
 		8AD11E6120612739002E4F82 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		8AD11E6220612739002E4F82 /* payHereSDK.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = payHereSDK.podspec; sourceTree = "<group>"; };
-		C5C73F5CCE9DE42DB20A5A09 /* Pods_demoapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_demoapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B32F3A86906E804C0536E0F4 /* Pods-demoapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demoapp.debug.xcconfig"; path = "Target Support Files/Pods-demoapp/Pods-demoapp.debug.xcconfig"; sourceTree = "<group>"; };
+		C5E3DEB4B37A5FEE8F670FCC /* Pods_payHereSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_payHereSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72750CA23A75AAD00AE9037 /* PayHere.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PayHere.storyboard; sourceTree = "<group>"; };
 		C72750CC23A75B8A00AE9037 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
 		C72A13CF2784500C00F08E22 /* PaymentOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentOptionTableViewCell.swift; sourceTree = "<group>"; };
@@ -141,8 +141,8 @@
 		C7E9F6BB277C31810013D2D4 /* HPay.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HPay.ttf; sourceTree = "<group>"; };
 		C7E9F6BE277C76A10013D2D4 /* PHBottomSheetTableViewSectioHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHBottomSheetTableViewSectioHeader.swift; sourceTree = "<group>"; };
 		C7E9F6C0277C76B70013D2D4 /* PHBottomSheetTableViewSectioHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PHBottomSheetTableViewSectioHeader.xib; sourceTree = "<group>"; };
-		D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_payHereSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E98AA3326CB2BEE8C4106D35 /* Pods-payHereSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payHereSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-payHereSDK/Pods-payHereSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		DCBF24BDE9CF3ED75E444829 /* Pods-payHereSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payHereSDK.release.xcconfig"; path = "Target Support Files/Pods-payHereSDK/Pods-payHereSDK.release.xcconfig"; sourceTree = "<group>"; };
+		EBBE9705B7B158E4A03B1795 /* Pods_demoapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_demoapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F503041027E4744C008844E5 /* PHUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,7 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7DF820324E6846300241DA6 /* WebKit.framework in Frameworks */,
-				C3ECA3CC61479DD760DF138C /* Pods_payHereSDK.framework in Frameworks */,
+				61CB76014B8E8F9A72370551 /* Pods_payHereSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,30 +161,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				C793DE7123C717F000666008 /* payHereSDK.framework in Frameworks */,
-				D68AD170D5E2B0BDB07655F7 /* Pods_demoapp.framework in Frameworks */,
+				A9D8D315A6C913808937BC6D /* Pods_demoapp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5572C52C8A22258E0AB0CEA8 /* Pods */ = {
+		05CFA7AB384EE4B1D78197B2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E98AA3326CB2BEE8C4106D35 /* Pods-payHereSDK.debug.xcconfig */,
-				1F05633F685428B114E02914 /* Pods-payHereSDK.release.xcconfig */,
-				547B7E44B64D5C6D38524F2C /* Pods-demoapp.debug.xcconfig */,
-				5FDC1A5183C0F1C20EFA647A /* Pods-demoapp.release.xcconfig */,
+				B32F3A86906E804C0536E0F4 /* Pods-demoapp.debug.xcconfig */,
+				77415AA0397369388EEC6999 /* Pods-demoapp.release.xcconfig */,
+				3A2F126623F88A16A29F656C /* Pods-payHereSDK.debug.xcconfig */,
+				DCBF24BDE9CF3ED75E444829 /* Pods-payHereSDK.release.xcconfig */,
 			);
-			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		6ECF03BD9C78798C39D67C40 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				C7DF81FD24E65DD500241DA6 /* WebKit.framework */,
-				D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */,
-				C5C73F5CCE9DE42DB20A5A09 /* Pods_demoapp.framework */,
+				EBBE9705B7B158E4A03B1795 /* Pods_demoapp.framework */,
+				C5E3DEB4B37A5FEE8F670FCC /* Pods_payHereSDK.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -198,8 +198,8 @@
 				8A74D7E020528D9800CF10AB /* payHereSDK */,
 				C793DE5E23C717C900666008 /* demoapp */,
 				8A74D7DF20528D9800CF10AB /* Products */,
-				5572C52C8A22258E0AB0CEA8 /* Pods */,
 				6ECF03BD9C78798C39D67C40 /* Frameworks */,
+				05CFA7AB384EE4B1D78197B2 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -314,7 +314,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A74D7E620528D9800CF10AB /* Build configuration list for PBXNativeTarget "payHereSDK" */;
 			buildPhases = (
-				05052453B6B45488FCEE225F /* [CP] Check Pods Manifest.lock */,
+				30553D3608CFF3F2A7E28263 /* [CP] Check Pods Manifest.lock */,
 				8A74D7D920528D9800CF10AB /* Sources */,
 				8A74D7DA20528D9800CF10AB /* Frameworks */,
 				8A74D7DB20528D9800CF10AB /* Headers */,
@@ -333,12 +333,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C793DE6E23C717CA00666008 /* Build configuration list for PBXNativeTarget "demoapp" */;
 			buildPhases = (
-				8D692694E66C6C9B3571F85A /* [CP] Check Pods Manifest.lock */,
+				9E5228573AD275D25C958AB3 /* [CP] Check Pods Manifest.lock */,
 				C793DE5923C717C900666008 /* Sources */,
 				C793DE5A23C717C900666008 /* Frameworks */,
 				C793DE5B23C717C900666008 /* Resources */,
 				C793DE7523C717F000666008 /* Embed Frameworks */,
-				9708F5586E91EA49649DDB91 /* [CP] Embed Pods Frameworks */,
+				55F3DEA864CDE6E58D6B583E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -422,16 +422,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		05052453B6B45488FCEE225F /* [CP] Check Pods Manifest.lock */ = {
+		30553D3608CFF3F2A7E28263 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-payHereSDK-checkManifestLockResult.txt",
 			);
@@ -440,7 +444,25 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8D692694E66C6C9B3571F85A /* [CP] Check Pods Manifest.lock */ = {
+		55F3DEA864CDE6E58D6B583E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-demoapp/Pods-demoapp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-demoapp/Pods-demoapp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9E5228573AD275D25C958AB3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -460,28 +482,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9708F5586E91EA49649DDB91 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-demoapp/Pods-demoapp-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
-				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-demoapp/Pods-demoapp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -685,7 +685,7 @@
 		};
 		8A74D7E720528D9800CF10AB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E98AA3326CB2BEE8C4106D35 /* Pods-payHereSDK.debug.xcconfig */;
+			baseConfigurationReference = 3A2F126623F88A16A29F656C /* Pods-payHereSDK.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LIBRARY = "libc++";
@@ -693,7 +693,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = JANGPUDH4X;
+				DEVELOPMENT_TEAM = 99J8K3B5HL;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -718,14 +718,14 @@
 		};
 		8A74D7E820528D9800CF10AB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1F05633F685428B114E02914 /* Pods-payHereSDK.release.xcconfig */;
+			baseConfigurationReference = DCBF24BDE9CF3ED75E444829 /* Pods-payHereSDK.release.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = JANGPUDH4X;
+				DEVELOPMENT_TEAM = 99J8K3B5HL;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -750,14 +750,14 @@
 		};
 		C793DE6F23C717CA00666008 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 547B7E44B64D5C6D38524F2C /* Pods-demoapp.debug.xcconfig */;
+			baseConfigurationReference = B32F3A86906E804C0536E0F4 /* Pods-demoapp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9JLGJ2CLBX;
+				DEVELOPMENT_TEAM = 99J8K3B5HL;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AlamofireObjectMapper\"",
@@ -777,14 +777,14 @@
 		};
 		C793DE7023C717CA00666008 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5FDC1A5183C0F1C20EFA647A /* Pods-demoapp.release.xcconfig */;
+			baseConfigurationReference = 77415AA0397369388EEC6999 /* Pods-demoapp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9JLGJ2CLBX;
+				DEVELOPMENT_TEAM = 99J8K3B5HL;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AlamofireObjectMapper\"",

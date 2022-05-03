@@ -8,7 +8,7 @@ s.summary = "Mobile SDK for payHere"
 s.requires_arc = true
 
 # 2
-s.version = "3.0.3"
+s.version = "3.0.4"
 
 # 3
 s.license = { :type => "MIT", :file => "LICENSE" }
@@ -28,8 +28,8 @@ s.source = { :git => "https://github.com/PayHereLK/payhere-mobilesdk-ios.git", :
 
 # 7
 s.frameworks = 'UIKit','WebKit'
-s.dependency 'Alamofire', '~> 5.0.0-rc.2'
-s.dependency 'AlamofireObjectMapper'
+s.dependency 'Alamofire'
+s.dependency 'ObjectMapper'
 s.dependency 'SDWebImage'
 
 
