@@ -55,6 +55,7 @@ internal class PHBottomViewController: UIViewController {
     private var statusResponse : StatusResponse?
     private var timer : Timer?
     private var isBackPressed : Bool =  false
+    private var waitUntilPaymentUI: WaitUntil!
     private let net = NetworkReachabilityManager()
     
     private var bankAccount : [PaymentMethod] = []
@@ -772,31 +773,15 @@ internal class PHBottomViewController: UIViewController {
         
         if let url = submitResponse.data?.url{
             
-            self.tableView.isHidden  = true
-            self.webView.isHidden = false
-            
-            self.webView.contentMode = .scaleAspectFill
-            self.webView.uiDelegate = self
-            self.webView.navigationDelegate = self
-            
-            self.calculateWebHeight()
-            
-            if let URL = URL(string: url){
-                
-                let request = URLRequest(url: URL)
-                self.webView.load(request)
-                self.progressBar.isHidden = false
-                self.webView.isHidden = true
-                
-                
-            }else{
-                //MARK:TODO
-                //ERROR HANDLING
-                self.close {
-                    let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
-                    self.delegate?.onErrorReceived(error: error)
+            waitUntilPaymentUI = WaitUntil(
+                condition: { [weak self] in
+                    return (self?.paymentUI.getDataCount() ?? 0) > 0
+                },
+                onCompletion: { [weak self] in
+                    self?.loadPayHereSubmitUI(url: url)
                 }
-            }
+            )
+            
         }else{
             self.close {
                 let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
@@ -806,39 +791,51 @@ internal class PHBottomViewController: UIViewController {
         
     }
     
+    private func loadPayHereSubmitUI(url: String){
+        self.tableView.isHidden  = true
+        self.webView.isHidden = false
+        
+        self.webView.contentMode = .scaleAspectFill
+        self.webView.uiDelegate = self
+        self.webView.navigationDelegate = self
+        
+        self.calculateWebHeight()
+        
+        if let URL = URL(string: url){
+            
+            let request = URLRequest(url: URL)
+            self.webView.load(request)
+            self.progressBar.isHidden = false
+            self.webView.isHidden = true
+            
+            
+        }else{
+            //MARK:TODO
+            //ERROR HANDLING
+            self.close {
+                let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
+                self.delegate?.onErrorReceived(error: error)
+            }
+        }
+    }
+    
     private func initWebView(_ submitResponse : PayHereInitnSubmitResponse){
-        
-        
         
         //        MARK: TODO Remove comment when submit API Precent
         
         if let url = submitResponse.data?.redirection?.url{
             
             //            self.collectionView.isHidden = true
-            self.webView.isHidden = false
             
-            self.webView.contentMode = .scaleAspectFill
-            self.webView.uiDelegate = self
-            self.webView.navigationDelegate = self
-            
-            self.calculateWebHeight()
-            
-            if let URL = URL(string: url){
-                
-                let request = URLRequest(url: URL)
-                self.webView.load(request)
-                self.progressBar.isHidden = false
-                self.webView.isHidden = true
-                
-                
-            }else{
-                //MARK:TODO
-                //ERROR HANDLING
-                self.close {
-                    let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
-                    self.delegate?.onErrorReceived(error: error)
+            waitUntilPaymentUI = WaitUntil(
+                condition: { [weak self] in
+                    return (self?.paymentUI.getDataCount() ?? 0) > 0
+                },
+                onCompletion: { [weak self] in
+                    self?.loadPayHereInitAndSubmitUI(url: url)
                 }
-            }
+            )
+            
         }else{
             self.close {
                 let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
@@ -846,6 +843,33 @@ internal class PHBottomViewController: UIViewController {
             }
         }
         
+    }
+    
+    private func loadPayHereInitAndSubmitUI(url: String){
+        self.webView.isHidden = false
+        
+        self.webView.contentMode = .scaleAspectFill
+        self.webView.uiDelegate = self
+        self.webView.navigationDelegate = self
+        
+        self.calculateWebHeight()
+        
+        if let URL = URL(string: url){
+            
+            let request = URLRequest(url: URL)
+            self.webView.load(request)
+            self.progressBar.isHidden = false
+            self.webView.isHidden = true
+            
+            
+        }else{
+            //MARK:TODO
+            //ERROR HANDLING
+            self.close {
+                let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
+                self.delegate?.onErrorReceived(error: error)
+            }
+        }
     }
     
     func calculateWebHeight(){
@@ -1174,7 +1198,10 @@ internal class PHBottomViewController: UIViewController {
                         }
                     }
 
-                case .failure(_):
+                case .failure(let error):
+                    self.close {
+                        self.delegate?.onErrorReceived(error: error)
+                    }
                     break
                 }
 

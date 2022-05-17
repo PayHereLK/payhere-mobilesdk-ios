@@ -59,6 +59,7 @@
 		C7E9F6C1277C76B70013D2D4 /* PHBottomSheetTableViewSectioHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7E9F6C0277C76B70013D2D4 /* PHBottomSheetTableViewSectioHeader.xib */; };
 		D68AD170D5E2B0BDB07655F7 /* Pods_demoapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5C73F5CCE9DE42DB20A5A09 /* Pods_demoapp.framework */; };
 		F503041127E4744C008844E5 /* PHUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F503041027E4744C008844E5 /* PHUtils.swift */; };
+		F505EC902833418C00F6AC4F /* WaitUntil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F505EC8F2833418C00F6AC4F /* WaitUntil.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +145,7 @@
 		D10E7597F9AFFB0D66AE7793 /* Pods_payHereSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_payHereSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E98AA3326CB2BEE8C4106D35 /* Pods-payHereSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payHereSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-payHereSDK/Pods-payHereSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		F503041027E4744C008844E5 /* PHUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHUtils.swift; sourceTree = "<group>"; };
+		F505EC8F2833418C00F6AC4F /* WaitUntil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitUntil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +294,7 @@
 				C746D50F234C9A7300F9D06F /* PHPrecentController.swift */,
 				C799349323A8E72B005E5A7B /* PHBottomViewController.swift */,
 				C72750CC23A75B8A00AE9037 /* image.xcassets */,
+				F505EC8F2833418C00F6AC4F /* WaitUntil.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7A7DA3323C5D6F90029210E /* HeaderCollectionReusableView.swift in Sources */,
+				F505EC902833418C00F6AC4F /* WaitUntil.swift in Sources */,
 				C7E9F6B8277C2FA20013D2D4 /* PayWithHelaPayTableViewCell.swift in Sources */,
 				C72A13D12784500D00F08E22 /* PaymentOptionTableViewCell.swift in Sources */,
 				8A74D7FC20528E5C00CF10AB /* Address.swift in Sources */,
