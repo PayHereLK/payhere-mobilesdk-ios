@@ -17,6 +17,10 @@ import Foundation
      var status: Int?
      var msg: String?
      var data: [String: Datum]?
+     
+     func getDataCount() -> Int{
+         return data?.keys.count ?? 0
+     }
  }
 
  // MARK: - Datum

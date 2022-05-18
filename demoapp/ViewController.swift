@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     
     
     
-    let merchantID = "1211149" //"1211149" //"210251"
+    let merchantID = "210251" //"1211149" //"210251"
    
     var initRequest : PHInitialRequest?
 
@@ -157,6 +157,11 @@ extension ViewController : PHViewControllerDelegate{
     
     func onErrorReceived(error: Error) {
         print("✋ Error",error)
+        
+        let ac = UIAlertController(title: "Error Occurred", message: error.localizedDescription, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        ac.addAction(okAction)
+        present(ac, animated: true, completion: nil)
     }
     
     func onResponseReceived(response: PHResponse<Any>?) {
