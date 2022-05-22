@@ -9,7 +9,6 @@
 import UIKit
 import Alamofire
 import ObjectMapper
-import AlamofireObjectMapper
 import WebKit
 
 public protocol PHViewControllerDelegate: AnyObject{
@@ -960,13 +959,17 @@ internal class PHBottomViewController: UIViewController {
                     xprint("Error")
                 }
             })
-            .responseObject(completionHandler: { (response: DataResponse<StatusResponse,AFError>) in
-                
+            .responseData(completionHandler: { response in
                 let handler = completion ?? self.handlePaymentStatus
                 
                 switch response.result{
-                case let .success(statusResponse):
-                    handler(statusResponse)
+                case let .success(data):
+                    if let statusResponse: StatusResponse = try? data.mapToObject() {
+                        handler(statusResponse)
+                    } else {
+                        handler(nil)
+                    }
+                    
                 case .failure(_):
                     handler(nil)
                 }
@@ -1486,4 +1489,9 @@ extension UIFont {
         registerFont(withName: "HPay", fileExtension: "ttf")
         registerFont(withName: "HPayBold", fileExtension: "ttf")
     }
+}
+
+
+struct Test: Codable {
+    var t: String
 }
