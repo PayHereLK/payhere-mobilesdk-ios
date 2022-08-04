@@ -50,6 +50,7 @@ internal class PHBottomViewController: UIViewController {
     internal var keyBoardHeightMax : CGFloat = 0
     internal var shouldShowSucessView : Bool = true
     
+    private var ignoreProgressBarInNextNavigation: Bool = false
     private var didHandlePaymentStatus: Bool = false
     private var count : Int = 5
     private var statusResponse : StatusResponse?
@@ -1292,26 +1293,47 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
     
     internal func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         
+        guard !ignoreProgressBarInNextNavigation else {
+            self.webView.isHidden = false
+            self.progressBar.isHidden = true
+            return
+        }
+        
         self.webView.isHidden = true
         self.progressBar.isHidden = false
-        
         
     }
     
     internal func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
-        xprint(navigationAction.request.mainDocumentURL?.absoluteString ?? "Navigating to unknown location")
+        let optUrl = navigationAction.request.mainDocumentURL?.absoluteString
+        xprint(optUrl ?? "Navigating to unknown location")
+        ignoreProgressBarInNextNavigation = false
         
-        if((navigationAction.request.mainDocumentURL?.absoluteString.contains("https://www.payhere.lk/pay/payment/complete"))! || (navigationAction.request.mainDocumentURL?.absoluteString.contains("https://sandbox.payhere.lk/pay/payment/complete"))!){
-            if(self.initResponse?.data?.order != nil){
-                if isSandBoxEnabled{
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+        if let url = optUrl{
+            if((url.contains(PHConstants.kLiveCompleteURL)) || (url.contains(PHConstants.kSandboxCompleteURL))){
+                if(self.initResponse?.data?.order != nil){
+                    if isSandBoxEnabled{
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                            self.checkStatus(orderKey: self.initResponse?.data!.order?.orderKey ?? "", showProgress: true)
+                        }
+                        
+                    }else{
                         self.checkStatus(orderKey: self.initResponse?.data!.order?.orderKey ?? "", showProgress: true)
                     }
-                    
-                }else{
-                    self.checkStatus(orderKey: self.initResponse?.data!.order?.orderKey ?? "", showProgress: true)
+                }
+            }
+            else if url.contains(PHConstants.kProgressBarWhitelistKeywordFrimi){
+                // Fix for issue Prevent progress bar hiding the Frimi steps
+                ignoreProgressBarInNextNavigation = true
+                
+                if url.contains(PHConstants.kProgressBarWhitelistKeywordFrimiResponse){
+                    // Fix for issue where Frimi steps don't load the first time
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        decisionHandler(.allow)
+                    }
+                    return;
                 }
             }
         }

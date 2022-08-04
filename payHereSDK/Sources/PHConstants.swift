@@ -16,5 +16,13 @@ public class PHConstants {
     internal static let dummyUrl : String = "https://www.payhere.lk/complete/ios";
     internal static let UI : String = "Ui"
     
+    /// Payment Completion URL (Live)
+    internal static let kLiveCompleteURL = "https://www.payhere.lk/pay/payment/complete"
+    
+    /// Payment Completion URL (Sandbox)
+    internal static let kSandboxCompleteURL = "https://sandbox.payhere.lk/pay/payment/complete"
+    
+    internal static let kProgressBarWhitelistKeywordFrimi = "frimi"
+    internal static let kProgressBarWhitelistKeywordFrimiResponse = "frimi/1/response"
     
 }
