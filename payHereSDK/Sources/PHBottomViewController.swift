@@ -130,11 +130,11 @@ internal class PHBottomViewController: UIViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShowFunction(notification:)),
-            name: UIResponder.keyboardWillShowNotification, object: nil)
+            name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillHideFunction(notification:)),
-            name: UIResponder.keyboardWillHideNotification, object: nil)
+            name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         
         if let data = UserDefaults().data(forKey: PHConstants.UI){
@@ -198,7 +198,7 @@ internal class PHBottomViewController: UIViewController {
     
     @objc func keyboardWillShowFunction(notification: NSNotification) {
         
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             
             if(keyBoardHeightMax == 0){
                 keyBoardHeightMax = keyboardSize.height
@@ -219,7 +219,7 @@ internal class PHBottomViewController: UIViewController {
     
     @objc func keyboardWillHideFunction(notification: NSNotification) {
         
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             
             if(keyBoardHeightMax == 0){
                 keyBoardHeightMax = keyboardSize.height
@@ -237,8 +237,8 @@ internal class PHBottomViewController: UIViewController {
     private func close(and callback: (() -> Void)? = nil){
         timer?.invalidate()
         webView.scrollView.delegate = nil
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         dismiss(animated: true) {
             callback?()
@@ -418,7 +418,7 @@ internal class PHBottomViewController: UIViewController {
         
         var connection : Bool = false
         
-        net?.startListening(onUpdatePerforming: { [weak self] (status) in
+        net?.listener = {  [weak self] (status) in
             guard let `self` = self else { return }
             
             if(self.net?.isReachable ?? false){
@@ -427,7 +427,7 @@ internal class PHBottomViewController: UIViewController {
                 case .reachable(.ethernetOrWiFi):
                     connection = true
                     
-                case .reachable(.cellular):
+                case .reachable(.wwan):
                     connection = true
                     
                 case .notReachable:
@@ -461,7 +461,13 @@ internal class PHBottomViewController: UIViewController {
                     
                 }
             }
-        })
+        }
+        
+        net?.startListening()
+//Not Supported
+//        net?.startListening(onUpdatePerforming: { [weak self] (status) in
+//           
+//        })
     }
     
     @objc private func backButtonClicked(){
@@ -564,7 +570,7 @@ internal class PHBottomViewController: UIViewController {
         
         let request = initRequest?.toRawRequest(url: "\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.INIT)")
         
-        AF.request(request!)
+        Alamofire.request(request!)
             .validate()
             .responseString{response in
                 switch response.result{
@@ -611,7 +617,7 @@ internal class PHBottomViewController: UIViewController {
                 case .failure(let error):
                     self.close {
                         
-                        let err = NSError(domain: "", code: error.responseCode ?? 0, userInfo: [NSLocalizedDescriptionKey: error.errorDescription ?? ""])
+                        let err = NSError(domain: "", code:  500, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription])
                         
                         self.delegate?.onErrorReceived(error: err)
                     }
@@ -634,7 +640,7 @@ internal class PHBottomViewController: UIViewController {
         let request = initRequest?.toRawRequest(url: "\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.INITNSUBMIT)")
         
         
-        AF.request(request!)
+        Alamofire.request(request!)
             .validate()
             .responseData { response in
                 
@@ -677,7 +683,7 @@ internal class PHBottomViewController: UIViewController {
                 case .failure(let error):
                     self.close {
                         
-                        let err = NSError(domain: "", code: error.responseCode ?? 0, userInfo: [NSLocalizedDescriptionKey: error.errorDescription ?? ""])
+                        let err = NSError(domain: "", code:  500, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription])
                         
                         self.delegate?.onErrorReceived(error: err)
                     }
@@ -696,7 +702,7 @@ internal class PHBottomViewController: UIViewController {
         
         let request = submitObject.toRawRequest(url: "\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.SUBMIT)")
         
-        AF.request(request)
+        Alamofire.request(request)
             .validate()
             .responseString{ response  in
                 switch response.result{
@@ -727,7 +733,7 @@ internal class PHBottomViewController: UIViewController {
                 case .failure(let error):
                     self.close {
                         
-                        let err = NSError(domain: "", code: error.responseCode ?? 0, userInfo: [NSLocalizedDescriptionKey: error.errorDescription ?? ""])
+                        let err = NSError(domain: "", code:  500, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription])
                         
                         self.delegate?.onErrorReceived(error: err)
                     }
@@ -949,7 +955,7 @@ internal class PHBottomViewController: UIViewController {
             "Content-Type": "application/x-www-form-urlencoded"
         ]
         
-        AF.request(PHConfigs.BASE_URL! + PHConfigs.STATUS,
+        Alamofire.request(PHConfigs.BASE_URL! + PHConfigs.STATUS,
                    method: .post,
                    parameters: params,
                    headers: headers).validate()
@@ -961,7 +967,7 @@ internal class PHBottomViewController: UIViewController {
                     xprint("Error")
                 }
             })
-            .responseObject(completionHandler: { (response: DataResponse<StatusResponse,AFError>) in
+            .responseObject(completionHandler: { (response: DataResponse<StatusResponse>) in
                 
                 let handler = completion ?? self.handlePaymentStatus
                 
@@ -1170,7 +1176,7 @@ internal class PHBottomViewController: UIViewController {
     func getPaymentUI(){
         let urlRequest = URLRequest(url: URL(string: "\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.UI)")!)
 
-        AF.request(urlRequest).validate()
+        Alamofire.request(urlRequest).validate()
             .responseData { (response) in
 
                 switch response.result{

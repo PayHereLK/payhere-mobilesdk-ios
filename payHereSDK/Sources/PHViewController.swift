@@ -192,7 +192,7 @@
 //
 //
 //
-//        AF.request(PHConfigs.BASE_URL! + PHConfigs.STATUS, method: .post, parameters: params, encoding: URLEncoding.default, headers: headers)
+//        Alamofire.request(PHConfigs.BASE_URL! + PHConfigs.STATUS, method: .post, parameters: params, encoding: URLEncoding.default, headers: headers)
 //            .responseObject{ (response: DataResponse<StatusResponse,AFError>) in
 //
 //                do{

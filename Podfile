@@ -6,7 +6,7 @@ target 'payHereSDK' do
   use_frameworks!
 
   # Pods for payHereSDK
-  pod 'Alamofire', '~> 5.0.0-rc.2'
+  pod 'Alamofire', '~> 4.8.1'
   pod 'AlamofireObjectMapper'
 
 
@@ -17,7 +17,7 @@ target 'demoapp' do
   use_frameworks!
 
   # Pods for payHereSDK
-  pod 'Alamofire', '~> 5.0.0-rc.2'
+  pod 'Alamofire', '~> 4.8.1'
   pod 'AlamofireObjectMapper'
  
 
