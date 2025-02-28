@@ -9,8 +9,7 @@
 import UIKit
 import Alamofire
 import ObjectMapper
-import AlamofireObjectMapper
-import WebKit
+@preconcurrency import WebKit
 
 public protocol PHViewControllerDelegate: AnyObject{
     func onResponseReceived(response : PHResponse<Any>?)
@@ -483,7 +482,7 @@ internal class PHBottomViewController: UIViewController {
         }
         else{
             self.close {
-                let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation Canceld"])
+                let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation cancelled!"])
                 self.delegate?.onErrorReceived(error: error)
             }
         }
@@ -540,7 +539,7 @@ internal class PHBottomViewController: UIViewController {
                 animateChanges { [weak self] in
                     
                     self?.close {
-                        let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation Canceld"])
+                        let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation cancelled!"])
                         self!.delegate?.onErrorReceived(error: error)
                     }
                 }
@@ -953,27 +952,62 @@ internal class PHBottomViewController: UIViewController {
                    method: .post,
                    parameters: params,
                    headers: headers).validate()
-            .responseString(completionHandler: { (resonse) in
-                switch resonse.result{
+            .responseString(completionHandler: { (response) in
+                switch response.result{
                 case let .success(value):
                     xprint(value)
                 case .failure(_):
                     xprint("Error")
                 }
             })
-            .responseObject(completionHandler: { (response: DataResponse<StatusResponse,AFError>) in
+            .responseData(completionHandler: { response in
                 
                 let handler = completion ?? self.handlePaymentStatus
                 
                 switch response.result{
-                case let .success(statusResponse):
-                    handler(statusResponse)
+                case .success(let data):
+                    guard let jsonString = String(data: data, encoding: .utf8) else {
+                        handler(nil)
+                        return
+                    }
+                    
+                    guard let obj = Mapper<StatusResponse>().map(JSONString: jsonString) else{
+                        handler(nil)
+                        return
+                    }
+                    
+                    handler(obj)
                 case .failure(_):
                     handler(nil)
                 }
+                
             })
+//            //OLD IMPLEMENTATION
+//            .responseObject(completionHandler: { (response: DataResponse<StatusResponse,AFError>) in
+//                
+//                let handler = completion ?? self.handlePaymentStatus
+//                
+//                switch response.result{
+//                case let .success(statusResponse):
+//                    handler(statusResponse)
+//                case .failure(_):
+//                    handler(nil)
+//                }
+//            })
     }
     
+    private func createErrorResponse<T: Mappable>(_ request: URLRequest, response:AFDataResponse<Data>) -> DataResponse<T, AFError>{
+        let error: AFError = .responseValidationFailed(reason: .unacceptableStatusCode(code: 403))
+        let result: Result<T, AFError> = .failure(error)
+        let failedResponse = DataResponse<T, AFError>(
+            request: request, response: response.response,
+            data: response.data, metrics: response.metrics,
+            serializationDuration: 0, result: result
+        )
+        
+        return failedResponse
+    }
+                          
     private func handlePaymentStatus(response : StatusResponse?){
         
         guard !didHandlePaymentStatus else { return }
@@ -1267,7 +1301,7 @@ internal class PHBottomViewController: UIViewController {
     @IBAction private func btnCancelTapped(){
         self.timer?.invalidate()
         self.close { [weak self] in
-            let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation Canceld"])
+            let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation cancelled!"])
             self?.delegate?.onErrorReceived(error: error)
         }
     }

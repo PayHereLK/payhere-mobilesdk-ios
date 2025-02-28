@@ -11,10 +11,8 @@ import payHereSDK
 
 class ViewController: UIViewController {
     
+    let merchantID = "1211149" // <YOUR_MERCHANT_ID>
     
-    
-    let merchantID = "210251" //"1211149" //"210251"
-   
     var initRequest : PHInitialRequest?
 
     override func viewDidLoad() {
