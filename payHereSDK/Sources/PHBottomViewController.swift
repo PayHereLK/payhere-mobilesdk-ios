@@ -483,7 +483,7 @@ internal class PHBottomViewController: UIViewController {
         }
         else{
             self.close {
-                let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation Canceld"])
+                let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation cancelled!"])
                 self.delegate?.onErrorReceived(error: error)
             }
         }
@@ -540,7 +540,7 @@ internal class PHBottomViewController: UIViewController {
                 animateChanges { [weak self] in
                     
                     self?.close {
-                        let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation Canceld"])
+                        let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation cancelled!"])
                         self!.delegate?.onErrorReceived(error: error)
                     }
                 }
@@ -1267,7 +1267,7 @@ internal class PHBottomViewController: UIViewController {
     @IBAction private func btnCancelTapped(){
         self.timer?.invalidate()
         self.close { [weak self] in
-            let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation Canceld"])
+            let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation cancelled!"])
             self?.delegate?.onErrorReceived(error: error)
         }
     }
