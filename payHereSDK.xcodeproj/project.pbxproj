@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1473770A2D71722600EFFC0E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 147377092D71722600EFFC0E /* PrivacyInfo.xcprivacy */; };
+		14AE71352D7193E0005018AC /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AE71342D7193E0005018AC /* Package.swift */; };
 		3B0294C91C6B4FD9D211D08B /* Pods_demoapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82FDBCDF785EAEB266372CBC /* Pods_demoapp.framework */; };
 		8A1FF74B206254DF00924B21 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8A1FF74A206254DF00924B21 /* README.md */; };
 		8A74D7E320528D9800CF10AB /* payHereSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A74D7E120528D9800CF10AB /* payHereSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -88,6 +89,7 @@
 
 /* Begin PBXFileReference section */
 		147377092D71722600EFFC0E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		14AE71342D7193E0005018AC /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		15F26120318AC2818B0DAB60 /* Pods-demoapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demoapp.release.xcconfig"; path = "Target Support Files/Pods-demoapp/Pods-demoapp.release.xcconfig"; sourceTree = "<group>"; };
 		4516ECDAED2B30AAB042D90F /* Pods_payHereSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_payHereSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FEEB29D828D8D62BD0152D3 /* Pods-payHereSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payHereSDK.release.xcconfig"; path = "Target Support Files/Pods-payHereSDK/Pods-payHereSDK.release.xcconfig"; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 		8A74D7D420528D9800CF10AB = {
 			isa = PBXGroup;
 			children = (
+				14AE71342D7193E0005018AC /* Package.swift */,
 				8A1FF74A206254DF00924B21 /* README.md */,
 				8AD11E6120612739002E4F82 /* LICENSE */,
 				8AD11E6220612739002E4F82 /* payHereSDK.podspec */,
@@ -240,7 +243,6 @@
 				E80B4F04AD6AF11AF46DCAAA /* Pods-payHereSDK.debug.xcconfig */,
 				6FEEB29D828D8D62BD0152D3 /* Pods-payHereSDK.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -503,6 +505,7 @@
 				C7E9F6B8277C2FA20013D2D4 /* PayWithHelaPayTableViewCell.swift in Sources */,
 				C72A13D12784500D00F08E22 /* PaymentOptionTableViewCell.swift in Sources */,
 				8A74D7FC20528E5C00CF10AB /* Address.swift in Sources */,
+				14AE71352D7193E0005018AC /* Package.swift in Sources */,
 				8A74D7FD20528E5C00CF10AB /* InitRequest.swift in Sources */,
 				F503041127E4744C008844E5 /* PHUtils.swift in Sources */,
 				C799349723A9FEFC005E5A7B /* PayOptionCollectionViewCell.swift in Sources */,
