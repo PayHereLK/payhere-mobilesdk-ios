@@ -125,17 +125,6 @@ internal class PHBottomViewController: UIViewController {
     
     // MARK: - Object Life Cycle
     
-
-    
-
-    
-
-    
-
-   
-    
-    
-    
     override public func viewDidLoad() {
         
         UIFont.loadFonts()
@@ -158,8 +147,6 @@ internal class PHBottomViewController: UIViewController {
             PHConfigs.setBaseUrl(url: PHConfigs.LIVE_URL)
             self.viewSandboxNoteBanner.isHidden = true
         }
-        
-        
         
         setInitialHeight()
         
@@ -280,20 +267,26 @@ internal class PHBottomViewController: UIViewController {
         
     }
     
-    private func close(and callback: (() -> Void)? = nil){
+    private func close(animate:Bool = true,and callback: (() -> Void)? = nil){
         timer?.invalidate()
         webView.scrollView.delegate = nil
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut) {
-            self.bottomConstraint.constant = -self.height.constant
-            self.view.layoutIfNeeded()
-        }completion: { _ in
-            self.dismiss(animated: true) {
-                DispatchQueue.main.async {
-                    callback?()
+        if animate {
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut) {
+                self.bottomConstraint.constant = -self.height.constant
+                self.view.layoutIfNeeded()
+            }completion: { _ in
+                self.dismiss(animated: true) {
+                    DispatchQueue.main.async {
+                        callback?()
+                    }
                 }
+            }
+        }else {
+            dismiss(animated: false) {
+                callback?()
             }
         }
 
@@ -460,7 +453,7 @@ internal class PHBottomViewController: UIViewController {
         if(validate == nil){
             checkNetworkAvailability(selectedAPI: selectedAPI);
         }else{
-            close {
+            close(animate: false) {
                 let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: validate as Any])
                 self.delegate?.onErrorReceived(error: error)
             }
@@ -494,7 +487,7 @@ internal class PHBottomViewController: UIViewController {
                 
                 if (!connection) {
                     
-                    self.close {
+                    self.close(animate: false) {
                         let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Unable to connect to the internet"])
                         self.delegate?.onErrorReceived(error: error)
                     }
@@ -674,7 +667,7 @@ internal class PHBottomViewController: UIViewController {
                             }
                             
                         }else{
-                            self.close {
+                            self.close(animate: false) {
                                 let error = NSError(domain: "", code: 501, userInfo: [NSLocalizedDescriptionKey: temp.msg ?? ""])
                                 self.delegate?.onErrorReceived(error: error)
                             }
@@ -682,13 +675,13 @@ internal class PHBottomViewController: UIViewController {
                         
                         
                     }catch let err{
-                        self.close {
+                        self.close(animate: false) {
                             self.delegate?.onErrorReceived(error: err)
                         }
                     }
                     
                 case .failure(let error):
-                    self.close {
+                    self.close(animate: false) {
                         
                         let err = NSError(domain: "", code: error.responseCode ?? 0, userInfo: [NSLocalizedDescriptionKey: error.errorDescription ?? ""])
                         
@@ -740,7 +733,7 @@ internal class PHBottomViewController: UIViewController {
                             }
                             
                         }else{
-                            self.close {
+                            self.close(animate: false) {
                                 let error = NSError(domain: "", code: 501, userInfo: [NSLocalizedDescriptionKey: temp.msg ?? ""])
                                 self.delegate?.onErrorReceived(error: error)
                             }
@@ -748,13 +741,13 @@ internal class PHBottomViewController: UIViewController {
                         
                         
                     }catch let err{
-                        self.close {
+                        self.close(animate: false) {
                             self.delegate?.onErrorReceived(error: err)
                         }
                     }
                     
                 case .failure(let error):
-                    self.close {
+                    self.close(animate: false) {
                         
                         let err = NSError(domain: "", code: error.responseCode ?? 0, userInfo: [NSLocalizedDescriptionKey: error.errorDescription ?? ""])
                         
