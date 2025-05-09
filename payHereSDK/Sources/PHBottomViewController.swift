@@ -17,6 +17,82 @@ public protocol PHViewControllerDelegate: AnyObject{
 }
 internal class PHBottomViewController: UIViewController {
     
+    
+    //MARK: TypeAlias
+    
+    
+    //MARK: - Enum
+    
+    
+    
+    //MARK: - Classes
+    
+    
+    
+    //MARK: - Structs
+    
+    
+    
+    //MARK: - Constants
+    private let net                                 : NetworkReachabilityManager    = NetworkReachabilityManager(host: "payhere.lk")!
+    
+    
+    
+    // MARK: - Variables
+    internal var initialRequest                     : PHInitialRequest?
+    internal var isSandBoxEnabled                   : Bool                          = false
+    internal var orgHeight                          : CGFloat                       = 0
+    internal var keyBoardHeightMax                  : CGFloat                       = 0
+    internal var shouldShowSucessView               : Bool                          = true
+    
+    private var ignoreProgressBarInNextNavigation   : Bool                          = false
+    private var didHandlePaymentStatus              : Bool                          = false
+    private var count                               : Int                           = 5
+    private var statusResponse                      : StatusResponse?
+    private var timer                               : Timer?
+    private var isBackPressed                       : Bool                          = false
+    private var waitUntilPaymentUI                  : WaitUntil!
+    
+    
+    private var bankAccount                         : [PaymentMethod]               = []
+    private var bankCard                            : [PaymentMethod]               = []
+    private var other                               : [PaymentMethod]               = []
+    
+    private var initRequest                         : PHInitRequest?
+    private var initResponse                        : PHInitResponse?
+    private var paymentUI                           : PaymentUI                     = PaymentUI()
+    private var selectedPaymentOption               : PaymentOption?
+    private var apiMethod                           : SelectedAPI                   = .CheckOut
+    private var selectedPaymentMethod               : PaymentMethod?
+    
+    private var paymentOption                       : [PaymentOption] {
+        
+        get{
+            return [
+                PaymentOption(name: "Visa"          , image: getImage(withImageName: "visa")    , optionValue: "VISA"),
+                PaymentOption(name: "Master"        , image: getImage(withImageName: "master")  , optionValue: "MASTER"),
+                PaymentOption(name: "Amex"          , image: getImage(withImageName: "amex")    , optionValue: "AMEX"),
+                PaymentOption(name: "Discover"      , image: getImage(withImageName: "discover"), optionValue: "AMEX"),
+                PaymentOption(name: "Diners Club"   , image: getImage(withImageName: "diners")  , optionValue: "AMEX"),
+                PaymentOption(name: "Genie"         , image: getImage(withImageName: "genie")   , optionValue: "GENIE"),
+                PaymentOption(name: "Frimi"         , image: getImage(withImageName: "frimi")   , optionValue: "FRIMI"),
+                PaymentOption(name: "Ez Cash"       , image: getImage(withImageName: "ezcash")  , optionValue: "EZCASH"),
+                PaymentOption(name: "m Cash"        , image: getImage(withImageName: "mcash")   , optionValue: "MCASH"),
+                PaymentOption(name: "Vishwa"        , image: getImage(withImageName: "vishwa")  , optionValue: "VISHWA"),
+                PaymentOption(name: "HNB"           , image: getImage(withImageName: "hnb")     , optionValue: "HNB"),
+                PaymentOption(name: "QPLUS"         , image: getImage(withImageName: "QPLUS")   , optionValue: "QPLUS")
+            ]
+            
+        }
+        
+    }
+
+    
+    // WEAK VAR
+    internal weak var delegate : PHViewControllerDelegate?
+    private weak var alertController:UIAlertController?
+    
+    // MARK: - IBOutlets & Weak Views
     @IBOutlet private weak var progressBar: UIActivityIndicatorView!
     @IBOutlet private weak var height: NSLayoutConstraint!
     @IBOutlet private var bottomConstraint: NSLayoutConstraint!
@@ -30,7 +106,7 @@ internal class PHBottomViewController: UIViewController {
     @IBOutlet private weak var stackViewBackViewWrapper: UIStackView!
     
     @IBOutlet private weak var viewPaymentSucess: UIView!
-    // @IBOutlprivate et weak var lblSecureWindow: UILabel!
+    @IBOutlet private weak var viewBackground: UIView!
     
     @IBOutlet private weak var checkMark: WVCheckMark!
     @IBOutlet private weak var imgDeclined: UIImageView!
@@ -42,52 +118,21 @@ internal class PHBottomViewController: UIViewController {
     @IBOutlet private weak var btnCancel: UIButton!
     @IBOutlet private weak var btnTryAgain: UIButton!
     
-    internal var initialRequest : PHInitialRequest?
-    internal var isSandBoxEnabled : Bool = false
-    internal weak var delegate : PHViewControllerDelegate?
-    internal var orgHeight : CGFloat = 0
-    internal var keyBoardHeightMax : CGFloat = 0
-    internal var shouldShowSucessView : Bool = true
     
-    private var ignoreProgressBarInNextNavigation: Bool = false
-    private var didHandlePaymentStatus: Bool = false
-    private var count : Int = 5
-    private var statusResponse : StatusResponse?
-    private var timer : Timer?
-    private var isBackPressed : Bool =  false
-    private var waitUntilPaymentUI: WaitUntil!
-    private let net = NetworkReachabilityManager()
+    // MARK: - Object Creation
     
-    private var bankAccount : [PaymentMethod] = []
-    private var bankCard : [PaymentMethod] =  []
-    private var other : [PaymentMethod]  =  []
     
-    private var initRequest : PHInitRequest?
-    private var initResponse : PHInitResponse?
-    private var paymentUI : PaymentUI = PaymentUI()
-    private var selectedPaymentOption : PaymentOption?
-    private var apiMethod : SelectedAPI = .CheckOut
-    private var selectedPaymentMethod : PaymentMethod?
-    private var paymentOption : [PaymentOption]{
-        
-        get{
-            return [
-                PaymentOption(name: "Visa", image: getImage(withImageName: "visa"), optionValue: "VISA"),
-                PaymentOption(name: "Master", image: getImage(withImageName: "master"), optionValue: "MASTER"),
-                PaymentOption(name: "Amex", image: getImage(withImageName: "amex"), optionValue: "AMEX"),
-                PaymentOption(name: "Discover", image: getImage(withImageName: "discover"), optionValue: "AMEX"),
-                PaymentOption(name: "Diners Club", image: getImage(withImageName: "diners"), optionValue: "AMEX"),
-                PaymentOption(name: "Genie", image: getImage(withImageName: "genie"), optionValue: "GENIE"),
-                PaymentOption(name: "Frimi", image: getImage(withImageName: "frimi"), optionValue: "FRIMI"),
-                PaymentOption(name: "Ez Cash", image: getImage(withImageName: "ezcash"), optionValue: "EZCASH"),
-                PaymentOption(name: "m Cash", image: getImage(withImageName: "mcash"), optionValue: "MCASH"),
-                PaymentOption(name: "Vishwa", image: getImage(withImageName: "vishwa"), optionValue: "VISHWA"),
-                PaymentOption(name: "HNB", image: getImage(withImageName: "hnb"), optionValue: "HNB"),
-                PaymentOption(name: "QPLUS", image: getImage(withImageName: "QPLUS"), optionValue: "QPLUS")
-            ]
-            
-        }
-    }
+    
+    // MARK: - Object Life Cycle
+    
+
+    
+
+    
+
+    
+
+   
     
     
     
