@@ -216,6 +216,9 @@ internal class PHBottomViewController: UIViewController {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(backButtonClicked))
         stackViewBackViewWrapper.addGestureRecognizer(tap)
+        
+        let backgroundTap = UITapGestureRecognizer(target: self, action: #selector(forceClose))
+        self.viewBackground.addGestureRecognizer(backgroundTap)
     
     }
     
@@ -223,7 +226,6 @@ internal class PHBottomViewController: UIViewController {
         super.viewWillAppear(animated)
         
         bottomConstraint.constant = -height.constant
-        view.layoutIfNeeded()
         performInitialSteps()
         
     }
@@ -242,7 +244,7 @@ internal class PHBottomViewController: UIViewController {
     
     @objc func keyboardWillShowFunction(notification: NSNotification) {
         
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             
             if(keyBoardHeightMax == 0){
                 keyBoardHeightMax = keyboardSize.height
@@ -263,7 +265,7 @@ internal class PHBottomViewController: UIViewController {
     
     @objc func keyboardWillHideFunction(notification: NSNotification) {
         
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             
             if(keyBoardHeightMax == 0){
                 keyBoardHeightMax = keyboardSize.height
@@ -284,9 +286,17 @@ internal class PHBottomViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        dismiss(animated: true) {
-            callback?()
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut) {
+            self.bottomConstraint.constant = -self.height.constant
+            self.view.layoutIfNeeded()
+        }completion: { _ in
+            self.dismiss(animated: true) {
+                DispatchQueue.main.async {
+                    callback?()
+                }
+            }
         }
+
     }
     
     private func createInitRequest(phInitialRequest : PHInitialRequest) ->PHInitRequest{
@@ -462,10 +472,10 @@ internal class PHBottomViewController: UIViewController {
         
         var connection : Bool = false
         
-        net?.startListening(onUpdatePerforming: { [weak self] (status) in
+        net.startListening(onUpdatePerforming: { [weak self] (status) in
             guard let `self` = self else { return }
             
-            if(self.net?.isReachable ?? false){
+            if(self.net.isReachable){
                 
                 switch status{
                 case .reachable(.ethernetOrWiFi):
@@ -515,9 +525,13 @@ internal class PHBottomViewController: UIViewController {
             self.selectedPaymentOption = nil
             self.selectedPaymentMethod = nil
             
-            self.setInitialHeight()
+            self.animateChanges {
+                self.setInitialHeight()
+            } completion: {
+                self.webView.loadHTMLString("", baseURL: nil)
+            }
+            
             self.webView.isHidden = true
-            self.webView.loadHTMLString("", baseURL: nil)
             self.tableView.isHidden = false
             
             self.isBackPressed = true
@@ -534,7 +548,28 @@ internal class PHBottomViewController: UIViewController {
         
     }
     
-    
+    @objc private func forceClose(){
+        let alert = UIAlertController(
+            title: "Cancel Payment?",
+            message: "This payment is still being processed!",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {_ in
+            // Cancel Occured
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Exit Now", style: .destructive) { [weak self] _ in
+            // Force exit logic here
+            self?.close { [self] in
+                let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation cancelled!"])
+                self?.delegate?.onErrorReceived(error: error)
+            }
+        })
+        
+        self.present(alert, animated: true)
+        
+    }
     
     
     
@@ -548,8 +583,9 @@ internal class PHBottomViewController: UIViewController {
     
     
     
-    private func animateChanges(_ completion : (() ->())? = nil) {
+    private func animateChanges(animationBlock:(() ->())? = nil,completion : (() ->())? = nil) {
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: { [weak self] in
+            animationBlock?()
             self?.view?.layoutIfNeeded()
         }, completion: { _ in completion?() })
     }
@@ -581,13 +617,12 @@ internal class PHBottomViewController: UIViewController {
             if(velocity.y > 1000.0 || translation.y > (self.height.constant / 2)){
                 
                 self.bottomConstraint.constant = -self.height.constant
-                animateChanges { [weak self] in
-                    
-                    self?.close {
+                animateChanges(completion:  {
+                    self.close {
                         let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation cancelled!"])
-                        self!.delegate?.onErrorReceived(error: error)
+                        self.delegate?.onErrorReceived(error: error)
                     }
-                }
+                })
                 
             }else{
                 self.bottomConstraint.constant = 0
@@ -844,8 +879,13 @@ internal class PHBottomViewController: UIViewController {
         self.webView.uiDelegate = self
         self.webView.navigationDelegate = self
         
-        self.calculateWebHeight()
-        
+        self.updateWebHeight {  [weak self] in
+            guard let `self` else {return}
+            self.reloadWebView(url: url)
+        }
+    }
+    
+    private func reloadWebView(url: String) {
         if let URL = URL(string: url){
             
             let request = URLRequest(url: URL)
@@ -897,27 +937,35 @@ internal class PHBottomViewController: UIViewController {
         self.webView.uiDelegate = self
         self.webView.navigationDelegate = self
         
-        self.calculateWebHeight()
+        self.updateWebHeight {  [weak self] in
+            guard let `self` else {return}
+            self.reloadWebView(url: url)
+        }
+    }
+     
+    func updateWebHeight(completion: @escaping () -> Void) {
         
-        if let URL = URL(string: url){
-            
-            let request = URLRequest(url: URL)
-            self.webView.load(request)
-            self.progressBar.isHidden = false
-            self.webView.isHidden = true
-            
-            
-        }else{
-            //MARK:TODO
-            //ERROR HANDLING
-            self.close {
-                let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
-                self.delegate?.onErrorReceived(error: error)
+        let calculatedHeight = self.calculateWebHeight()
+        
+        
+        
+        DispatchQueue.main.async {  [weak self] in
+            // Apply UI Changes
+            self?.animateChanges {
+                
+                self?.height.constant = calculatedHeight
+                self?.orgHeight = calculatedHeight
+                
+            } completion: {
+                DispatchQueue.main.async{
+                    completion()
+                }
             }
+
         }
     }
     
-    func calculateWebHeight(){
+    func calculateWebHeight() -> CGFloat{
         
         var viewSize : ViewSize?
         
@@ -942,16 +990,14 @@ internal class PHBottomViewController: UIViewController {
         let visaHeight = CGFloat(visa?.viewSize?.height ?? 0)
         
         
-        
-        var calcHeight = (selectedHeight/visaHeight) * orgHeight
+        let headerHeight:CGFloat = 64.0
+        var calcHeight = ((selectedHeight/visaHeight) * orgHeight) + headerHeight
         
         if(calcHeight > self.view.frame.size.height){
             calcHeight = (self.view.frame.size.height - 20)
         }
         
-        height.constant = calcHeight
-        self.orgHeight = calcHeight
-        self.animateChanges()
+       return calcHeight
         
     }
     
