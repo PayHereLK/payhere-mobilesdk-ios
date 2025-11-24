@@ -182,6 +182,24 @@ internal class PHBottomViewController: UIViewController {
         }
         
         webView.scrollView.delegate = self
+        webView.scrollView.bounces = false
+        webView.scrollView.alwaysBounceHorizontal = false
+        webView.scrollView.alwaysBounceVertical = false
+        webView.scrollView.isScrollEnabled = true
+        webView.scrollView.zoomScale = 1.0
+        webView.scrollView.maximumZoomScale = 1.0
+        webView.scrollView.minimumZoomScale = 1.0
+        webView.isMultipleTouchEnabled = false
+        
+        // Inject viewport meta tag before page loads to prevent zooming
+        let viewportScript = """
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        """
+        let userScript = WKUserScript(source: viewportScript, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        webView.configuration.userContentController.addUserScript(userScript)
         
         
         let helaPayNib = UINib(nibName: "PayWithHelaPayTableViewCell", bundle: Bundle.payHereBundle)
@@ -889,7 +907,6 @@ internal class PHBottomViewController: UIViewController {
         self.tableView.isHidden  = true
         self.webView.isHidden = false
         
-        self.webView.contentMode = .scaleAspectFill
         self.webView.uiDelegate = self
         self.webView.navigationDelegate = self
         
@@ -947,7 +964,6 @@ internal class PHBottomViewController: UIViewController {
     private func loadPayHereInitAndSubmitUI(url: String){
         self.webView.isHidden = false
         
-        self.webView.contentMode = .scaleAspectFill
         self.webView.uiDelegate = self
         self.webView.navigationDelegate = self
         
@@ -1487,26 +1503,19 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
     }
     
     private func insertCSSString(into webView: WKWebView) {
+        // Viewport meta tag is now injected via WKUserScript at document start
+        // This method now only handles additional CSS if needed in the future
         
-        var scriptContent = "var meta = document.createElement('meta');"
-        scriptContent += "meta.name='viewport';"
-        scriptContent += "meta.content='width=device-width';"
-        scriptContent += "document.getElementsByTagName('head')[0].appendChild(meta);"
-        
-        webView.evaluateJavaScript(scriptContent) { (response, error) in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.webView.evaluateJavaScript("window.scrollTo(0,0)", completionHandler: nil)
-            }
-            
-        }
-        
+        // Scroll to top to ensure consistent view
+        webView.evaluateJavaScript("window.scrollTo(0,0)", completionHandler: nil)
     }
     
 }
 
 extension PHBottomViewController : UIScrollViewDelegate {
-    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
-        scrollView.pinchGestureRecognizer?.isEnabled = false
+    // Prevent zooming by returning nil for viewForZooming
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return nil
     }
 }
 
