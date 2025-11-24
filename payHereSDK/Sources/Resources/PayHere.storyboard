@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -275,7 +275,7 @@
                         <constraints>
                             <constraint firstItem="2XC-NF-f7C" firstAttribute="leading" secondItem="sgM-dY-QIl" secondAttribute="leading" id="20K-8V-1Ww"/>
                             <constraint firstItem="YEG-Vz-VOE" firstAttribute="top" secondItem="eqH-Eu-cff" secondAttribute="top" id="C4z-XL-MNQ"/>
-                            <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="2XC-NF-f7C" secondAttribute="bottom" id="Cx2-0d-gEc"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2XC-NF-f7C" secondAttribute="bottom" id="Cx2-0d-gEc"/>
                             <constraint firstAttribute="right" secondItem="YEG-Vz-VOE" secondAttribute="right" id="E3V-EV-8Hp"/>
                             <constraint firstAttribute="bottom" secondItem="2XC-NF-f7C" secondAttribute="bottom" priority="999" id="EwH-Sc-bn7"/>
                             <constraint firstItem="2XC-NF-f7C" firstAttribute="top" secondItem="YEG-Vz-VOE" secondAttribute="bottom" id="R13-WB-2n0"/>
