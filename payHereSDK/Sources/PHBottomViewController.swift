@@ -52,6 +52,7 @@ internal class PHBottomViewController: UIViewController {
     private var timer                               : Timer?
     private var isBackPressed                       : Bool                          = false
     private var waitUntilPaymentUI                  : WaitUntil!
+    private var initialBottomConstant               : CGFloat                       = 0
     
     
     private var bankAccount                         : [PaymentMethod]               = []
@@ -206,6 +207,9 @@ internal class PHBottomViewController: UIViewController {
         
         let backgroundTap = UITapGestureRecognizer(target: self, action: #selector(forceClose))
         self.viewBackground.addGestureRecognizer(backgroundTap)
+        
+        let backgroundPan = UIPanGestureRecognizer(target: self, action: #selector(panGestureRegonizer(_:)))
+        self.viewBackground.addGestureRecognizer(backgroundPan)
     
     }
     
@@ -231,39 +235,46 @@ internal class PHBottomViewController: UIViewController {
     
     @objc func keyboardWillShowFunction(notification: NSNotification) {
         
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            
-            if(keyBoardHeightMax == 0){
-                keyBoardHeightMax = keyboardSize.height
-            }
-            
-            keyBoardHeightMax = max(keyboardSize.height, keyBoardHeightMax)
-            
-            if((keyBoardHeightMax  + orgHeight) > self.view.frame.height){
-                keyBoardHeightMax = keyBoardHeightMax / 2
-            }
-            
-            height.constant = orgHeight + keyBoardHeightMax
-            animateChanges()
-            
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        
+        // Ensure layout is up to date to get correct safeAreaInsets
+        self.view.layoutIfNeeded()
+        
+        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+        
+        // Convert keyboard frame to view's coordinate system
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: nil)
+        
+        let extraSpaceBottom = 5.0
+        let keyboardHeight = keyboardViewEndFrame.height
+        
+        // Calculate how much of the keyboard is "inside" the safe area (above the bottom inset)
+        // If Keyboard Height = 0 (hidden), Overlap = 0.
+        
+        let overlap = max(0, keyboardHeight + extraSpaceBottom)
+        
+        self.bottomConstraint.constant = overlap
+        
+        // Calculate available height
+        // Screen Height - Safe Area Top - Overlap
+        let safeAreaTop = view.safeAreaInsets.top
+        let availableHeight = view.frame.height - safeAreaTop - overlap
+        
+        if self.orgHeight > availableHeight {
+            self.height.constant = availableHeight
+        } else {
+            self.height.constant = self.orgHeight
         }
+        
+        self.animateChanges()
         
     }
     
     @objc func keyboardWillHideFunction(notification: NSNotification) {
         
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            
-            if(keyBoardHeightMax == 0){
-                keyBoardHeightMax = keyboardSize.height
-            }
-            
-            keyBoardHeightMax = max(keyboardSize.height, keyBoardHeightMax)
-            
-            height.constant = orgHeight//height.constant - keyBoardHeightMax
-            animateChanges()
-            
-        }
+        self.bottomConstraint.constant = 0
+        self.height.constant = self.orgHeight
+        self.animateChanges()
         
     }
     
@@ -577,6 +588,8 @@ internal class PHBottomViewController: UIViewController {
     
     
     private func animateChanges(animationBlock:(() ->())? = nil,completion : (() ->())? = nil) {
+        self.view.setNeedsLayout()
+        self.view.setNeedsDisplay()
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: { [weak self] in
             animationBlock?()
             self?.view?.layoutIfNeeded()
@@ -598,16 +611,23 @@ internal class PHBottomViewController: UIViewController {
     
     @IBAction func panGestureRegonizer(_ sender: UIPanGestureRecognizer) {
         
-        if(sender.state == .changed){
+        if sender.state == .began {
+            self.initialBottomConstant = self.bottomConstraint.constant
+        } else if(sender.state == .changed){
             let translation = sender.translation(in: bottomView)
-            self.bottomConstraint.constant = -translation.y
+            let newConstant = self.initialBottomConstant - translation.y
+            
+            // Prevent lifting higher than the initial state
+            self.bottomConstraint.constant = min(self.initialBottomConstant, newConstant)
+            
         }else if(sender.state == .ended){
             let velocity = sender.velocity(in: bottomView)
             let translation = sender.translation(in: bottomView)
             
+            let screenHeight = self.view.frame.height
+            let threshold = screenHeight / 3.0
             
-            
-            if(velocity.y > 1000.0 || translation.y > (self.height.constant / 2)){
+            if(velocity.y > 1000.0 || translation.y > threshold){
                 
                 self.bottomConstraint.constant = -self.height.constant
                 animateChanges(completion:  {
@@ -618,7 +638,8 @@ internal class PHBottomViewController: UIViewController {
                 })
                 
             }else{
-                self.bottomConstraint.constant = 0
+                
+                self.bottomConstraint.constant = self.initialBottomConstant
                 self.animateChanges()
             }
         }
