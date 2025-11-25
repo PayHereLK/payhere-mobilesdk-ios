@@ -61,7 +61,7 @@ internal class PHBottomViewController: UIViewController {
     
     private var initRequest                         : PHInitRequest?
     private var initResponse                        : PHInitResponse?
-    private var paymentUI                           : PaymentUI                     = PaymentUI()
+    private var paymentUI                           : [String: PaymentMethod]       = [:]
     private var selectedPaymentOption               : PaymentOption?
     private var apiMethod                           : SelectedAPI                   = .CheckOut
     private var selectedPaymentMethod               : PaymentMethod?
@@ -169,18 +169,18 @@ internal class PHBottomViewController: UIViewController {
             selector: #selector(keyboardWillHideFunction(notification:)),
             name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        
-        if let data = UserDefaults().data(forKey: PHConstants.UI){
-            do{
-                self.paymentUI = try newJSONDecoder().decode(PaymentUI.self, from: data)
-            }catch{
-                xprint(error)
-            }
-            self.getPaymentUI()
-        }
-        else{
-            self.getPaymentUI()
-        }
+        //
+        // if let data = UserDefaults().data(forKey: PHConstants.UI){
+        //     do{
+        //         self.paymentUI = try newJSONDecoder().decode(PaymentUI.self, from: data)
+        //     }catch{
+        //         xprint(error)
+        //     }
+        //     self.getPaymentUI()
+        // }
+        // else{
+        //     self.getPaymentUI()
+        // }
         
         webView.backgroundColor = UIColor.PrimaryTheme.ViewBackground
         webView.scrollView.delegate = self
@@ -702,8 +702,8 @@ internal class PHBottomViewController: UIViewController {
                             //                            self.collectionView.isHidden = true
                             
                             if(!self.isBackPressed){
-                                
-                                self.initalizedUI(self.initResponse!)
+                                let paymentMethods = self.initResponse?.data?.paymentMethods ?? []
+                                self.initalizedUI(paymentMethods)
                             }
                             
                         }else{
@@ -748,6 +748,14 @@ internal class PHBottomViewController: UIViewController {
         
         AF.request(request!)
             .validate()
+            .responseString{ response  in
+                switch response.result{
+                case .success(let data):
+                    xprint(data)
+                case .failure(let error):
+                    xprint(error)
+                }
+            }
             .responseData { response in
                 
                 self.progressBar.isHidden = true
@@ -767,7 +775,7 @@ internal class PHBottomViewController: UIViewController {
                             }
                             self.progressBar.isHidden = true
                             self.tableView.isHidden = true
-                            
+                            self.step = .Payment
                             if(!self.isBackPressed){
                                 self.initWebView(temp)
                             }
@@ -852,50 +860,50 @@ internal class PHBottomViewController: UIViewController {
         
     }
     
-    private func initalizedUI(_ response : PHInitResponse){
+    private func initalizedUI(_ paymentMethods : [PaymentMethod]){
         let bankCardMethods = ["MASTER", "VISA", "MASTER", "AMEX", "DISCOVER", "DINERS"]
         
+        paymentUI   = [:]
         bankAccount = []
-        bankCard = []
-        other = []
+        bankCard    = []
+        other       = []
         
-        if let paymentMethods = response.data?.paymentMethods{
+        for method in paymentMethods{
             
-            for method in paymentMethods{
-                // .uppercased() is important!
-                if let methodName = method.method?.uppercased(){
-                    if methodName == "HELAPAY"{
-                        bankAccount.append(method)
-                    }
-                    else if bankCardMethods.contains(methodName){
-                        bankCard.append(method)
-                    }
-                    else{
-                        other.append(method)
-                    }
-                }
+            // Exclude Justpay Web Support
+            if method.method?.uppercased() == "JUSTPAY" {
+                continue
             }
             
-            bankCard = bankCard.sorted{ $0.orderNo! < $1.orderNo! }
-            other = other.sorted{ $0.orderNo! < $1.orderNo! }
             
-            self.tableView.reloadData()
+            if let methodName = method.method?.uppercased(){
+                
+                self.paymentUI[methodName] = method
+                
+                if methodName == "HELAPAY"{
+                    bankAccount.append(method)
+                }
+                else if bankCardMethods.contains(methodName){
+                    bankCard.append(method)
+                }
+                else{
+                    other.append(method)
+                }
+            }
         }
+        
+        bankCard = bankCard.sorted{ $0.orderNo! < $1.orderNo! }
+        other = other.sorted{ $0.orderNo! < $1.orderNo! }
+        
+        self.tableView.reloadData()
+        
     }
     
     private func initWebView(_ submitResponse :PayHereSubmitResponse){
-        //MARK: TODO Remove comment when submit API Precent
         
         if let url = submitResponse.data?.url{
             
-            waitUntilPaymentUI = WaitUntil(
-                condition: { [weak self] in
-                    return (self?.paymentUI.getDataCount() ?? 0) > 0
-                },
-                onCompletion: { [weak self] in
-                    self?.loadPayHereSubmitUI(url: url)
-                }
-            )
+            self.loadPayHereSubmitUI(url: url)
             
         }else{
             self.close {
@@ -907,10 +915,9 @@ internal class PHBottomViewController: UIViewController {
     }
     
     private func loadPayHereSubmitUI(url: String){
-        self.tableView.isHidden  = true
-        self.webView.isHidden = false
-        
-        self.webView.uiDelegate = self
+        self.tableView.isHidden         = true
+        self.webView.isHidden           = true
+        self.webView.uiDelegate         = self
         self.webView.navigationDelegate = self
         
         self.updateWebHeight {  [weak self] in
@@ -939,22 +946,10 @@ internal class PHBottomViewController: UIViewController {
     }
     
     private func initWebView(_ submitResponse : PayHereInitnSubmitResponse){
-        
-        //        MARK: TODO Remove comment when submit API Precent
-        
         if let url = submitResponse.data?.redirection?.url{
+ 
             
-            //            self.collectionView.isHidden = true
-            
-            waitUntilPaymentUI = WaitUntil(
-                condition: { [weak self] in
-                    return (self?.paymentUI.getDataCount() ?? 0) > 0
-                },
-                onCompletion: { [weak self] in
-                    self?.loadPayHereInitAndSubmitUI(url: url)
-                }
-            )
-            
+            self.loadPayHereInitAndSubmitUI(url: url)
         }else{
             self.close {
                 let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
@@ -998,41 +993,51 @@ internal class PHBottomViewController: UIViewController {
         }
     }
     
-    func calculateWebHeight() -> CGFloat{
+    func calculateWebHeight() -> CGFloat {
         
-        var viewSize : ViewSize?
+        // Constants
+        let headerHeight: CGFloat = 64.0
+        let verticalPadding: CGFloat = 20.0
+        let maxHeight = view.bounds.height - verticalPadding
+        let fallbackContentHeight = view.bounds.height * 0.48
         
-        if selectedPaymentMethod != nil{
-            viewSize = selectedPaymentMethod?.view?.windowSize
-        }else if let payUIData = paymentUI.data, let selectedOption = self.selectedPaymentOption {
-            let data = payUIData[selectedOption.optionValue]
-            viewSize = data?.viewSize
+        // Resolve selected viewSize
+        var viewSize: ViewSize?
+        
+        if let selectedPaymentMethod {
+            viewSize = selectedPaymentMethod.view?.windowSize
+        } else if let selectedOption = selectedPaymentOption,
+                  let data = paymentUI[selectedOption.optionValue] {
+            viewSize = data.view?.windowSize
         }
         
-        
-        let visa = paymentUI.data!["VISA"]
-        
-        
-        
-        if viewSize == nil{
-            viewSize = paymentUI.data!["VISA"]?.viewSize
-        }
-        
+        // VISA as baseline
+        let visaViewSize = paymentUI["VISA"]?.view?.windowSize
         
         let selectedHeight = CGFloat(viewSize?.height ?? 0)
-        let visaHeight = CGFloat(visa?.viewSize?.height ?? 0)
+        let visaHeight = CGFloat(visaViewSize?.height ?? 0)
         
+        let contentHeight: CGFloat
         
-        let headerHeight:CGFloat = 64.0
-        var calcHeight = ((selectedHeight/visaHeight) * orgHeight) + headerHeight
-        
-        if(calcHeight > self.view.frame.size.height){
-            calcHeight = (self.view.frame.size.height - 20)
+        // Use scaled height only if we have valid non-zero dimensions
+        if selectedHeight > 0,
+           visaHeight > 0,
+           orgHeight > 0 {
+            contentHeight = (selectedHeight / visaHeight) * orgHeight
+        } else {
+            // Fallback when any of the required heights are zero / missing
+            contentHeight = fallbackContentHeight
         }
         
-       return calcHeight
+        // Add header and clamp to screen
+        var totalHeight = contentHeight + headerHeight
+        if totalHeight > maxHeight {
+            totalHeight = maxHeight
+        }
         
+        return totalHeight
     }
+
     
     
     
@@ -1106,18 +1111,7 @@ internal class PHBottomViewController: UIViewController {
                 }
                 
             })
-//            //OLD IMPLEMENTATION
-//            .responseObject(completionHandler: { (response: DataResponse<StatusResponse,AFError>) in
-//                
-//                let handler = completion ?? self.handlePaymentStatus
-//                
-//                switch response.result{
-//                case let .success(statusResponse):
-//                    handler(statusResponse)
-//                case .failure(_):
-//                    handler(nil)
-//                }
-//            })
+
     }
     
     private func createErrorResponse<T: Mappable>(_ request: URLRequest, response:AFDataResponse<Data>) -> DataResponse<T, AFError>{
@@ -1325,46 +1319,47 @@ internal class PHBottomViewController: UIViewController {
         return nil
     }
     
+    @available(*, deprecated, message: "This method is deprecated")
     func getPaymentUI(){
-        let urlRequest = URLRequest(url: URL(string: "\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.UI)")!)
-
-        AF.request(urlRequest).validate()
-            .responseData { (response) in
-
-                switch response.result{
-                case let .success(data):
-                    do{
-                        let  temp = try newJSONDecoder().decode(PaymentUI.self, from: data)
-
-                        if(temp.status == 1){
-
-                            UserDefaults().set(data, forKey: PHConstants.UI)
-
-                            self.paymentUI = temp
-
-
-                        }else{
-                            self.close {
-                                let error = NSError(domain: "", code: 501, userInfo: [NSLocalizedDescriptionKey: temp.msg ?? ""])
-                                self.delegate?.onErrorReceived(error: error)
-                            }
-                        }
-
-                    }catch{
-
-                        self.close {
-                            self.delegate?.onErrorReceived(error: error)
-                        }
-                    }
-
-                case .failure(let error):
-                    self.close {
-                        self.delegate?.onErrorReceived(error: error)
-                    }
-                    break
-                }
-
-            }
+//        let urlRequest = URLRequest(url: URL(string: "\(PHConfigs.BASE_URL ?? PHConfigs.LIVE_URL)\(PHConfigs.UI)")!)
+//
+//        AF.request(urlRequest).validate()
+//            .responseData { (response) in
+//
+//                switch response.result{
+//                case let .success(data):
+//                    do{
+//                        let  temp = try newJSONDecoder().decode(PaymentUI.self, from: data)
+//
+//                        if(temp.status == 1){
+//
+//                            UserDefaults().set(data, forKey: PHConstants.UI)
+//
+//                            self.paymentUI = temp
+//
+//
+//                        }else{
+//                            self.close {
+//                                let error = NSError(domain: "", code: 501, userInfo: [NSLocalizedDescriptionKey: temp.msg ?? ""])
+//                                self.delegate?.onErrorReceived(error: error)
+//                            }
+//                        }
+//
+//                    }catch{
+//
+//                        self.close {
+//                            self.delegate?.onErrorReceived(error: error)
+//                        }
+//                    }
+//
+//                case .failure(let error):
+//                    self.close {
+//                        self.delegate?.onErrorReceived(error: error)
+//                    }
+//                    break
+//                }
+//
+//            }
     }
     
     private func handleNavigation(stepId : Step,sectionId : Int){

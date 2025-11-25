@@ -19,7 +19,7 @@ class PHConfigs {
     internal static let INITNSUBMIT : String =  "api/payment/initAndSubmit"
     internal static let INIT : String = "api/payment/v2/init"
     internal static let SUBMIT : String = "api/payment/submit"
-    public static let UI : String = "api/data/paymentMethods"
+    //public static let UI : String = "api/data/paymentMethods"
     
     internal static let kFontSize = 16.0
     
