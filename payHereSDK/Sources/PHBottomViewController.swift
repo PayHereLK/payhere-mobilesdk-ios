@@ -119,6 +119,7 @@ internal class PHBottomViewController: UIViewController {
     @IBOutlet private weak var btnCancel: UIButton!
     @IBOutlet private weak var btnTryAgain: UIButton!
     
+    private var step: Step = .Dashboard
     
     // MARK: - Object Creation
     
@@ -181,6 +182,7 @@ internal class PHBottomViewController: UIViewController {
             self.getPaymentUI()
         }
         
+        webView.backgroundColor = UIColor.PrimaryTheme.ViewBackground
         webView.scrollView.delegate = self
         webView.scrollView.bounces = false
         webView.scrollView.alwaysBounceHorizontal = false
@@ -546,11 +548,13 @@ internal class PHBottomViewController: UIViewController {
             
             self.selectedPaymentOption = nil
             self.selectedPaymentMethod = nil
+            self.step = .Dashboard
             
             self.animateChanges {
                 self.setInitialHeight()
             } completion: {
                 self.webView.loadHTMLString("", baseURL: nil)
+                self.webView.stopLoading()
             }
             
             self.webView.isHidden = true
@@ -818,6 +822,8 @@ internal class PHBottomViewController: UIViewController {
                 }
             }
             .responseData { response in
+                guard self.step != .Dashboard else { return }
+                
                 switch response.result {
                 case .success(let data):
                     do{
@@ -1001,8 +1007,8 @@ internal class PHBottomViewController: UIViewController {
         
         if selectedPaymentMethod != nil{
             viewSize = selectedPaymentMethod?.view?.windowSize
-        }else{
-            let data = paymentUI.data![self.selectedPaymentOption!.optionValue]
+        }else if let payUIData = paymentUI.data, let selectedOption = self.selectedPaymentOption {
+            let data = payUIData[selectedOption.optionValue]
             viewSize = data?.viewSize
         }
         
@@ -1184,7 +1190,7 @@ internal class PHBottomViewController: UIViewController {
             checkMark.isHidden = false
             checkMark.clear()
             checkMark.start()
-            self.lblPaymentID.textColor = PHConfigs.kBlue
+            self.lblPaymentID.textColor = UIColor.PrimaryTheme.Clickable.withAlphaComponent(0.8)
             
             if self.apiMethod == .PreApproval{
                 self.lblPaymentStatus.text = "Card Saved"
@@ -1208,7 +1214,7 @@ internal class PHBottomViewController: UIViewController {
             checkMark.isHidden = false
             checkMark.clear()
             checkMark.start()
-            self.lblPaymentID.textColor = PHConfigs.kBlue
+            self.lblPaymentID.textColor = UIColor.PrimaryTheme.Clickable.withAlphaComponent(0.8)
             self.lblPaymentStatus.text = "Payment Authorized"
             self.lblBottomMessage.text = "You'll be charged once the merchant process this payment"
             self.lblPaymentID.text = String(format : lastResponse.message ?? "")
@@ -1224,7 +1230,7 @@ internal class PHBottomViewController: UIViewController {
             checkMark.clear()
             checkMark.startX()
             
-            self.lblPaymentID.textColor = PHConfigs.kRed
+            self.lblPaymentID.textColor = UIColor.PrimaryTheme.Red.withAlphaComponent(0.8)
             self.lblPaymentStatus.text = "Your bank declined the payment"
             self.lblPaymentID.text = lastResponse.message ?? "Error completing the payment"
             self.lblBottomMessage.text = "Please try again with a different card or method"
@@ -1365,11 +1371,17 @@ internal class PHBottomViewController: UIViewController {
     }
     
     private func handleNavigation(stepId : Step,sectionId : Int){
+        self.step = stepId
         
         switch(stepId){
         case .Dashboard:
+            self.webView.stopLoading()
             self.lblPayWithTitle.text = "Pay with"
-            self.btnBackImage.isHidden = true
+            self.btnBackImage.isHidden = false
+            self.tableView.isHidden  = false
+            self.progressBar.isHidden = true
+            self.webView.isHidden = true
+            
         case .Payment:
             
             var title = ""
@@ -1448,6 +1460,12 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
     
     internal func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         
+        guard step != .Dashboard else {
+            self.webView.isHidden = true
+            self.progressBar.isHidden = true
+            return
+        }
+        
         guard !ignoreProgressBarInNextNavigation else {
             self.webView.isHidden = false
             self.progressBar.isHidden = true
@@ -1497,6 +1515,7 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
     }
     
     internal func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        guard step != .Dashboard else { return }
         insertCSSString(into: webView) // 1
         self.webView.isHidden = false
         self.progressBar.isHidden = true

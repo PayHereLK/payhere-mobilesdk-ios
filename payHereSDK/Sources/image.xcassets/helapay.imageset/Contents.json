@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "helapay.png",
+      "filename" : "helapay_logo_new 2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "helapay@2x.png",
+      "filename" : "helapay_logo_new.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "helapay@3x.png",
+      "filename" : "helapay_logo_new 1.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
