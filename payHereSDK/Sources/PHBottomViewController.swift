@@ -566,12 +566,9 @@ internal class PHBottomViewController: UIViewController {
             self.handleNavigation(stepId: .Dashboard, sectionId: -1)
         }
         else{
-            self.close {
-                let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation cancelled!"])
-                self.delegate?.onErrorReceived(error: error)
-            }
+            self.forceClose()
         }
-        
+         
     }
     
     @objc private func forceClose(){
@@ -586,11 +583,11 @@ internal class PHBottomViewController: UIViewController {
         }))
         
         alert.addAction(UIAlertAction(title: "Exit Now", style: .destructive) { [weak self] _ in
+            guard let `self` else { return }
             // Force exit logic here
-            self?.close { [self] in
-                let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation cancelled!"])
-                self?.delegate?.onErrorReceived(error: error)
-            }
+            let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation cancelled!"])
+            self.delegate?.onErrorReceived(error: error)
+            self.close()
         })
         
         self.present(alert, animated: true)
@@ -822,7 +819,7 @@ internal class PHBottomViewController: UIViewController {
                 }
             }
             .responseData { response in
-                guard self.step != .Dashboard else { return }
+                guard self.step == .Payment else { return }
                 
                 switch response.result {
                 case .success(let data):
@@ -1400,9 +1397,11 @@ internal class PHBottomViewController: UIViewController {
             self.lblPayWithTitle.text = title
             self.btnBackImage.isHidden = false
         case .Complete:
+            self.webView.isHidden = true
             self.tableView.isHidden = true
             self.viewPaymentSucess.isHidden = false
             self.btnBackImage.isHidden = true
+            self.progressBar.isHidden = true
         }
         
     }
@@ -1460,7 +1459,7 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
     
     internal func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         
-        guard step != .Dashboard else {
+        guard step == .Payment else {
             self.webView.isHidden = true
             self.progressBar.isHidden = true
             return
@@ -1515,7 +1514,7 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
     }
     
     internal func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        guard step != .Dashboard else { return }
+        guard step == .Payment else { return }
         insertCSSString(into: webView) // 1
         self.webView.isHidden = false
         self.progressBar.isHidden = true
