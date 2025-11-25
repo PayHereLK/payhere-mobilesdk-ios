@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
     # VERSION
     #
     
-    s.version = "3.1.1"
+    s.version = "3.2.0"
     
     #
     # LICENSE
