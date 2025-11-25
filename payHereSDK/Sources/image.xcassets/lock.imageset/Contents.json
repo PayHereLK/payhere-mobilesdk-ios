@@ -1,17 +1,48 @@
 {
   "images" : [
     {
-      "filename" : "Secured-by-PayHere.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Secured-by-PayHere@2x.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "logo_light.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Secured-by-PayHere@3x.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "payment_header.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "logo_light 1.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Logo.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
