@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,17 +21,31 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0hD-uJ-rdI">
                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                         <subviews>
+                            <view alpha="0.050000000000000003" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uch-i3-5de">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <viewLayoutGuide key="safeArea" id="hEZ-pa-mgU"/>
+                                <color key="backgroundColor" name="Primary/CellSelected"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="visa" translatesAutoresizingMaskIntoConstraints="NO" id="cQ1-TB-pXr">
-                                <rect key="frame" x="8" y="8" width="34" height="34"/>
+                                <rect key="frame" x="8" y="8" width="34" height="0.0"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="JMw-4d-bte"/>
-                        <color key="backgroundColor" red="0.93725490196078431" green="0.94509803921568625" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Uch-i3-5de" firstAttribute="top" secondItem="0hD-uJ-rdI" secondAttribute="top" id="0Y5-ZR-Rut"/>
+                            <constraint firstAttribute="bottom" secondItem="Uch-i3-5de" secondAttribute="bottom" id="2jV-fv-1Zy"/>
                             <constraint firstItem="JMw-4d-bte" firstAttribute="bottom" secondItem="cQ1-TB-pXr" secondAttribute="bottom" constant="8" id="Gvo-Qr-E3n"/>
                             <constraint firstItem="cQ1-TB-pXr" firstAttribute="leading" secondItem="0hD-uJ-rdI" secondAttribute="leading" constant="8" id="Mly-Cb-WCV"/>
                             <constraint firstAttribute="trailing" secondItem="cQ1-TB-pXr" secondAttribute="trailing" constant="8" id="QbN-Au-LPK"/>
+                            <constraint firstItem="Uch-i3-5de" firstAttribute="leading" secondItem="0hD-uJ-rdI" secondAttribute="leading" id="Te8-Rz-Q9s"/>
                             <constraint firstItem="cQ1-TB-pXr" firstAttribute="top" secondItem="0hD-uJ-rdI" secondAttribute="top" constant="8" id="uvL-CH-JAr"/>
+                            <constraint firstAttribute="trailing" secondItem="Uch-i3-5de" secondAttribute="trailing" id="xQM-Ig-nBn"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -57,5 +72,8 @@
     </objects>
     <resources>
         <image name="visa" width="39" height="12"/>
+        <namedColor name="Primary/CellSelected">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

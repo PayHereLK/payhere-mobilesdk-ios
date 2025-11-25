@@ -10,8 +10,8 @@ import UIKit
 
 open class WVCheckMark: UIView {
     fileprivate var lineWidth:CGFloat = 5.0
-    fileprivate var lineColor: CGColor = PHConfigs.kBlue.cgColor
-    fileprivate var loadingLineColor: CGColor = PHConfigs.kBlue.cgColor
+    fileprivate var lineColor: CGColor = UIColor.PrimaryTheme.Clickable.cgColor
+    fileprivate var loadingLineColor: CGColor = UIColor.PrimaryTheme.Clickable.cgColor
     fileprivate var duration: CGFloat = 0.8
     fileprivate var damping: CGFloat = 10
     fileprivate var originalRect: CGRect!
