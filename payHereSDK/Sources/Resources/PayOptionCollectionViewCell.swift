@@ -28,10 +28,10 @@ final class PayOptionCollectionViewCell: UICollectionViewCell {
     private func updateSelection(){
         UIView.animate(withDuration: PHConfigs.kCellAnimateDuration) {
             if self.isSelected || self.isHighlighted{
-                self.viewBackground.backgroundColor = PHConfigs.kHighlightColor
+                self.viewBackground.backgroundColor = UIColor.PrimaryTheme.Clickable.withAlphaComponent(0.4)
             }
             else{
-                self.viewBackground.backgroundColor = PHConfigs.kNormalColor
+                self.viewBackground.backgroundColor = UIColor.PrimaryTheme.Clickable.withAlphaComponent(0.04)
             }
         }
     }

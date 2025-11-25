@@ -6,20 +6,17 @@
 //  Copyright © 2025 PayHere. All rights reserved.
 //
 
+import UIKit
 
 public extension UIColor {
     enum PrimaryTheme {
-        static let ViewBackground   = UIColor(named:"Primary/View Background")
-        static let ButtonBackground = UIColor(named:"Primary/Button Background")
-        static let TitleText        = UIColor(named:"Primary/Title Text")
-        static let Overlay          = UIColor(named:"Primary/Overlay")
-        static let ButtonText       = UIColor(named:"Primary/Button Text")
-        static let PopUp            = UIColor(named:"Primary/Pop Up")
-        static let ErrorText        = UIColor(named:"Primary/Error Text")
-        static let CameraDisplay    = UIColor(named:"Primary/Camera Display")
-        static let BackDrop         = UIColor(named:"Primary/Back Drop")
-        static let Icon             = UIColor(named:"Primary/Icon")
-        static let CardBackground   = UIColor(named:"Primary/Card Background")
-        static let BoxBackground    = UIColor(named:"Primary/Box Background")
+        static let ViewBackground   = UIColor(resource: ColorResource.Primary.viewBackground)
+        static let Clickable        = UIColor(resource: ColorResource.Primary.clickable)
+        static let TitleText        = UIColor(resource: ColorResource.Primary.titleText)
+        static let Black            = UIColor(resource: ColorResource.Primary.black)
+        static let White            = UIColor(resource: ColorResource.Primary.white)
+        static let Red              = UIColor(resource: ColorResource.Primary.red)
+        static let CellSelected     = UIColor(resource: ColorResource.Primary.cellSelected)
+        static let CardBackground   = UIColor(resource: ColorResource.Primary.cardBackground)
     }
 }

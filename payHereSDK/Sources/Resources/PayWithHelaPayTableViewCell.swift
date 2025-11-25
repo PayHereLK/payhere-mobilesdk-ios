@@ -45,11 +45,11 @@ class PayWithHelaPayTableViewCell: UITableViewCell {
     
     private func updateSelection(isSelected: Bool){
         UIView.animate(withDuration: PHConfigs.kCellAnimateDuration, delay: 0.0, options: [.beginFromCurrentState]) {
-            if isSelected{
-                self.viewBackground.backgroundColor = PHConfigs.kHighlightColor
+            if self.isSelected {
+                self.viewBackground.backgroundColor = UIColor.PrimaryTheme.Clickable.withAlphaComponent(0.4)
             }
             else{
-                self.viewBackground.backgroundColor = PHConfigs.kNormalColor
+                self.viewBackground.backgroundColor = UIColor.PrimaryTheme.Clickable.withAlphaComponent(0.04)
             }
         } completion: { (_) in
             // noop
