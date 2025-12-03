@@ -1427,9 +1427,10 @@ internal class PHBottomViewController: UIViewController {
     
     @IBAction private func btnCancelTapped(){
         self.timer?.invalidate()
-        self.close { [weak self] in
+        self.close { [self] in
+            // Retain strong self
             let error = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Oparation cancelled!"])
-            self?.delegate?.onErrorReceived(error: error)
+            self.delegate?.onErrorReceived(error: error)
         }
     }
     
