@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
     # VERSION
     #
     
-    s.version = "3.2.1"
+    s.version = "3.2.2"
     
     #
     # LICENSE
@@ -45,7 +45,7 @@ Pod::Spec.new do |s|
     #
     
     s.frameworks = 'UIKit','WebKit'
-    s.dependency 'Alamofire', '~> 5.10.2'
+    s.dependency 'Alamofire', '~> 5.11.0'
     s.dependency 'ObjectMapper'
     s.dependency 'SDWebImage'
     
@@ -53,9 +53,16 @@ Pod::Spec.new do |s|
     # SOURCE FILES
     #
     
-    s.source_files = "payHereSDK/Sources/**/*.{h,m,swift,ttf}"
-    s.resources = 'payHereSDK/**/*.{lproj,storyboard,xcdatamodeld,xib,xcassets,json,ttf}'
+    s.source_files = "payHereSDK/Sources/**/*.{h,m,swift}"
     
-    s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
+    s.resource_bundles = {
+        'payHereSDK' => ['payHereSDK/Sources/**/*.{storyboard,xcassets,json,ttf,xcprivacy}']
+    }
+    
+    s.swift_version = '5.0'
+    s.pod_target_xcconfig = { 
+        'SWIFT_VERSION' => '5.0',
+        'DEFINES_MODULE' => 'YES'
+    }
     
 end

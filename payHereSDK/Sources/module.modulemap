@@ -1,0 +1,9 @@
+framework module payHereSDK {
+    umbrella header "payHereSDK.h"
+    
+    export *
+    module * { export * }
+    
+    link framework "UIKit"
+    link framework "WebKit"
+}
