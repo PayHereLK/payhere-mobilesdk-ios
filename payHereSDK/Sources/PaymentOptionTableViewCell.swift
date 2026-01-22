@@ -9,10 +9,11 @@
 import UIKit
 
 
-protocol PaymentOptionTableViewCellDelegate: AnyObject{
+public protocol PaymentOptionTableViewCellDelegate: AnyObject{
     func didSelectedPaymentOption(paymentMethod : PaymentMethod,selectedSection : Int)
 }
-class PaymentOptionTableViewCell: UITableViewCell {
+
+public class PaymentOptionTableViewCell: UITableViewCell {
     
     private var list : [PaymentMethod] = []
     private var sectionID : Int = 0
@@ -36,7 +37,7 @@ class PaymentOptionTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         setupUI()
     }
     
@@ -72,15 +73,15 @@ extension PaymentOptionTableViewCell {
 
 extension PaymentOptionTableViewCell: UICollectionViewDataSource {
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return list.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PayOptionCollectionViewCell", for: indexPath) as! PayOptionCollectionViewCell
         
         let method  = list[indexPath.row]
@@ -98,7 +99,7 @@ extension PaymentOptionTableViewCell: UICollectionViewDataSource {
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.didSelectedPaymentOption(paymentMethod: list[indexPath.row],selectedSection: sectionID)
         collectionView.deselectItem(at: indexPath, animated: true)
     }
@@ -114,7 +115,7 @@ extension PaymentOptionTableViewCell: UICollectionViewDataSource {
 
 extension PaymentOptionTableViewCell: UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 54, height: 54)
     }
 }

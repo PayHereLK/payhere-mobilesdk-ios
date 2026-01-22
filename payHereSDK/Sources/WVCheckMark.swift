@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class WVCheckMark: UIView {
+public class WVCheckMark: UIView {
     fileprivate var lineWidth:CGFloat = 5.0
     fileprivate var lineColor: CGColor = UIColor.PrimaryTheme.Clickable.cgColor
     fileprivate var loadingLineColor: CGColor = UIColor.PrimaryTheme.Clickable.cgColor

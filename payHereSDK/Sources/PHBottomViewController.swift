@@ -15,7 +15,8 @@ public protocol PHViewControllerDelegate: AnyObject{
     func onResponseReceived(response : PHResponse<Any>?)
     func onErrorReceived(error : Error)
 }
-internal class PHBottomViewController: UIViewController {
+
+public class PHBottomViewController: UIViewController {
     
     
     //MARK: TypeAlias
@@ -1453,7 +1454,7 @@ internal class PHBottomViewController: UIViewController {
 
 extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
     
-    internal func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+    public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         
         guard step == .Payment else {
             self.webView.isHidden = true
@@ -1472,7 +1473,7 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
         
     }
     
-    internal func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         let optUrl = navigationAction.request.mainDocumentURL?.absoluteString
         xprint(optUrl ?? "Navigating to unknown location")
@@ -1509,7 +1510,7 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
         decisionHandler(.allow)
     }
     
-    internal func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         guard step == .Payment else { return }
         insertCSSString(into: webView) // 1
         self.webView.isHidden = false
@@ -1528,14 +1529,14 @@ extension PHBottomViewController : WKUIDelegate,WKNavigationDelegate{
 
 extension PHBottomViewController : UIScrollViewDelegate {
     // Prevent zooming by returning nil for viewForZooming
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+    public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return nil
     }
 }
 
 extension PHBottomViewController : UITableViewDelegate,UITableViewDataSource{
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{
             return bankAccount.count > 0 ? 1:0
         }else{
@@ -1544,11 +1545,11 @@ extension PHBottomViewController : UITableViewDelegate,UITableViewDataSource{
         
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = PHBottomSheetTableViewSectioHeader.dequeue(fromTableView: tableView)
         
         if section ==  0{
@@ -1563,7 +1564,7 @@ extension PHBottomViewController : UITableViewDelegate,UITableViewDataSource{
         return header
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0{
             return PayWithHelaPayTableViewCell.dequeue(fromTableView: tableView)
@@ -1576,7 +1577,7 @@ extension PHBottomViewController : UITableViewDelegate,UITableViewDataSource{
         return UITableViewCell()
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0{
             
             let method = bankAccount[indexPath.row]
@@ -1593,7 +1594,7 @@ extension PHBottomViewController : UITableViewDelegate,UITableViewDataSource{
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0  && bankAccount.count > 0{
             return 24
         }else if section == 1 && bankCard.count > 0{
@@ -1606,7 +1607,7 @@ extension PHBottomViewController : UITableViewDelegate,UITableViewDataSource{
         
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 54
     }
     
@@ -1615,7 +1616,7 @@ extension PHBottomViewController : UITableViewDelegate,UITableViewDataSource{
 
 extension PHBottomViewController : PaymentOptionTableViewCellDelegate{
     
-    func didSelectedPaymentOption(paymentMethod: PaymentMethod, selectedSection: Int) {
+    public func didSelectedPaymentOption(paymentMethod: PaymentMethod, selectedSection: Int) {
         //MARK: Call Submit Method With Order Key
         
         // Stop any started HelaPay counters

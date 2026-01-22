@@ -9,6 +9,18 @@
 /* Begin PBXBuildFile section */
 		1440F8C72ED473B9001317B7 /* colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1440F8C62ED473B9001317B7 /* colors.xcassets */; };
 		1440F8CA2ED47BFF001317B7 /* PHColorProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1440F8C82ED4756C001317B7 /* PHColorProfile.swift */; };
+		1460C8BA2F222E20005CB9BA /* PayOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1460C8B62F222E20005CB9BA /* PayOptionCollectionViewCell.swift */; };
+		1460C8BB2F222E20005CB9BA /* PHBottomSheetTableViewSectioHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1460C8B82F222E20005CB9BA /* PHBottomSheetTableViewSectioHeader.swift */; };
+		1460C8BC2F222E20005CB9BA /* PayWithHelaPayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1460C8B72F222E20005CB9BA /* PayWithHelaPayTableViewCell.swift */; };
+		1460C8BD2F222E20005CB9BA /* PaymentOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1460C8B52F222E20005CB9BA /* PaymentOptionTableViewCell.swift */; };
+		1460C8BE2F222E20005CB9BA /* WVCheckMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1460C8B92F222E20005CB9BA /* WVCheckMark.swift */; };
+		1460C8BF2F222E20005CB9BA /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1460C8B42F222E20005CB9BA /* HeaderCollectionReusableView.swift */; };
+		1460C8C62F22332A005CB9BA /* HeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1460C8C02F22332A005CB9BA /* HeaderCollectionReusableView.xib */; };
+		1460C8C72F22332A005CB9BA /* PayOptionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1460C8C32F22332A005CB9BA /* PayOptionCollectionViewCell.xib */; };
+		1460C8C82F22332A005CB9BA /* PayWithHelaPayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1460C8C42F22332A005CB9BA /* PayWithHelaPayTableViewCell.xib */; };
+		1460C8C92F22332A005CB9BA /* PayHere.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1460C8C12F22332A005CB9BA /* PayHere.storyboard */; };
+		1460C8CA2F22332A005CB9BA /* PaymentOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1460C8C22F22332A005CB9BA /* PaymentOptionTableViewCell.xib */; };
+		1460C8CB2F22332A005CB9BA /* PHBottomSheetTableViewSectioHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1460C8C52F22332A005CB9BA /* PHBottomSheetTableViewSectioHeader.xib */; };
 		1473770A2D71722600EFFC0E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 147377092D71722600EFFC0E /* PrivacyInfo.xcprivacy */; };
 		3B0294C91C6B4FD9D211D08B /* Pods_demoapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82FDBCDF785EAEB266372CBC /* Pods_demoapp.framework */; };
 		8A1FF74B206254DF00924B21 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8A1FF74A206254DF00924B21 /* README.md */; };
@@ -25,10 +37,8 @@
 		8A74D7FF20528E7100CF10AB /* Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A74D7FE20528E7100CF10AB /* Extention.swift */; };
 		8AD11E6320612739002E4F82 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 8AD11E6120612739002E4F82 /* LICENSE */; };
 		8AD11E6420612739002E4F82 /* payHereSDK.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 8AD11E6220612739002E4F82 /* payHereSDK.podspec */; };
-		C72750CB23A75AAD00AE9037 /* PayHere.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C72750CA23A75AAD00AE9037 /* PayHere.storyboard */; };
 		C72750CD23A75B8A00AE9037 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C72750CC23A75B8A00AE9037 /* image.xcassets */; };
 		C72A13D12784500D00F08E22 /* PaymentOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72A13CF2784500C00F08E22 /* PaymentOptionTableViewCell.swift */; };
-		C72A13D22784500D00F08E22 /* PaymentOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C72A13D02784500C00F08E22 /* PaymentOptionTableViewCell.xib */; };
 		C72A13D42785ABBE00F08E22 /* SubmitRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72A13D32785ABBD00F08E22 /* SubmitRequest.swift */; };
 		C746D510234C9A7300F9D06F /* PHPrecentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C746D50F234C9A7300F9D06F /* PHPrecentController.swift */; };
 		C75702BB23D802ED00805AF8 /* PaymentUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75702BA23D802ED00805AF8 /* PaymentUI.swift */; };
@@ -47,18 +57,14 @@
 		C793DE7223C717F000666008 /* payHereSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8A74D7DE20528D9800CF10AB /* payHereSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C799349423A8E72B005E5A7B /* PHBottomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C799349323A8E72B005E5A7B /* PHBottomViewController.swift */; };
 		C799349723A9FEFC005E5A7B /* PayOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C799349523A9FEFC005E5A7B /* PayOptionCollectionViewCell.swift */; };
-		C799349823A9FEFC005E5A7B /* PayOptionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C799349623A9FEFC005E5A7B /* PayOptionCollectionViewCell.xib */; };
 		C7A7DA3323C5D6F90029210E /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7DA3123C5D6F90029210E /* HeaderCollectionReusableView.swift */; };
-		C7A7DA3423C5D6F90029210E /* HeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7A7DA3223C5D6F90029210E /* HeaderCollectionReusableView.xib */; };
 		C7CD777C2796CE5300BD9F66 /* PayHereInitnSubmitResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CD777B2796CE5300BD9F66 /* PayHereInitnSubmitResponse.swift */; };
 		C7CD777E279E85DF00BD9F66 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CD777D279E85DE00BD9F66 /* Cache.swift */; };
 		C7DF820324E6846300241DA6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7DF81FD24E65DD500241DA6 /* WebKit.framework */; };
 		C7E9F6B8277C2FA20013D2D4 /* PayWithHelaPayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E9F6B6277C2FA10013D2D4 /* PayWithHelaPayTableViewCell.swift */; };
-		C7E9F6B9277C2FA20013D2D4 /* PayWithHelaPayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7E9F6B7277C2FA10013D2D4 /* PayWithHelaPayTableViewCell.xib */; };
 		C7E9F6BC277C31810013D2D4 /* HPayBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7E9F6BA277C31810013D2D4 /* HPayBold.ttf */; };
 		C7E9F6BD277C31810013D2D4 /* HPay.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7E9F6BB277C31810013D2D4 /* HPay.ttf */; };
 		C7E9F6BF277C76A10013D2D4 /* PHBottomSheetTableViewSectioHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E9F6BE277C76A10013D2D4 /* PHBottomSheetTableViewSectioHeader.swift */; };
-		C7E9F6C1277C76B70013D2D4 /* PHBottomSheetTableViewSectioHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7E9F6C0277C76B70013D2D4 /* PHBottomSheetTableViewSectioHeader.xib */; };
 		ED866139D217E7F750AE7216 /* Pods_payHereSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4516ECDAED2B30AAB042D90F /* Pods_payHereSDK.framework */; };
 		F503041127E4744C008844E5 /* PHUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F503041027E4744C008844E5 /* PHUtils.swift */; };
 		F505EC902833418C00F6AC4F /* WaitUntil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F505EC8F2833418C00F6AC4F /* WaitUntil.swift */; };
@@ -91,6 +97,18 @@
 /* Begin PBXFileReference section */
 		1440F8C62ED473B9001317B7 /* colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = colors.xcassets; sourceTree = "<group>"; };
 		1440F8C82ED4756C001317B7 /* PHColorProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHColorProfile.swift; sourceTree = "<group>"; };
+		1460C8B42F222E20005CB9BA /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		1460C8B52F222E20005CB9BA /* PaymentOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentOptionTableViewCell.swift; sourceTree = "<group>"; };
+		1460C8B62F222E20005CB9BA /* PayOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayOptionCollectionViewCell.swift; sourceTree = "<group>"; };
+		1460C8B72F222E20005CB9BA /* PayWithHelaPayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWithHelaPayTableViewCell.swift; sourceTree = "<group>"; };
+		1460C8B82F222E20005CB9BA /* PHBottomSheetTableViewSectioHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHBottomSheetTableViewSectioHeader.swift; sourceTree = "<group>"; };
+		1460C8B92F222E20005CB9BA /* WVCheckMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WVCheckMark.swift; sourceTree = "<group>"; };
+		1460C8C02F22332A005CB9BA /* HeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderCollectionReusableView.xib; sourceTree = "<group>"; };
+		1460C8C12F22332A005CB9BA /* PayHere.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PayHere.storyboard; sourceTree = "<group>"; };
+		1460C8C22F22332A005CB9BA /* PaymentOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentOptionTableViewCell.xib; sourceTree = "<group>"; };
+		1460C8C32F22332A005CB9BA /* PayOptionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PayOptionCollectionViewCell.xib; sourceTree = "<group>"; };
+		1460C8C42F22332A005CB9BA /* PayWithHelaPayTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PayWithHelaPayTableViewCell.xib; sourceTree = "<group>"; };
+		1460C8C52F22332A005CB9BA /* PHBottomSheetTableViewSectioHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PHBottomSheetTableViewSectioHeader.xib; sourceTree = "<group>"; };
 		147377092D71722600EFFC0E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		15F26120318AC2818B0DAB60 /* Pods-demoapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demoapp.release.xcconfig"; path = "Target Support Files/Pods-demoapp/Pods-demoapp.release.xcconfig"; sourceTree = "<group>"; };
 		4516ECDAED2B30AAB042D90F /* Pods_payHereSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_payHereSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,7 +117,6 @@
 		8A1FF74A206254DF00924B21 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8A74D7DE20528D9800CF10AB /* payHereSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = payHereSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A74D7E120528D9800CF10AB /* payHereSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = payHereSDK.h; sourceTree = "<group>"; };
-		8A74D7E220528D9800CF10AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A74D7EA20528E3800CF10AB /* PHResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHResponse.swift; sourceTree = "<group>"; };
 		8A74D7EB20528E3800CF10AB /* ParamHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParamHandler.swift; sourceTree = "<group>"; };
 		8A74D7EC20528E3900CF10AB /* PHConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHConstants.swift; sourceTree = "<group>"; };
@@ -112,10 +129,8 @@
 		8A74D7FE20528E7100CF10AB /* Extention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extention.swift; sourceTree = "<group>"; };
 		8AD11E6120612739002E4F82 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		8AD11E6220612739002E4F82 /* payHereSDK.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = payHereSDK.podspec; sourceTree = "<group>"; };
-		C72750CA23A75AAD00AE9037 /* PayHere.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PayHere.storyboard; sourceTree = "<group>"; };
 		C72750CC23A75B8A00AE9037 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
 		C72A13CF2784500C00F08E22 /* PaymentOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentOptionTableViewCell.swift; sourceTree = "<group>"; };
-		C72A13D02784500C00F08E22 /* PaymentOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentOptionTableViewCell.xib; sourceTree = "<group>"; };
 		C72A13D32785ABBD00F08E22 /* SubmitRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitRequest.swift; sourceTree = "<group>"; };
 		C746D50F234C9A7300F9D06F /* PHPrecentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPrecentController.swift; sourceTree = "<group>"; };
 		C75702BA23D802ED00805AF8 /* PaymentUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentUI.swift; sourceTree = "<group>"; };
@@ -134,18 +149,14 @@
 		C793DE6D23C717CA00666008 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C799349323A8E72B005E5A7B /* PHBottomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHBottomViewController.swift; sourceTree = "<group>"; };
 		C799349523A9FEFC005E5A7B /* PayOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayOptionCollectionViewCell.swift; sourceTree = "<group>"; };
-		C799349623A9FEFC005E5A7B /* PayOptionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PayOptionCollectionViewCell.xib; sourceTree = "<group>"; };
 		C7A7DA3123C5D6F90029210E /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
-		C7A7DA3223C5D6F90029210E /* HeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		C7CD777B2796CE5300BD9F66 /* PayHereInitnSubmitResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHereInitnSubmitResponse.swift; sourceTree = "<group>"; };
 		C7CD777D279E85DE00BD9F66 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		C7DF81FD24E65DD500241DA6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		C7E9F6B6277C2FA10013D2D4 /* PayWithHelaPayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWithHelaPayTableViewCell.swift; sourceTree = "<group>"; };
-		C7E9F6B7277C2FA10013D2D4 /* PayWithHelaPayTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PayWithHelaPayTableViewCell.xib; sourceTree = "<group>"; };
 		C7E9F6BA277C31810013D2D4 /* HPayBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HPayBold.ttf; sourceTree = "<group>"; };
 		C7E9F6BB277C31810013D2D4 /* HPay.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HPay.ttf; sourceTree = "<group>"; };
 		C7E9F6BE277C76A10013D2D4 /* PHBottomSheetTableViewSectioHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHBottomSheetTableViewSectioHeader.swift; sourceTree = "<group>"; };
-		C7E9F6C0277C76B70013D2D4 /* PHBottomSheetTableViewSectioHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PHBottomSheetTableViewSectioHeader.xib; sourceTree = "<group>"; };
 		D99B0729ADA86551C3CE2AA5 /* Pods-demoapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demoapp.debug.xcconfig"; path = "Target Support Files/Pods-demoapp/Pods-demoapp.debug.xcconfig"; sourceTree = "<group>"; };
 		E80B4F04AD6AF11AF46DCAAA /* Pods-payHereSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payHereSDK.debug.xcconfig"; path = "Target Support Files/Pods-payHereSDK/Pods-payHereSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		F503041027E4744C008844E5 /* PHUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHUtils.swift; sourceTree = "<group>"; };
@@ -211,7 +222,6 @@
 			isa = PBXGroup;
 			children = (
 				C7F807F32281AA7D008FC750 /* Sources */,
-				8A74D7E220528D9800CF10AB /* Info.plist */,
 			);
 			path = payHereSDK;
 			sourceTree = "<group>";
@@ -250,20 +260,14 @@
 		C72750C923A75A8600AE9037 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1460C8C02F22332A005CB9BA /* HeaderCollectionReusableView.xib */,
+				1460C8C12F22332A005CB9BA /* PayHere.storyboard */,
+				1460C8C22F22332A005CB9BA /* PaymentOptionTableViewCell.xib */,
+				1460C8C32F22332A005CB9BA /* PayOptionCollectionViewCell.xib */,
+				1460C8C42F22332A005CB9BA /* PayWithHelaPayTableViewCell.xib */,
+				1460C8C52F22332A005CB9BA /* PHBottomSheetTableViewSectioHeader.xib */,
 				C7E9F6BB277C31810013D2D4 /* HPay.ttf */,
 				C7E9F6BA277C31810013D2D4 /* HPayBold.ttf */,
-				C72750CA23A75AAD00AE9037 /* PayHere.storyboard */,
-				C799349523A9FEFC005E5A7B /* PayOptionCollectionViewCell.swift */,
-				C799349623A9FEFC005E5A7B /* PayOptionCollectionViewCell.xib */,
-				C7A7DA3123C5D6F90029210E /* HeaderCollectionReusableView.swift */,
-				C7A7DA3223C5D6F90029210E /* HeaderCollectionReusableView.xib */,
-				C75702BC23D8381600805AF8 /* WVCheckMark.swift */,
-				C7E9F6B6277C2FA10013D2D4 /* PayWithHelaPayTableViewCell.swift */,
-				C7E9F6B7277C2FA10013D2D4 /* PayWithHelaPayTableViewCell.xib */,
-				C7E9F6BE277C76A10013D2D4 /* PHBottomSheetTableViewSectioHeader.swift */,
-				C7E9F6C0277C76B70013D2D4 /* PHBottomSheetTableViewSectioHeader.xib */,
-				C72A13CF2784500C00F08E22 /* PaymentOptionTableViewCell.swift */,
-				C72A13D02784500C00F08E22 /* PaymentOptionTableViewCell.xib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -285,7 +289,19 @@
 		C7F807F32281AA7D008FC750 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				1460C8B42F222E20005CB9BA /* HeaderCollectionReusableView.swift */,
+				1460C8B52F222E20005CB9BA /* PaymentOptionTableViewCell.swift */,
+				1460C8B62F222E20005CB9BA /* PayOptionCollectionViewCell.swift */,
+				1460C8B72F222E20005CB9BA /* PayWithHelaPayTableViewCell.swift */,
+				1460C8B82F222E20005CB9BA /* PHBottomSheetTableViewSectioHeader.swift */,
+				1460C8B92F222E20005CB9BA /* WVCheckMark.swift */,
 				1440F8C82ED4756C001317B7 /* PHColorProfile.swift */,
+				C799349523A9FEFC005E5A7B /* PayOptionCollectionViewCell.swift */,
+				C7A7DA3123C5D6F90029210E /* HeaderCollectionReusableView.swift */,
+				C75702BC23D8381600805AF8 /* WVCheckMark.swift */,
+				C7E9F6B6277C2FA10013D2D4 /* PayWithHelaPayTableViewCell.swift */,
+				C7E9F6BE277C76A10013D2D4 /* PHBottomSheetTableViewSectioHeader.swift */,
+				C72A13CF2784500C00F08E22 /* PaymentOptionTableViewCell.swift */,
 				147377092D71722600EFFC0E /* PrivacyInfo.xcprivacy */,
 				C72750C923A75A8600AE9037 /* Resources */,
 				8A74D7F320528E4500CF10AB /* Model */,
@@ -379,7 +395,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8A74D7D820528D9800CF10AB /* Build configuration list for PBXProject "payHereSDK" */;
+			buildConfigurationList = 8A74D7D820528D9800CF10AB /* Build configuration list for PBXProject "PayhereSDK" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -403,19 +419,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7E9F6C1277C76B70013D2D4 /* PHBottomSheetTableViewSectioHeader.xib in Resources */,
-				C7A7DA3423C5D6F90029210E /* HeaderCollectionReusableView.xib in Resources */,
 				8A1FF74B206254DF00924B21 /* README.md in Resources */,
 				1473770A2D71722600EFFC0E /* PrivacyInfo.xcprivacy in Resources */,
-				C7E9F6B9277C2FA20013D2D4 /* PayWithHelaPayTableViewCell.xib in Resources */,
 				8AD11E6420612739002E4F82 /* payHereSDK.podspec in Resources */,
-				C72A13D22784500D00F08E22 /* PaymentOptionTableViewCell.xib in Resources */,
-				C799349823A9FEFC005E5A7B /* PayOptionCollectionViewCell.xib in Resources */,
 				C72750CD23A75B8A00AE9037 /* image.xcassets in Resources */,
 				C7E9F6BD277C31810013D2D4 /* HPay.ttf in Resources */,
 				C7E9F6BC277C31810013D2D4 /* HPayBold.ttf in Resources */,
 				8AD11E6320612739002E4F82 /* LICENSE in Resources */,
-				C72750CB23A75AAD00AE9037 /* PayHere.storyboard in Resources */,
+				1460C8C62F22332A005CB9BA /* HeaderCollectionReusableView.xib in Resources */,
+				1460C8C72F22332A005CB9BA /* PayOptionCollectionViewCell.xib in Resources */,
+				1460C8C82F22332A005CB9BA /* PayWithHelaPayTableViewCell.xib in Resources */,
+				1460C8C92F22332A005CB9BA /* PayHere.storyboard in Resources */,
+				1460C8CA2F22332A005CB9BA /* PaymentOptionTableViewCell.xib in Resources */,
+				1460C8CB2F22332A005CB9BA /* PHBottomSheetTableViewSectioHeader.xib in Resources */,
 				1440F8C72ED473B9001317B7 /* colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -523,6 +539,12 @@
 				C746D510234C9A7300F9D06F /* PHPrecentController.swift in Sources */,
 				8A74D7F920528E5C00CF10AB /* Customer.swift in Sources */,
 				C7E9F6BF277C76A10013D2D4 /* PHBottomSheetTableViewSectioHeader.swift in Sources */,
+				1460C8BA2F222E20005CB9BA /* PayOptionCollectionViewCell.swift in Sources */,
+				1460C8BB2F222E20005CB9BA /* PHBottomSheetTableViewSectioHeader.swift in Sources */,
+				1460C8BC2F222E20005CB9BA /* PayWithHelaPayTableViewCell.swift in Sources */,
+				1460C8BD2F222E20005CB9BA /* PaymentOptionTableViewCell.swift in Sources */,
+				1460C8BE2F222E20005CB9BA /* WVCheckMark.swift in Sources */,
+				1460C8BF2F222E20005CB9BA /* HeaderCollectionReusableView.swift in Sources */,
 				C75702BD23D8381700805AF8 /* WVCheckMark.swift in Sources */,
 				C75702BF23D963F700805AF8 /* PHInitialRequest.swift in Sources */,
 				1440F8CA2ED47BFF001317B7 /* PHColorProfile.swift in Sources */,
@@ -820,7 +842,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8A74D7D820528D9800CF10AB /* Build configuration list for PBXProject "payHereSDK" */ = {
+		8A74D7D820528D9800CF10AB /* Build configuration list for PBXProject "PayhereSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8A74D7E420528D9800CF10AB /* Debug */,

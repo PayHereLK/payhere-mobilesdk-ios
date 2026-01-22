@@ -20,7 +20,7 @@
         <!--Bottom View Controller-->
         <scene sceneID="fWk-Nc-PFL">
             <objects>
-                <viewController storyboardIdentifier="PHBottomViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GSY-c3-ibo" customClass="PHBottomViewController" customModule="payHereSDK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PHBottomViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GSY-c3-ibo" customClass="PHBottomViewController" customModule="payHereSDK" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eqH-Eu-cff">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -88,7 +88,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BX6-sB-2kC">
                                                         <rect key="frame" x="129.33333333333337" y="37.333333333333371" width="134.66666666666663" height="90"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xgn-F8-Voe" customClass="WVCheckMark" customModule="payHereSDK" customModuleProvider="target">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xgn-F8-Voe" customClass="WVCheckMark" customModule="payHereSDK">
                                                                 <rect key="frame" x="37.333333333333314" y="0.0" width="60" height="60"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="xgn-F8-Voe" secondAttribute="height" multiplier="1:1" id="ZUK-re-MCD"/>

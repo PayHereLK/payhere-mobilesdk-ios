@@ -1,0 +1,42 @@
+{
+  "originHash" : "7a5286dcd9789a376199486a0231a139016525a631409e0f306a9f8ce25f700c",
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "7be73f6c2b5cd90e40798b06ebd5da8f9f79cf88",
+        "version" : "5.11.0"
+      }
+    },
+    {
+      "identity" : "objectmapper",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tristanhimmelman/ObjectMapper.git",
+      "state" : {
+        "revision" : "6021c6035e83a306047348666f6400dc61445d3b",
+        "version" : "4.4.3"
+      }
+    },
+    {
+      "identity" : "payhere-mobilesdk-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/prashan-s/payhere-mobilesdk-ios",
+      "state" : {
+        "revision" : "eda1b116d7cf6bc8bae6770a3d9107600948f1b4",
+        "version" : "3.2.2"
+      }
+    },
+    {
+      "identity" : "sdwebimage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImage.git",
+      "state" : {
+        "revision" : "36e79ba485e9bb4d3cd4e3318908866dac5e7b51",
+        "version" : "5.21.5"
+      }
+    }
+  ],
+  "version" : 3
+}

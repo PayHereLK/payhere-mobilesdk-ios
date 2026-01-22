@@ -50,7 +50,7 @@ struct Business: Codable {
 }
 
 // MARK: - PaymentMethod
-struct PaymentMethod : Codable{
+public struct PaymentMethod : Codable{
     var method: String?
     var orderNo : Int?
 //    var discount: Int?
@@ -60,7 +60,7 @@ struct PaymentMethod : Codable{
     
 }
 
-struct UISize : Codable{
+public struct UISize : Codable{
     var imageUrl : String?
     var windowSize : ViewSize?
 }
@@ -81,13 +81,13 @@ struct Redirection: Codable {
 }
 
 // MARK: - Submission
-struct Submission : Codable{
+public struct Submission : Codable{
     var redirectType: String?
     var url: String?
     var mobileUrls : MobileUrls?
 }
 
-struct MobileUrls : Codable{
+public struct MobileUrls : Codable{
     var IOS : String?
 }
 

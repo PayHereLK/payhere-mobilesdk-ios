@@ -8,12 +8,12 @@
 
 import UIKit
 
-class HeaderCollectionReusableView: UICollectionReusableView {
+public class HeaderCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet var lblSectionTitle: UILabel!
     
 
-    override func awakeFromNib() {
+    public override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }

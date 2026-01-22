@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PHBottomSheetTableViewSectioHeader: UITableViewHeaderFooterView {
+public class PHBottomSheetTableViewSectioHeader: UITableViewHeaderFooterView {
     
     @IBOutlet weak var lblPaymentMethod: UILabel!
     

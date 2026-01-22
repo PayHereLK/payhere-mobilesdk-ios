@@ -35,7 +35,7 @@ import Foundation
  }
 
  // MARK: - ViewSize
- struct ViewSize: Codable {
+ public struct ViewSize: Codable {
      var width, height: Int?
  }
 

@@ -8,18 +8,18 @@
 
 import UIKit
 
-final class PayOptionCollectionViewCell: UICollectionViewCell {
+final public class PayOptionCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imgOptionImage: UIImageView!
     @IBOutlet weak var viewBackground: UIView!
     
-    override var isSelected: Bool{
+    public override var isSelected: Bool{
         didSet{
             updateSelection()
         }
     }
     
-    override var isHighlighted: Bool{
+    public override var isHighlighted: Bool{
         didSet{
             updateSelection()
         }

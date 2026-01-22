@@ -11,7 +11,11 @@ import Foundation
 extension Bundle{
     
     internal static var payHereBundle: Bundle{
+        #if SWIFT_PACKAGE
+        return Bundle.module
+        #else
         return Bundle(for: PHPrecentController.self)
+        #endif
     }
     
 }

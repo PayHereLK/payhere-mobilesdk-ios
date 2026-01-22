@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PayWithHelaPayTableViewCell: UITableViewCell {
+public class PayWithHelaPayTableViewCell: UITableViewCell {
     
     public static func dequeue(fromTableView tv: UITableView) -> PayWithHelaPayTableViewCell{
         let cell = tv.dequeueReusableCell(withIdentifier: "PayWithHelaPayTableViewCell") as! PayWithHelaPayTableViewCell
@@ -18,12 +18,12 @@ class PayWithHelaPayTableViewCell: UITableViewCell {
     
     @IBOutlet private weak var viewBackground: UIView!
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         updateSelection(isSelected: true)
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
         if let touch = touches.first, frame.contains(touch.location(in: self)){
             updateSelection(isSelected: true)
@@ -33,12 +33,12 @@ class PayWithHelaPayTableViewCell: UITableViewCell {
         }
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         updateSelection(isSelected: false)
     }
     
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
         updateSelection(isSelected: false)
     }
