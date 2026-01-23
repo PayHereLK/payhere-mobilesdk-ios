@@ -10,13 +10,27 @@ import UIKit
 
 public extension UIColor {
     enum PrimaryTheme {
-        static let ViewBackground   = UIColor(resource: ColorResource.Primary.viewBackground)
-        static let Clickable        = UIColor(resource: ColorResource.Primary.clickable)
-        static let TitleText        = UIColor(resource: ColorResource.Primary.titleText)
-        static let Black            = UIColor(resource: ColorResource.Primary.black)
-        static let White            = UIColor(resource: ColorResource.Primary.white)
-        static let Red              = UIColor(resource: ColorResource.Primary.red)
-        static let CellSelected     = UIColor(resource: ColorResource.Primary.cellSelected)
-        static let CardBackground   = UIColor(resource: ColorResource.Primary.cardBackground)
+        static let ViewBackground :UIColor = .phColor(named: "Primary/View Background")
+        static let Clickable      :UIColor = .phColor(named: "Primary/Clickable")
+        static let TitleText      :UIColor = .phColor(named: "Primary/Title Text")
+        static let Black          :UIColor = .phColor(named: "Primary/Black")
+        static let White          :UIColor = .phColor(named: "Primary/White")
+        static let Red            :UIColor = .phColor(named: "Primary/Red")
+        static let CellSelected   :UIColor = .phColor(named: "Primary/CellSelected")
+        static let CardBackground :UIColor = .phColor(named: "Primary/Card Background")
+    }
+}
+
+extension UIColor {
+    static func phColor(named name: String) -> UIColor {
+        guard let color = UIColor(
+            named: name,
+            in: Bundle.payHereBundle,
+            compatibleWith: nil
+        ) else {
+            assertionFailure("Missing color asset: \(name)")
+            return .systemBlue
+        }
+        return color
     }
 }
