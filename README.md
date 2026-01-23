@@ -1,5 +1,5 @@
 # PayHere Mobile SDK for iOS
-[![Language](https://img.shields.io/badge/Language-swift-orange?style=flat-square)](https://developer.apple.com/swift) [![Platforms](https://img.shields.io/cocoapods/p/payHereSDK?style=flat-square)](https://developer.apple.com/ios) [![CocoaPods](https://img.shields.io/cocoapods/v/payHereSDK.svg?style=flat)](https://cocoapods.org/pods/payHereSDK) [![License](https://img.shields.io/cocoapods/l/payHereSDK.svg?style=flat-square)](https://cocoapods.org/pods/payHereSDK) ![CocoaPods](https://img.shields.io/badge/CocoaPods-compatible-green?style=flat-square)
+[![Language](https://img.shields.io/badge/Language-swift-orange?style=flat-square)](https://developer.apple.com/swift) [![Platforms](https://img.shields.io/cocoapods/p/payHereSDK?style=flat-square)](https://developer.apple.com/ios) [![CocoaPods](https://img.shields.io/cocoapods/v/payHereSDK.svg?style=flat)](https://cocoapods.org/pods/payHereSDK) [![License](https://img.shields.io/cocoapods/l/payHereSDK.svg?style=flat-square)](https://cocoapods.org/pods/payHereSDK) ![CocoaPods](https://img.shields.io/badge/CocoaPods-compatible-green?style=flat-square) [![Swift Package Manager](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square)](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square)
 
 PayHere Mobile SDK for iOS allows you to accept payments seamlessly within your iOS app, without redirecting your app user to the web browser.
 
@@ -14,6 +14,28 @@ PayHere Mobile SDK for iOS allows you to accept payments seamlessly within your 
 - Swift 5.0+
 
 ## Installation
+
+### Swift Package Manager
+
+[Swift Package Manager](https://swift.org/package-manager/) is a tool for managing the distribution of Swift code. It's integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies.
+
+To integrate PayHere into your Xcode project using Swift Package Manager:
+
+1. In Xcode, select **File > Add Package Dependencies...**
+2. Enter the package repository URL:
+   ```
+   https://github.com/PayHereLK/payhere-mobilesdk-ios.git
+   ```
+3. Select the version you want to use
+4. Click **Add Package**
+
+Alternatively, you can add it to your `Package.swift` file:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/PayHereLK/payhere-mobilesdk-ios.git", from: "3.2.2")
+]
+```
 
 ### CocoaPods
 
