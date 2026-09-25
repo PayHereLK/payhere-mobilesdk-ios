@@ -18,7 +18,27 @@ public class PHBottomViewController: UIViewController {
     
     
     //MARK: - Enum
-    
+    private enum PaymentMethodGroup: Equatable {
+        case bankAccount
+        case bankCard
+        case other
+
+        var title: String {
+            switch self {
+            case .bankAccount: return "Bank Account"
+            case .bankCard: return "Bank Card"
+            case .other: return "Other"
+            }
+        }
+
+        var navigationSection: Int {
+            switch self {
+            case .bankAccount: return 0
+            case .bankCard: return 1
+            case .other: return 2
+            }
+        }
+    }
     
     
     //MARK: - Classes
@@ -86,6 +106,22 @@ public class PHBottomViewController: UIViewController {
     private var bankAccount                         : [PaymentMethod]               = []
     private var bankCard                            : [PaymentMethod]               = []
     private var other                               : [PaymentMethod]               = []
+
+    private var visiblePaymentMethodGroups: [PaymentMethodGroup] {
+        var groups: [PaymentMethodGroup] = []
+        if !bankAccount.isEmpty { groups.append(.bankAccount) }
+        if !bankCard.isEmpty { groups.append(.bankCard) }
+        if !other.isEmpty { groups.append(.other) }
+        return groups
+    }
+
+    private func paymentMethods(in group: PaymentMethodGroup) -> [PaymentMethod] {
+        switch group {
+        case .bankAccount: return bankAccount
+        case .bankCard: return bankCard
+        case .other: return other
+        }
+    }
     
     private var initRequest                         : PHInitRequest?
     private var initResponse                        : PHInitResponse?
@@ -1885,50 +1921,41 @@ extension PHBottomViewController: UISheetPresentationControllerDelegate {
 extension PHBottomViewController : UITableViewDelegate,UITableViewDataSource{
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{
-            return bankAccount.count > 0 ? 1:0
-        }else{
-            return 1
-        }
-        
+        return visiblePaymentMethodGroups.indices.contains(section) ? 1 : 0
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return visiblePaymentMethodGroups.count
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard visiblePaymentMethodGroups.indices.contains(section) else { return nil }
         let header = PHBottomSheetTableViewSectioHeader.dequeue(fromTableView: tableView)
-        
-        if section ==  0{
-            header.lblPaymentMethod.text = "Bank Account"
-        }else if section == 1{
-            header.lblPaymentMethod.text = "Bank Card"
-        }else{
-            header.lblPaymentMethod.text = "Other"
-        }
-        
-        
+        header.lblPaymentMethod.text = visiblePaymentMethodGroups[section].title
         return header
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.section == 0{
-            return PayWithHelaPayTableViewCell.dequeue(fromTableView: tableView)
-        }else if indexPath.section == 1{
-            return PaymentOptionTableViewCell.dequeue(fromTableView: tableView,list: bankCard, indexPath: indexPath, delegate: self)
-        }else if indexPath.section == 2{
-            return PaymentOptionTableViewCell.dequeue(fromTableView: tableView,list: other, indexPath: indexPath,delegate: self)
+        guard visiblePaymentMethodGroups.indices.contains(indexPath.section) else {
+            return UITableViewCell()
         }
-        
-        return UITableViewCell()
+        let group = visiblePaymentMethodGroups[indexPath.section]
+        if group == .bankAccount {
+            return PayWithHelaPayTableViewCell.dequeue(fromTableView: tableView)
+        }
+        return PaymentOptionTableViewCell.dequeue(
+            fromTableView: tableView,
+            list: paymentMethods(in: group),
+            indexPath: indexPath,
+            delegate: self)
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard lifecycle.phase == .active, paymentRequest == nil, step == .Dashboard,
-              helaPayHandoffID == nil else { return }
-        if indexPath.section == 0{
+              helaPayHandoffID == nil,
+              visiblePaymentMethodGroups.indices.contains(indexPath.section),
+              visiblePaymentMethodGroups[indexPath.section] == .bankAccount,
+              bankAccount.indices.contains(indexPath.row) else { return }
             
             let method = bankAccount[indexPath.row]
             
@@ -1958,20 +1985,10 @@ extension PHBottomViewController : UITableViewDelegate,UITableViewDataSource{
                     self.startOrderStatusCheckTimer()
                 }
             }
-        }
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0  && bankAccount.count > 0{
-            return 24
-        }else if section == 1 && bankCard.count > 0{
-            return 24
-        }else if section == 2 && other.count > 0{
-            return 24
-        }else {
-            return 0.0
-        }
-        
+        return visiblePaymentMethodGroups.indices.contains(section) ? 24 : 0
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -1985,7 +2002,8 @@ extension PHBottomViewController : PaymentOptionTableViewCellDelegate{
     
     public func didSelectedPaymentOption(paymentMethod: PaymentMethod, selectedSection: Int) {
         guard lifecycle.phase == .active, paymentRequest == nil,
-              step == .Dashboard else { return }
+              step == .Dashboard,
+              visiblePaymentMethodGroups.indices.contains(selectedSection) else { return }
         //MARK: Call Submit Method With Order Key
         
         // Stop any started HelaPay status checks before selecting a method.
@@ -2002,7 +2020,9 @@ extension PHBottomViewController : PaymentOptionTableViewCellDelegate{
         
         self.selectedPaymentMethod = paymentMethod
         
-        self.handleNavigation(stepId: .Payment, sectionId: selectedSection)
+        self.handleNavigation(
+            stepId: .Payment,
+            sectionId: visiblePaymentMethodGroups[selectedSection].navigationSection)
         self.createSubmitRequest(method: paymentMethod.submissionCode ?? "VISA")
         
     }

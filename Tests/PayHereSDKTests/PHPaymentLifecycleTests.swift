@@ -1077,6 +1077,31 @@ final class PHPaymentControllerTests: XCTestCase {
     }
 
     @MainActor
+    func testInitializedDashboardOmitsUnavailablePaymentMethodSections() async throws {
+        let fixture = try makeFixture(
+            configuration: .default,
+            api: .CheckOut,
+            responses: ["/pay/api/payment/v2/init": .success(initializationData)])
+        addTeardownBlock { await fixture.stop() }
+
+        try await waitForPaymentMethods(fixture)
+        let tableView = try fixture.outlet("tableView", as: UITableView.self)
+
+        XCTAssertEqual(tableView.numberOfSections, 1)
+        XCTAssertEqual(tableView.numberOfRows(inSection: 0), 1)
+        let header = try XCTUnwrap(
+            fixture.controller.tableView(tableView, viewForHeaderInSection: 0)
+                as? PHBottomSheetTableViewSectioHeader)
+        XCTAssertEqual(header.lblPaymentMethod.text, "Bank Card")
+
+        let cardCell = try XCTUnwrap(
+            tableView.cellForRow(at: IndexPath(row: 0, section: 0))
+                as? PaymentOptionTableViewCell)
+        cardCell.layoutIfNeeded()
+        XCTAssertEqual(cardCell.collectionView.numberOfItems(inSection: 0), 1)
+    }
+
+    @MainActor
     func testInitializedDashboardKeepsEveryGroupReachableInRestrictedHeight() async throws {
         for mode in redirectPresentationModes {
             let fixture = try makeFixture(configuration: .default, api: .CheckOut,
